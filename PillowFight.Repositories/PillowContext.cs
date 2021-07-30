@@ -14,13 +14,13 @@ namespace PillowFight.Repositories
         { }
         public PillowContext () : base()
         { }
-        //public DbSet<ArmorItem> ArmorItems { set; get; }
+        public DbSet<ArmorItem> ArmorItems { set; get; }
         //public DbSet<Character> Characters { set; get; }
-        //public DbSet<Item> Items { set; get; }
+        public DbSet<Item> Items { set; get; }
         public DbSet<Player> Players { set; get; }
         //public DbSet<PlayerCharacter> PlayerCharacters { set; get; }
-        //public DbSet<SpellItem> SpellItems { set; get; }
-        //public DbSet<WeaponItem> Weapontems { set; get; }
+        public DbSet<SpellItem> SpellItems { set; get; }
+        public DbSet<WeaponItem> Weapontems { set; get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder.UseNpgsql("Server=chunee.db.elephantsql.com;Database=kjmdumdn;User Id=kjmdumdn;Password=J-hZQv_m_KH_1Q-Li86wm9Bj6Yv9Cp9I");

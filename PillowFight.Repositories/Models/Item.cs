@@ -13,7 +13,7 @@ namespace PillowFight.Repositories.Models
 
         public string Description { get; set; }
 
-        public IQueryable<StatusEffectEnum> StatusEffects { get; set; }
+        public List<StatusEffectEnum> StatusEffects { get; set; }
 
         public ItemTypeEnum Type { get; set; }
     }
