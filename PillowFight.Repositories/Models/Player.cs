@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PillowFight.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PillowFight.Repositories.Models
 {
-    public class Player
+    public class Player : IPlayer
     {
         [Key]
         public int PlayerId { get; set; }

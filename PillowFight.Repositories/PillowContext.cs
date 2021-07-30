@@ -10,7 +10,7 @@ namespace PillowFight.Repositories
 {
     public class PillowContext : DbContext
     {
-        public PillowContext (DbContextOptions<PillowContext> options) : base(options)
+        public PillowContext (DbContextOptions options) : base(options)
         { }
         public PillowContext () : base()
         { }
