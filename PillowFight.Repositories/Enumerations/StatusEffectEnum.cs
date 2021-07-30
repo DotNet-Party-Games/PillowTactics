@@ -2,8 +2,9 @@
 {
     public enum StatusEffectEnum
     {
-        Poisoned,
+        Poisonous,
         PoisonImmunity,
-        RemovePoison
+        RemovePoison,
+        Slippery
     }
 }

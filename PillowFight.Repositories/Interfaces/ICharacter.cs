@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace PillowFight.Repositories.Interfaces
 {
-    public interface ICharacter
+    public interface ICharacter: IAtom
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
         public CharacterClassEnum Class { get; set; }
 
         //Should these be derived from class, constitution, intelligence values?

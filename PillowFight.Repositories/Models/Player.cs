@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PillowFight.Repositories.Interfaces
+namespace PillowFight.Repositories.Models
 {
-    public interface IPlayer
+    class Player
     {
         public int PlayerId { get; set; }
 

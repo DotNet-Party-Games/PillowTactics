@@ -32,5 +32,11 @@ namespace PillowFight.Repositories.Enumerations
                     return ItemSlotEnum.Unslotted;
             }
         }
+
+        //Started to add this and then realized Julian wanted equipment compatibility to be based on stats, for some reason
+/*        public static bool CanSlot(this CharacterClassEnum itemType)
+        {
+            return ;
+        }*/
     }
 }
