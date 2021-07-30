@@ -1,6 +1,9 @@
 ﻿namespace PillowFight.Repositories.Enumerations
 {
-    class CharacterClassEnum
+    public enum CharacterClassEnum
     {
+        Fighter,
+        Wizard,
+        Rogue
     }
 }

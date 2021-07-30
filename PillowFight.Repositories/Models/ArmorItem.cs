@@ -3,7 +3,7 @@ using PillowFight.Repositories.Interfaces;
 
 namespace PillowFight.Repositories.Models
 {
-    class Armor : Item, IArmor
+    class ArmorItem : Item, IArmorItem
     {
         public int Defense { get; set; }
     }

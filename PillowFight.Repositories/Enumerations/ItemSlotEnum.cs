@@ -1,6 +1,6 @@
 ﻿namespace PillowFight.Repositories.Enumerations
 {
-    public enum EquipmentSlotEnum
+    public enum ItemSlotEnum
     {
         Arms,
         BothHands,

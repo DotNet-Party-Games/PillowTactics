@@ -8,13 +8,12 @@ namespace PillowFight.Repositories.Models
     {
         public int Id { get; set; }
 
-        public ItemTypeEnum Type { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public EquipmentSlotEnum Slot => Type.GetSlotLocation();
+        public ItemTypeEnum Type { get; set; }
+
 
         public ICollection<StatusEffectEnum> StatusEffects { get; set; }
     }

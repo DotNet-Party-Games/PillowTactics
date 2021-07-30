@@ -2,7 +2,7 @@
 
 namespace PillowFight.Repositories.Interfaces
 {
-    public interface IArmor : IItem
+    public interface IArmorItem : IItem
     {
         public int Defense { get; set; }
     }

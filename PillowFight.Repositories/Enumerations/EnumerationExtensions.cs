@@ -8,28 +8,28 @@ namespace PillowFight.Repositories.Enumerations
 {
     public static class EnumerationExtensions
     {
-        public static EquipmentSlotEnum GetSlotLocation(this ItemTypeEnum itemType)
+        public static ItemSlotEnum GetSlotLocation(this ItemTypeEnum itemType)
         {
             switch (itemType)
             {
                 //weapons
                 case (ItemTypeEnum.Sword):
-                    return EquipmentSlotEnum.Torso;
+                    return ItemSlotEnum.Torso;
                 //armor
                 case (ItemTypeEnum.Boots):
-                    return EquipmentSlotEnum.Legs;
+                    return ItemSlotEnum.Legs;
                 case (ItemTypeEnum.Gloves):
-                    return EquipmentSlotEnum.Arms;
+                    return ItemSlotEnum.Arms;
                 case (ItemTypeEnum.Helmet):
-                    return EquipmentSlotEnum.Head;
+                    return ItemSlotEnum.Head;
                 case (ItemTypeEnum.Leather):
-                    return EquipmentSlotEnum.Torso;
+                    return ItemSlotEnum.Torso;
                 case (ItemTypeEnum.PlateMail):
-                    return EquipmentSlotEnum.Torso;
+                    return ItemSlotEnum.Torso;
                 case (ItemTypeEnum.Robe):
-                    return EquipmentSlotEnum.Torso;
+                    return ItemSlotEnum.Torso;
                 default:
-                    return EquipmentSlotEnum.Unslotted;
+                    return ItemSlotEnum.Unslotted;
             }
         }
     }

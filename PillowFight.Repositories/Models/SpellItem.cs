@@ -2,7 +2,7 @@
 
 namespace PillowFight.Repositories.Models
 {
-    public class Spell : Weapon, ISpell
+    public class SpellItem : WeaponItem, ISpellItem
     {
         public int Cost { get; set; }
     }
