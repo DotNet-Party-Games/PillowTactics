@@ -1,5 +1,3 @@
-using System;
-
 namespace PillowFight.App.Models
 {
     public class ErrorViewModel
