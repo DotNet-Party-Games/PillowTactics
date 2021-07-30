@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+insert into line_items (l_prod, l_storefront, l_quantity) VALUES
+insert into line_items (l_prod, l_storefront, l_quantity) VALUES
+
+# connection string hidden
+PillowFight.App/appsettings.json

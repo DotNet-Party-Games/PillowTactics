@@ -3,16 +3,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using PillowFight.Repositories;
 
 namespace PillowFight.App
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,6 +26,8 @@ namespace PillowFight.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PillowContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString(Configuration.GetConnectionString("Reference2DB"))));
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));
 
@@ -35,6 +40,8 @@ namespace PillowFight.App
             });
             services.AddRazorPages()
                  .AddMicrosoftIdentityUI();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
