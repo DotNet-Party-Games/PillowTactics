@@ -28,20 +28,19 @@ namespace PillowFight.App
         {
             services.AddDbContext<PillowContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString(Configuration.GetConnectionString("Reference2DB"))));
-            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));
 
+/*            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));*/
             services.AddControllersWithViews(options =>
             {
-                var policy = new AuthorizationPolicyBuilder()
+/*                var policy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
-                options.Filters.Add(new AuthorizeFilter(policy));
+                options.Filters.Add(new AuthorizeFilter(policy));*/
             });
             services.AddRazorPages()
-                 .AddMicrosoftIdentityUI();
 
-
+                 /*.AddMicrosoftIdentityUI()*/;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,8 +61,8 @@ namespace PillowFight.App
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+/*            app.UseAuthentication();
+            app.UseAuthorization();*/
 
             app.UseEndpoints(endpoints =>
             {
