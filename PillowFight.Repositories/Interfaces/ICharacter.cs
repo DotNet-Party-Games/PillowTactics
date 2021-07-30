@@ -46,7 +46,7 @@ namespace PillowFight.Repositories.Interfaces
 
         public IWeaponItem OffHandSlotItem { get; set; }
 
-        public int TosoSlotItemId { get; set; }
+        public int TorsoSlotItemId { get; set; }
 
         public IArmorItem TorsoSlotItem { get; set; }
     }
