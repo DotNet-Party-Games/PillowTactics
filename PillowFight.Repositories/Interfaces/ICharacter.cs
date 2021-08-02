@@ -28,26 +28,26 @@ namespace PillowFight.Repositories.Interfaces
 
         public int ArmsSlotItemId { get; set; }
 
-        public IArmorItem ArmsSlotItem { get; set; }
+        public string ArmsSlotItem { get; set; }
 
         public int HeadSlotItemId { get; set; }
 
-        public IArmorItem HeadSlotItem { get; set; }
+        public string HeadSlotItem { get; set; }
 
         public int LegsSlotItemId { get; set; }
 
-        public IArmorItem LegsSlotItem { get; set; }
+        public string LegsSlotItem { get; set; }
 
         public int MainHandSlotItemId { get; set; }
 
-        public IWeaponItem MainHandSlotItem { get; set; }
+        public string MainHandSlotItem { get; set; }
 
         public int OffHandSlotSlotItemId { get; set; }
 
-        public IWeaponItem OffHandSlotItem { get; set; }
+        public string OffHandSlotItem { get; set; }
 
         public int TorsoSlotItemId { get; set; }
 
-        public IArmorItem TorsoSlotItem { get; set; }
+        public string TorsoSlotItem { get; set; }
     }
 }

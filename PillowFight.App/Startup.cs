@@ -27,7 +27,7 @@ namespace PillowFight.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PillowContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString(Configuration.GetConnectionString("Reference2DB"))));
+                options.UseNpgsql(Configuration.GetConnectionString("Reference2DB"), b => b.MigrationsAssembly("PillowFight.App")));
 
 /*            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAd"));*/
