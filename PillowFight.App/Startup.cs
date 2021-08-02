@@ -37,7 +37,7 @@ namespace PillowFight.App
                     .RequireAuthenticatedUser()
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));*/
-            });
+            }).AddRazorRuntimeCompilation();
             services.AddRazorPages()
 
                  /*.AddMicrosoftIdentityUI()*/;
