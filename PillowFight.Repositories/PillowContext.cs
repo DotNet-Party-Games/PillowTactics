@@ -15,10 +15,10 @@ namespace PillowFight.Repositories
         public PillowContext () : base()
         { }
         public DbSet<ArmorItem> ArmorItems { set; get; }
-        //public DbSet<Character> Characters { set; get; }
+        public DbSet<Character> Characters { set; get; }  // Not working yet
         public DbSet<Item> Items { set; get; }
         public DbSet<Player> Players { set; get; }
-        //public DbSet<PlayerCharacter> PlayerCharacters { set; get; }
+        public DbSet<PlayerCharacter> PlayerCharacters { set; get; }
         public DbSet<SpellItem> SpellItems { set; get; }
         public DbSet<WeaponItem> Weapontems { set; get; }
 

@@ -10,6 +10,6 @@ namespace PillowFight.Repositories.Interfaces
     {
         int PlayerId { get; set; }
 
-        public IPlayer Player { get; set; }
+        public string Player { get; set; }
     }
 }
