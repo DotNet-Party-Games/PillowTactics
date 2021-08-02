@@ -7,8 +7,24 @@
 <body>
     <div style="text-align: center">
         <h1> Welcome to Pillow Tactics!</h1>
-        <img style="width:500px" src="https://cdn.shopify.com/s/files/1/2509/4402/products/11-2019_S4A_Supreme_Pillow1_King_PDP_Retouched_300dpi_RGB_2x3_M.jpg?v=1573835692" />
-        <h2> Login WIP </h2>
+        <img style="width:400px" src="https://ctl.s6img.com/society6/img/emyYNTZARWr1fhtte2GtOi9x6KY/w_1500/pillows/~artwork,fw_3500,fh_3500,iw_3500,ih_3500/s6-0082/a/32610063_3711166/~~/knights-sword-pillows.jpg" />
+        <div class="text-center">
+            <div class="login-form" style="height:700px; width:500px; margin: auto">
+                <form asp-action="Index">
+                    <h2 class="text-center">Player Login</h2>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Email" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" required="required">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                    </div>
+                </form>
+                <p class="text-center"><a asp-action="Add">Create an Account</a></p>
+            </div>
+        </div>
     </div>
-    </body>
+</body>
 </html>
