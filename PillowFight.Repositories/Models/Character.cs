@@ -30,6 +30,16 @@ namespace PillowFight.Repositories.Models
 
         public int Wisdom { get; set; }
 
+        public int TorsoSlotItemId { get; set; }
+
+        public string TorsoSlotItem { get; set; }
+
+        public int MainHandSlotItemId { get; set; }
+
+         public string MainHandSlotItem { get; set; }
+
+        //ignoring everything below this so that we arent too bogged down
+        
         public int ArmsSlotItemId { get; set; }
 
         public string ArmsSlotItem { get; set; }
@@ -42,16 +52,9 @@ namespace PillowFight.Repositories.Models
 
         public string LegsSlotItem { get; set; }
 
-        public int MainHandSlotItemId { get; set; }
-
-        public string MainHandSlotItem { get; set; }
-
         public int OffHandSlotSlotItemId { get; set; }
 
         public string OffHandSlotItem { get; set; }
-
-        public int TosoSlotItemId { get; set; }
-
-        public string TorsoSlotItem { get; set; }
+        
     }
 }
