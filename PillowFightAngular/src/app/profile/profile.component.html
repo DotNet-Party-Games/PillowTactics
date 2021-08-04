@@ -1,0 +1,14 @@
+
+<div>
+    <h3>Welcome [Person Name]!</h3>
+    <!--Create Character only if there is no character on record, otherwise it is edit character -->
+    <!--This will lead to a Create/Edit component-->
+    <div *ngIf = "character.name">
+        <button (click) = "goToEdit()">Edit Character</button>
+        <p id="snapshot">{{character.name}}</p>
+        <button (click) = "goToArena()">Enter Arena</button>
+    </div>
+    <div *ngIf = "!character.name">
+        <button (click) = "goToCreate()">Create Character</button>
+    </div>
+</div>
