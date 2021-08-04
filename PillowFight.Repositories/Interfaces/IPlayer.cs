@@ -8,8 +8,6 @@ namespace PillowFight.Repositories.Interfaces
 {
     public interface IPlayer
     {
-        public int PlayerId { get; set; }
-
         public int Losses { get; set; }
 
         public int Wins { get; set; }
