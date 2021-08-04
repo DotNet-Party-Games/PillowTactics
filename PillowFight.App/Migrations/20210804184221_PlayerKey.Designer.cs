@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PillowFight.Repositories;
@@ -10,9 +11,10 @@ using PillowFight.Repositories.Enumerations;
 namespace PillowFight.App.Migrations
 {
     [DbContext(typeof(PillowContext))]
-    partial class PillowContextModelSnapshot : ModelSnapshot
+    [Migration("20210804184221_PlayerKey")]
+    partial class PlayerKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,20 +139,11 @@ namespace PillowFight.App.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
                     b.Property<int>("Losses")
                         .HasColumnType("integer");
 
                     b.Property<string>("Password")
                         .HasColumnType("text");
-
-                    b.Property<string>("RealName")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("integer");
 
                     b.Property<int>("Wins")
                         .HasColumnType("integer");

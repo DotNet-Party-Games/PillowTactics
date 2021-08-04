@@ -1,4 +1,5 @@
-﻿using PillowFight.Repositories.Interfaces;
+﻿using PillowFight.Repositories.Enumerations;
+using PillowFight.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,13 +11,18 @@ namespace PillowFight.Repositories.Models
 {
     public class Player : IPlayer
     {
-        [Key]
-        public int PlayerId { get; set; }
-
         public int Losses { get; set; }
 
         public int Wins { get; set; }
 
-        public string Name { get; set;}
+        [Key]
+        public string Name { get; set; }
+
+        public string Password { get; set; } // Only fully encrypted Passwords here!
+
+        public string Email { get; set; }
+
+        public string RealName { get; set; }
+        public UserRoleEnum Role {get; set;}
     }
 }
