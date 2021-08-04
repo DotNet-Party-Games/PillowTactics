@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowFight.App", "PillowFi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowFight.BusinessServices", "PillowFight.BusinessServices\PillowFight.BusinessServices.csproj", "{506560CF-EED9-41E1-90A2-5400AF458E88}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PillowFight.Api", "PillowFight.Api\PillowFight.Api.csproj", "{B658A979-EFE8-40DB-87C8-475244402A81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{506560CF-EED9-41E1-90A2-5400AF458E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{506560CF-EED9-41E1-90A2-5400AF458E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{506560CF-EED9-41E1-90A2-5400AF458E88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B658A979-EFE8-40DB-87C8-475244402A81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B658A979-EFE8-40DB-87C8-475244402A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B658A979-EFE8-40DB-87C8-475244402A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B658A979-EFE8-40DB-87C8-475244402A81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
