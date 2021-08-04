@@ -7,8 +7,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreatecharacterComponent } from './createcharacter/createcharacter.component';
 import { EditcharacterComponent } from './editcharacter/editcharacter.component';
 import { ArenaComponent } from './arena/arena.component';
-
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
@@ -31,8 +31,10 @@ import { RegisterComponent } from './components/register/register.component';
       {path: "edit", component: EditcharacterComponent},
       {path: "arena", component: ArenaComponent},
       {path:"login", component: LoginComponent},
-      {path:"login", component:RegisterComponent}
-    ])
+      {path:"register", component:RegisterComponent}
+    ]),
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
