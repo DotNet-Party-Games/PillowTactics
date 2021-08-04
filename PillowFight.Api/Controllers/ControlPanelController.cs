@@ -16,14 +16,14 @@ namespace PillowFight.Api.Controllers
         [HttpPost]
         public IPlayer Login(string userName, [FromBody] string password)
         {
-            return null;
+
         }
 
         [HttpPost]
         public IPlayer Register(string userName, [FromBody] string password)
         {
-            return null;
+
         }
     }
 }
-
+}
