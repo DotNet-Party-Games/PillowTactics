@@ -22,9 +22,6 @@ namespace PillowFight.Repositories
         public DbSet<SpellItem> SpellItems { set; get; }
         public DbSet<WeaponItem> WeaponItems { set; get; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseNpgsql("Server=chunee.db.elephantsql.com;Database=kjmdumdn;User Id=kjmdumdn;Password=J-hZQv_m_KH_1Q-Li86wm9Bj6Yv9Cp9I");
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("PillowFight");
