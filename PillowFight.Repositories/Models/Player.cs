@@ -18,5 +18,7 @@ namespace PillowFight.Repositories.Models
         public int Wins { get; set; }
 
         public string Name { get; set;}
+
+        public string Password { get; set; } // Only fully encrypted Passwords here!
     }
 }
