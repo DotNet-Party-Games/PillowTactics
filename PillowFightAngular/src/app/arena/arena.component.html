@@ -1,0 +1,31 @@
+<div class="text-center">
+    <!-- Describes the Arena and all elements contained within it -->
+    <div class="grid-container">
+        <div class="grid-item" *ngFor="let index of grid">
+            <img *ngIf="index == 52" style="transform:scaleX(-1)" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
+            <img *ngIf="index == 66" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
+        </div>
+    </div>
+
+    <!-- All info under the Arena-->
+    <div>
+        <!-- Describes Player 1 information and actions-->
+        <div style="text-align:center; display:inline-block; width:340px">
+            <!-- Describes Player 1 status info -->
+            <!-- Only a placeholder -->
+            <div>
+                HP: 100/100
+            </div>
+            <button>Attack!</button>
+        </div>
+
+        <!-- Describes Player 2 information and actions -->
+        <div style="text-align:center; display:inline-block; width:340px">
+            <!-- Describes Player 2 status info -->
+            <div>
+                HP: 100/100
+            </div>
+            <button>Attack!</button>
+        </div>
+    </div>
+</div>
