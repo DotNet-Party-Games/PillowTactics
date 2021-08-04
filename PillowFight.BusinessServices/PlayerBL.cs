@@ -8,7 +8,7 @@ using PillowFight.Repositories.Models;
 
 namespace PillowFight.BusinessServices
 {
-    class PlayerBL
+    public class PlayerBL : IPlayerBL
     {
         private IDatastore _datastore;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PillowFight.Repositories.DataServices
 {
-    class PostgresDatastore : IDatastore
+    public class PostgresDatastore : IDatastore
     {
         private PillowContext _context;
 
