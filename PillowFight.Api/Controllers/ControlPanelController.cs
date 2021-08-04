@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using PillowFight.Api.Models;
 using PillowFight.BusinessServices;
-using PillowFight.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -26,26 +25,26 @@ namespace PillowFight.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<bool> Register(PlayerLoginDetails details)
+        public async Task<ActionResult> Register(PlayerRegistrationDetails details)
         {
-
+            _playerBL.CreatePlayer(details.UserName, details.Password, details.Email);
+            return Ok();
         }
 
         [HttpPost]
-        public async Task<IPlayer> SignIn(string email, [FromBody] string password)
+        public async Task<ActionResult<PlayerDetails>> LogIn(PlayerLoginDetails details)
         {
-            try
-            {
-                _playerBL.GetPlayer();
-            }
-            catch
-            {
+            Repositories.Models.Player player;
 
+            player = _playerBL.GetPlayer(details.UserName, details.Password);
+            if (player == null)
+            {
+                return NotFound();
             }
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, email),
+                new Claim(ClaimTypes.Name, details.UserName),
             };
 
             var claimsIdentity = new ClaimsIdentity(
@@ -60,20 +59,20 @@ namespace PillowFight.Api.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
+
+            return Ok(new PlayerDetails()
+            {
+                UserName = player.Name,
+                Email = player.Email,
+                Wins = player.Wins,
+                Losses = player.Losses
+            });
         }
 
-        public async Task<bool> SignOut()
+        public async Task<ActionResult> LogOut()
         {
-            try
-            {
-                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok();
         }
-
     }
 }

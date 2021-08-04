@@ -18,16 +18,15 @@ namespace PillowFight.BusinessServices
             _datastore = p_datastore;
         }
 
-        public void CreatePlayer (string p_username, string p_realname, UserRoleEnum p_role, string p_email, int p_wins, int p_losses)
+        public void CreatePlayer(string p_username, string p_realname, string p_email)
         {
             _datastore.CreatePlayer(new Player
             {
                 Name = p_username,
                 RealName = p_realname,
-                Role = p_role,
                 Email = p_email,
-                Wins = p_wins,
-                Losses = p_losses
+                Wins = 0,
+                Losses = 0
             });
         }
 

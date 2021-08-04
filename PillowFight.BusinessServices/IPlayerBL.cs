@@ -9,7 +9,7 @@ namespace PillowFight.BusinessServices
 {
     public interface IPlayerBL
     {
-        public void CreatePlayer(Player p_player);
+        public void CreatePlayer(string p_username, string p_realname, string p_email);
 
         public Player GetPlayer(string p_username, string p_password);
     }
