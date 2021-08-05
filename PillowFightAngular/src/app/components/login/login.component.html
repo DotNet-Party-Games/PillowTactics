@@ -4,19 +4,21 @@
         <img style="width:400px" src="https://ctl.s6img.com/society6/img/emyYNTZARWr1fhtte2GtOi9x6KY/w_1500/pillows/~artwork,fw_3500,fh_3500,iw_3500,ih_3500/s6-0082/a/32610063_3711166/~~/knights-sword-pillows.jpg" />
         <div class="text-center">
             <div class="login-form" style="height:700px; width:500px; margin: auto">
-                <form asp-action="Index">
+                <form [formGroup]=loginCred>
                     <h2 class="text-center">Player Login</h2>
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Username" required="required">
-                    </div>
+                    </div><br>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Password" required="required">
                     </div>
+                    <br>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                        <button type="submit" class="btn btn-primary btn-block" (click)="login(loginCred)">Log in</button>
                     </div>
                 </form>
-                <p class="text-center"><a asp-action="Add">Create an Account</a></p>
+                <br>
+                <p class="text-center"><button class="btn btn-primary btn-block" routerLink="/register">Create an Account</button></p>
             </div>
         </div>
     </div>
