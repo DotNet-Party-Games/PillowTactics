@@ -29,8 +29,28 @@ namespace PillowFight.Api.Controllers
         [HttpGet("Characters")]
         public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
         {
-            throw new NotImplementedException();
-            //var characters = await _playerBL.GetPlayerCharactersAsync(Convert.ToInt32(User.Claims.FirstOrDefault().Value));
+            var characters = await _playerBL.GetPlayerCharactersAsync(Convert.ToInt32(User.Claims.FirstOrDefault().Value));
+            return Ok(characters.Select(p_character => new PlayerCharacter()
+            {
+                Class = p_character.Class,
+                Strength = p_character.Strength,
+                Dexterity = p_character.Dexterity,
+                Constitution = p_character.Constitution,
+                Intelligence = p_character.Intelligence,
+                Wisdom = p_character.Wisdom,
+                MainHandSlotItem = new Weapon()
+                {
+                    Name = p_character.MainHandSlotItem.Name,
+                    Attack = p_character.MainHandSlotItem.Attack,
+                    Range = p_character.MainHandSlotItem.Range
+
+                },
+                TorsoSlotItem = new Armor()
+                {
+                    Name = p_character.TorsoSlotItem.Name,
+                    Defense = p_character.TorsoSlotItem.Defense
+                }
+            }));
         }
 
         [HttpGet("Logout")]
