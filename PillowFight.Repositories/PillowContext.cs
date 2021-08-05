@@ -17,5 +17,16 @@ namespace PillowFight.Repositories
         public DbSet<SpellItem> SpellItems { set; get; }
         public DbSet<WeaponItem> WeaponItems { set; get; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Character>()
+                .HasOne(p_c => (ArmorItem)p_c.TorsoSlotItem)
+                .WithMany()
+                .HasForeignKey(p_c => p_c.TorsoSlotItemId);
+            modelBuilder.Entity<Character>()
+                .HasOne(p_c => (WeaponItem)p_c.MainHandSlotItem)
+                .WithMany()
+                .HasForeignKey(p_c => p_c.MainHandSlotItemId);
+        }
     }
 }

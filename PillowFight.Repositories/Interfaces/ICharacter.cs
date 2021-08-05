@@ -29,8 +29,12 @@ namespace PillowFight.Repositories.Interfaces
 
         public int MainHandSlotItemId { get; set; }
 
+        public IWeaponItem MainHandSlotItem { get; set; }
+
         public int OffHandSlotSlotItemId { get; set; }
 
         public int TorsoSlotItemId { get; set; }
+
+        public IArmorItem TorsoSlotItem { get; set; }
     }
 }

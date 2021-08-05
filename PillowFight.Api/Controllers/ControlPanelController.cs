@@ -7,6 +7,7 @@ using PillowFight.Api.Models;
 using PillowFight.BusinessServices;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,7 +30,7 @@ namespace PillowFight.Api.Controllers
         public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
         {
             throw new NotImplementedException();
-            //_playerBL.GetPlayerCharactersAsync(Request.)
+            //var characters = await _playerBL.GetPlayerCharactersAsync(Convert.ToInt32(User.Claims.FirstOrDefault().Value));
         }
 
         [HttpGet("Logout")]
