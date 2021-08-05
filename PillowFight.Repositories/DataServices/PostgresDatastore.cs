@@ -29,7 +29,11 @@ namespace PillowFight.Repositories.DataServices
 
         public async Task<IEnumerable<ICharacter>> GetPlayerCharactersAsync(int userId)
         {
-            return await _context.PlayerCharacters.Where(p_pc => p_pc.PlayerId == userId).ToListAsync();
+            return await _context.PlayerCharacters
+                .Include(p_pc => p_pc.TorsoSlotItem)
+                .Include(p_pc => p_pc.MainHandSlotItem)
+                .Where(p_pc => p_pc.PlayerId == userId)
+                .ToListAsync();
         }
     }
 }
