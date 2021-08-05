@@ -4,6 +4,8 @@ import {map} from "rxjs/operators";
 
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
+import { IRegister } from './Register';
+import { ILogin } from './Login';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +17,10 @@ export class AuthService {
   constructor(private http:HttpClient) { }
 
   register(model:any){
-    let headers = new HttpHeaders({
-      "someheaders i need":this.headervalue
-    })
-    let options={headers:headers};
-    return this.http.post(this.authURL+"create", model,options);
+    return this.http.post<IRegister>(this.authURL+"Register", model);
   }
 
   login(model:any) {
-    return this.http.post(this.authURL+"login", model);
+    return this.http.post<ILogin>(this.authURL+"Login", model);
 }
 }
