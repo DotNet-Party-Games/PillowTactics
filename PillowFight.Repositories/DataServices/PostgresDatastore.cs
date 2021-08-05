@@ -19,6 +19,7 @@ namespace PillowFight.Repositories.DataServices
         public void CreatePlayer(Player p_player)
         {
             _context.Players.Add(p_player);
+            _context.SaveChanges();
         }
 
         public Player GetPlayer(string p_username, string p_password)
