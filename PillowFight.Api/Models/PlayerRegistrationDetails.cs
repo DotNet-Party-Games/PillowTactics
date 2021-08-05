@@ -15,9 +15,6 @@ namespace PillowFight.Api.Models
         public string Password { get; set; }
 
         [Required]
-        public string ContactName { get; set; }
-
-        [Required]
         public string Email { get; set; }
     }
 }
