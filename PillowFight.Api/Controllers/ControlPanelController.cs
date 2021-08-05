@@ -28,7 +28,8 @@ namespace PillowFight.Api.Controllers
         [HttpGet("Characters")]
         public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
         {
-            _playerBL.GetPlayerCharactersAsync(Request.)
+            throw new NotImplementedException();
+            //_playerBL.GetPlayerCharactersAsync(Request.)
         }
 
         [HttpGet("Logout")]
