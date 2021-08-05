@@ -1,4 +1,5 @@
 ﻿using PillowFight.Repositories.DataServices;
+using PillowFight.Repositories.Enumerations;
 using PillowFight.Repositories.Interfaces;
 using PillowFight.Repositories.Models;
 using System.Collections.Generic;
@@ -23,6 +24,11 @@ namespace PillowFight.BusinessServices
                 Password = p_password,
                 Email = p_email,
             });
+        }
+
+        public async Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass)
+        {
+            return await _datastore.CreatePlayerCharacterAsync(userId, name, characterClass);
         }
 
         public async Task<IPlayer> GetPlayerAsync(string p_username, string p_password)

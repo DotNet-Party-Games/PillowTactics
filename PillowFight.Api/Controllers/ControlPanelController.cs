@@ -26,12 +26,20 @@ namespace PillowFight.Api.Controllers
             _playerBL = serviceProvider.GetRequiredService<IPlayerBL>();
         }
 
+        [HttpPost("CreateCharacter")]
+        public async Task<ActionResult> CreateCharacter(CharacterCreationDetails details)
+        {
+            return Ok(await _playerBL.CreatePlayerCharacterAsync(Convert.ToInt32(User.Claims.FirstOrDefault().Value), details.Name, details.Class));
+        }
+
         [HttpGet("Characters")]
         public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
         {
             var characters = await _playerBL.GetPlayerCharactersAsync(Convert.ToInt32(User.Claims.FirstOrDefault().Value));
             return Ok(characters.Select(p_character => new PlayerCharacter()
             {
+                Id = p_character.Id,
+                Name = p_character.Name,
                 Class = p_character.Class,
                 Strength = p_character.Strength,
                 Dexterity = p_character.Dexterity,
