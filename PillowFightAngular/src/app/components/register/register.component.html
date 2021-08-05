@@ -2,7 +2,7 @@
     <div class="body">
         <img style="width:400px" src="https://ctl.s6img.com/society6/img/emyYNTZARWr1fhtte2GtOi9x6KY/w_1500/pillows/~artwork,fw_3500,fh_3500,iw_3500,ih_3500/s6-0082/a/32610063_3711166/~~/knights-sword-pillows.jpg" />
         <h1 class="title">Register</h1>
-        <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="registerUser(registerForm.value)">
+        <form class=form-group [formGroup]="registration" autocomplete="off" novalidate (ngSubmit)="onSubmit(registration.value)">
             <div class="form-group">
                 <label for="username" class="col-form-label col mb-1">Username</label>
                 <div class="col">
@@ -27,13 +27,13 @@
             <div class="form-group">
                 <label for="confirm" class="col-form-label col mb-1">Confirm Password:</label>
                 <div class="col">
-                    <input type="password" id="confirm" formControlName="confirmPass" class="form-control" placeholder="Confirm Password" />
+                    <input type="password" id="confirm" formControlName="confirmPassword" class="form-control" placeholder="Confirm Password" />
                 </div>
             </div>
             <br>
             <div class="form-group">
                 <div class="col">          
-                    <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.valid">Register</button>
+                    <button type="submit" class="btn btn-primary btn-block" >Register</button>
                 </div>
             </div>
         </form>
