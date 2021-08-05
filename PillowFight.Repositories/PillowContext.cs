@@ -22,9 +22,5 @@ namespace PillowFight.Repositories
         public DbSet<SpellItem> SpellItems { set; get; }
         public DbSet<WeaponItem> WeaponItems { set; get; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.HasDefaultSchema("PillowFight");
-        }
     }
 }

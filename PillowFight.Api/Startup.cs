@@ -38,7 +38,7 @@ namespace PillowFight.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PillowFight.Api", Version = "v1" });
             });
-            services.AddDbContext<PillowContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppDB")))
+            services.AddDbContext<PillowContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")))
                 .AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
                 .AddScoped<IPlayerBL >(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
         }
