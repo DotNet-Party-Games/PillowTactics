@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,14 @@ import { RegisterComponent } from './components/register/register.component';
     EditcharacterComponent,
     ArenaComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
+      {path: "", component:HomeComponent},
       {path: "profile", component: ProfileComponent},
       {path: "create", component: CreatecharacterComponent},
       {path: "edit", component: EditcharacterComponent},
