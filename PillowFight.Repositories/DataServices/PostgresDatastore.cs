@@ -1,8 +1,8 @@
-﻿using PillowFight.Repositories.Models;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
+using PillowFight.Repositories.Interfaces;
+using PillowFight.Repositories.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PillowFight.Repositories.DataServices
@@ -16,15 +16,20 @@ namespace PillowFight.Repositories.DataServices
             _context = p_context;
         }
 
-        public void CreatePlayer(Player p_player)
+        public async Task CreatePlayerAsync(Player p_player)
         {
             _context.Players.Add(p_player);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Player GetPlayer(string p_username, string p_password)
+        public async Task<IPlayer> GetPlayerAsync(string p_username, string p_password)
         {
-            return _context.Players.Where(p => p.Name == p_username).FirstOrDefault();
+            return await _context.Players.Where(p => p.UserName == p_username).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<ICharacter>> GetPlayerCharactersAsync(int userId)
+        {
+            return await _context.PlayerCharacters.Where(p_pc => p_pc.PlayerId == userId).ToListAsync();
         }
     }
 }

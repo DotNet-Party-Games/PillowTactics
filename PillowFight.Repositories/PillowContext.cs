@@ -1,18 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PillowFight.Repositories.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PillowFight.Repositories
 {
     public class PillowContext : DbContext
     {
-        public PillowContext (DbContextOptions options) : base(options)
+        public PillowContext(DbContextOptions options) : base(options)
         { }
-        public PillowContext () : base()
+        public PillowContext() : base()
         { }
         public DbSet<ArmorItem> ArmorItems { set; get; }
         public DbSet<Character> Characters { set; get; }

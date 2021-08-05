@@ -7,7 +7,6 @@ using PillowFight.Api.Models;
 using PillowFight.BusinessServices;
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,6 +23,12 @@ namespace PillowFight.Api.Controllers
         public ControlPanelController(IServiceProvider serviceProvider)
         {
             _playerBL = serviceProvider.GetRequiredService<IPlayerBL>();
+        }
+
+        [HttpGet("Characters")]
+        public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
+        {
+            throw new NotImplementedException();
         }
 
         [HttpGet("Logout")]

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PillowFight.Repositories.Enumerations;
+using System.Collections.Generic;
 
 namespace PillowFight.Api.Migrations
 {
