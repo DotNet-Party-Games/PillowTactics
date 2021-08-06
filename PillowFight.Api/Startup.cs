@@ -41,6 +41,15 @@ namespace PillowFight.Api
             services.AddDbContext<PillowContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppDB")))
                 .AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
                 .AddScoped<IPlayerBL >(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
+            services.AddCors((builder) => {
+                builder.AddDefaultPolicy((policy)=>
+                {
+                    policy.WithOrigin("http://127.0.0.1:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();    
+                });
+            }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
