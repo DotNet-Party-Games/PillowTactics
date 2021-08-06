@@ -3,7 +3,7 @@
         <h1> Welcome to Pillow Tactics!</h1>
         <img style="width:400px; border: 2px solid black;" src="https://ctl.s6img.com/society6/img/emyYNTZARWr1fhtte2GtOi9x6KY/w_1500/pillows/~artwork,fw_3500,fh_3500,iw_3500,ih_3500/s6-0082/a/32610063_3711166/~~/knights-sword-pillows.jpg" />
         <div class="login-form" style="width:400px; margin: auto">
-            <form>
+            <form [formGroup]="loginCred">
                 <h2 class="text-center">Player Login</h2>
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Username" required="required">
@@ -14,7 +14,7 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                    <button type="submit" class="btn btn-primary btn-block" (click)="login(loginCred)">Log in</button>
                 </div>
                 <br>
             </form>
