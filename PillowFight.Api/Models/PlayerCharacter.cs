@@ -4,6 +4,35 @@ namespace PillowFight.Api.Models
 {
     public class PlayerCharacter
     {
+        public PlayerCharacter()
+        {
+
+        }
+
+        public PlayerCharacter(Repositories.Interfaces.IPlayerCharacter playerCharacter)
+        {
+            Id = playerCharacter.Id;
+            Name = playerCharacter.Name;
+            Class = playerCharacter.Class;
+            Strength = playerCharacter.Strength;
+            Dexterity = playerCharacter.Dexterity;
+            Constitution = playerCharacter.Constitution;
+            Intelligence = playerCharacter.Intelligence;
+            Wisdom = playerCharacter.Wisdom;
+            MainHandSlotItem = new Weapon()
+            {
+                Name = playerCharacter.MainHandSlotItem.Name,
+                Attack = playerCharacter.MainHandSlotItem.Attack,
+                Range = playerCharacter.MainHandSlotItem.Range
+
+            };
+            TorsoSlotItem = new Armor()
+            {
+                Name = playerCharacter.TorsoSlotItem.Name,
+                Defense = playerCharacter.TorsoSlotItem.Defense
+            };
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -29,7 +58,7 @@ namespace PillowFight.Api.Models
 
         public Weapon MainHandSlotItem { get; set; }
 
-        public static explicit operator PlayerCharacter(Repositories.Models.PlayerCharacter playerCharacter)
+/*        public static explicit operator PlayerCharacter(Repositories.Models.PlayerCharacter playerCharacter)
         {
             return new PlayerCharacter()
             {
@@ -54,6 +83,6 @@ namespace PillowFight.Api.Models
                     Defense = playerCharacter.TorsoSlotItem.Defense
                 }
             };
-        }
+        }*/
     }
 }

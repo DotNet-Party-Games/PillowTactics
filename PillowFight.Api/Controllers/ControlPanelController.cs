@@ -42,7 +42,7 @@ namespace PillowFight.Api.Controllers
         public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
         {
             var characters = await _playerBL.GetPlayerCharactersAsync(_UserId);
-            return Ok(characters.Select(p_character => (PlayerCharacter)(Repositories.Models.PlayerCharacter)p_character));
+            return Ok(characters.Select(p_character => new PlayerCharacter(p_character)));
         }
 
         [HttpGet("Logout")]
