@@ -12,6 +12,8 @@ namespace PillowFight.Repositories.DataServices
 
         public Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass);
 
+        public Task<bool> DeletePlayerCharacterAsync(int userId, int characterId);
+
         public Task<IPlayer> GetPlayerAsync(string p_username, string p_password);
 
         public Task<IEnumerable<ICharacter>> GetPlayerCharactersAsync(int userId);

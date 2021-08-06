@@ -31,6 +31,11 @@ namespace PillowFight.BusinessServices
             return await _datastore.CreatePlayerCharacterAsync(userId, name, characterClass);
         }
 
+        public async Task<bool> DeletePlayerCharacterAsync(int userId, int characterId)
+        {
+            return await _datastore.DeletePlayerCharacterAsync(userId, characterId);
+        }
+
         public async Task<IPlayer> GetPlayerAsync(string p_username, string p_password)
         {
             return await _datastore.GetPlayerAsync(p_username, p_password);

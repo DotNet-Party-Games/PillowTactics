@@ -40,6 +40,23 @@ namespace PillowFight.Repositories.DataServices
                 .FirstOrDefaultAsync(p_character => p_character.Name == name);
         }
 
+        public async Task<bool> DeletePlayerCharacterAsync(int userId, int characterId)
+        {
+            try
+            {
+                _context.PlayerCharacters
+                    .Remove(await _context.PlayerCharacters
+                    .Where(p_character => p_character.PlayerId == userId && p_character.Id == characterId)
+                    .FirstOrDefaultAsync());
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<IPlayer> GetPlayerAsync(string p_username, string p_password)
         {
             return await _context.Players.Where(p => p.UserName == p_username).FirstOrDefaultAsync();
