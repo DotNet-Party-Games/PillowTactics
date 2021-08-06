@@ -2,7 +2,7 @@ on:
   push: 
     branches: [ main, Front-end-Branch ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, Front-end-Branch ]
 
 jobs:
   build-and-deploy:
