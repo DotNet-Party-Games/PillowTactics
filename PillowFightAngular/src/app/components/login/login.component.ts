@@ -11,7 +11,7 @@ import { ILogin } from 'src/app/shared/services/auth/Login';
   ]
 })
 export class LoginComponent implements OnInit {
-
+    //meaningless comment
     loginCred =  new FormGroup({
     Username: new FormControl(),
     Password: new FormControl()});
