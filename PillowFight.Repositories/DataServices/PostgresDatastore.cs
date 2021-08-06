@@ -62,12 +62,21 @@ namespace PillowFight.Repositories.DataServices
             return await _context.Players.Where(p => p.UserName == p_username).FirstOrDefaultAsync();
         }
 
+        public async Task<IPlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId)
+        {
+            return await _context.PlayerCharacters
+                .Where(p_playerCharacter => p_playerCharacter.PlayerId == userId && p_playerCharacter.Id == characterId)
+                .Include(p_playerCharacter => p_playerCharacter.TorsoSlotItem)
+                .Include(p_playerCharacter => p_playerCharacter.MainHandSlotItem)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<IPlayerCharacter>> GetPlayerCharactersAsync(int userId)
         {
             return await _context.PlayerCharacters
-                .Where(p_pc => p_pc.PlayerId == userId)
-                .Include(p_pc => p_pc.TorsoSlotItem)
-                .Include(p_pc => p_pc.MainHandSlotItem)
+                .Where(p_playerCharacter => p_playerCharacter.PlayerId == userId)
+                .Include(p_playerCharacter => p_playerCharacter.TorsoSlotItem)
+                .Include(p_playerCharacter => p_playerCharacter.MainHandSlotItem)
                 .ToListAsync();
         }
     }

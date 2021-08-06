@@ -38,6 +38,19 @@ namespace PillowFight.Api.Controllers
             return Ok(await _playerBL.DeletePlayerCharacterAsync(_UserId, characterId));
         }
 
+        [HttpGet("Character")]
+        public async Task<ActionResult> GetCharacter(int characterId)
+        {
+            var playerCharacter = await _playerBL.GetPlayerCharacterAsync(_UserId, characterId);
+
+            if (playerCharacter == null)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
         [HttpGet("Characters")]
         public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
         {

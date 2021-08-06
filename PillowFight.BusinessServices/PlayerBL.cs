@@ -41,6 +41,11 @@ namespace PillowFight.BusinessServices
             return await _datastore.GetPlayerAsync(p_username, p_password);
         }
 
+        public async Task<IPlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId)
+        {
+            return await _datastore.GetPlayerCharacterAsync(userId, characterId);
+        }
+
         public async Task<IEnumerable<IPlayerCharacter>> GetPlayerCharactersAsync(int userId)
         {
             return await _datastore.GetPlayerCharactersAsync(userId);

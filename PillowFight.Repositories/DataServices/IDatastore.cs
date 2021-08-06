@@ -16,6 +16,8 @@ namespace PillowFight.Repositories.DataServices
 
         public Task<IPlayer> GetPlayerAsync(string p_username, string p_password);
 
+        public Task<IPlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId);
+
         public Task<IEnumerable<IPlayerCharacter>> GetPlayerCharactersAsync(int userId);
     }
 }
