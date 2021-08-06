@@ -62,7 +62,7 @@ namespace PillowFight.Repositories.DataServices
             return await _context.Players.Where(p => p.UserName == p_username).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<ICharacter>> GetPlayerCharactersAsync(int userId)
+        public async Task<IEnumerable<IPlayerCharacter>> GetPlayerCharactersAsync(int userId)
         {
             return await _context.PlayerCharacters
                 .Where(p_pc => p_pc.PlayerId == userId)

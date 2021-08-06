@@ -10,8 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace PillowFight.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -40,33 +38,11 @@ namespace PillowFight.Api.Controllers
             return Ok(await _playerBL.DeletePlayerCharacterAsync(_UserId, characterId));
         }
 
-         [HttpGet("Characters")]
+        [HttpGet("Characters")]
         public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
         {
             var characters = await _playerBL.GetPlayerCharactersAsync(_UserId);
-            return Ok(characters.Select(p_character => new PlayerCharacter()
-            {
-                Id = p_character.Id,
-                Name = p_character.Name,
-                Class = p_character.Class,
-                Strength = p_character.Strength,
-                Dexterity = p_character.Dexterity,
-                Constitution = p_character.Constitution,
-                Intelligence = p_character.Intelligence,
-                Wisdom = p_character.Wisdom,
-                MainHandSlotItem = new Weapon()
-                {
-                    Name = p_character.MainHandSlotItem.Name,
-                    Attack = p_character.MainHandSlotItem.Attack,
-                    Range = p_character.MainHandSlotItem.Range
-
-                },
-                TorsoSlotItem = new Armor()
-                {
-                    Name = p_character.TorsoSlotItem.Name,
-                    Defense = p_character.TorsoSlotItem.Defense
-                }
-            }));
+            return Ok(characters.Select(p_character => (PlayerCharacter)(Repositories.Models.PlayerCharacter)p_character));
         }
 
         [HttpGet("Logout")]
