@@ -35,6 +35,9 @@ export class RegisterComponent implements OnInit {
       Username:f.get("username")?.value,
       Password:f.get("password")?.value
     }
-    this.authService.register(tempPlayer).subscribe(registerObserver);
+    const token=this.authService.register(tempPlayer).subscribe(registerObserver);
+    if ('token'){
+    localStorage.setItem('token', f.get('Username')?.value);
+    }
   }
 }
