@@ -7,11 +7,9 @@ using PillowFight.Api.Models;
 using PillowFight.BusinessServices;
 using System;
 using System.Collections.Generic;
-using System.Security.Claims;
+using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-//hi
 namespace PillowFight.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -24,6 +22,40 @@ namespace PillowFight.Api.Controllers
         public ControlPanelController(IServiceProvider serviceProvider)
         {
             _playerBL = serviceProvider.GetRequiredService<IPlayerBL>();
+        }
+
+        private int _UserId => Convert.ToInt32(User.Claims.FirstOrDefault().Value);
+
+        [HttpPost("CreateCharacter")]
+        public async Task<ActionResult> CreateCharacter(CharacterCreationDetails details)
+        {
+            return Ok(await _playerBL.CreatePlayerCharacterAsync(_UserId, details.Name, details.Class));
+        }
+
+        [HttpGet("DeleteCharacter")]
+        public async Task<ActionResult> DeleteCharacter(int characterId)
+        {
+            return Ok(await _playerBL.DeletePlayerCharacterAsync(_UserId, characterId));
+        }
+
+        [HttpGet("Character")]
+        public async Task<ActionResult> GetCharacter(int characterId)
+        {
+            var playerCharacter = await _playerBL.GetPlayerCharacterAsync(_UserId, characterId);
+
+            if (playerCharacter == null)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpGet("Characters")]
+        public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
+        {
+            var characters = await _playerBL.GetPlayerCharactersAsync(_UserId);
+            return Ok(characters.Select(p_character => new PlayerCharacter(p_character)));
         }
 
         [HttpGet("Logout")]

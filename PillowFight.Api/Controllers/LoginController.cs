@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using PillowFight.Api.Models;
 using PillowFight.BusinessServices;
+using PillowFight.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -27,16 +27,16 @@ namespace PillowFight.Api.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult> Register(PlayerRegistrationDetails details)
         {
-            _playerBL.CreatePlayer(details.UserName, details.Password, details.Email);
+            await _playerBL.CreatePlayerAsync(details.UserName, details.Password, details.Email);
             return Accepted();
         }
 
         [HttpPost("Login")]
         public async Task<ActionResult<PlayerDetails>> LogIn(PlayerLoginDetails details)
         {
-            Repositories.Models.Player player;
+            IPlayer player;
 
-            player = _playerBL.GetPlayer(details.UserName, details.Password);
+            player = await _playerBL.GetPlayerAsync(details.UserName, details.Password);
             if (player == null)
             {
                 return NotFound();
@@ -44,7 +44,7 @@ namespace PillowFight.Api.Controllers
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, details.UserName),
+                new Claim(ClaimTypes.NameIdentifier, player.Id.ToString())
             };
 
             var claimsIdentity = new ClaimsIdentity(
@@ -62,7 +62,7 @@ namespace PillowFight.Api.Controllers
 
             return Ok(new PlayerDetails()
             {
-                UserName = player.Name,
+                UserName = player.UserName,
                 Email = player.Email,
                 Wins = player.Wins,
                 Losses = player.Losses

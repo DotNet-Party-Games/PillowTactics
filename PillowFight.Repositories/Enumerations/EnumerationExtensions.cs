@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PillowFight.Repositories.Enumerations
+﻿namespace PillowFight.Repositories.Enumerations
 {
     public static class EnumerationExtensions
     {
@@ -34,9 +28,9 @@ namespace PillowFight.Repositories.Enumerations
         }
 
         //Started to add this and then realized Julian wanted equipment compatibility to be based on stats, for some reason
-/*        public static bool CanSlot(this CharacterClassEnum itemType)
-        {
-            return ;
-        }*/
+        /*        public static bool CanSlot(this CharacterClassEnum itemType)
+                {
+                    return ;
+                }*/
     }
 }

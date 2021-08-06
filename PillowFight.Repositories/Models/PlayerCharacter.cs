@@ -1,10 +1,5 @@
 ﻿using PillowFight.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PillowFight.Repositories.Models
 {
@@ -12,6 +7,5 @@ namespace PillowFight.Repositories.Models
     {
         [ForeignKey("Player")]
         public int PlayerId { get; set; }
-        public string Player { get; set; }
     }
 }

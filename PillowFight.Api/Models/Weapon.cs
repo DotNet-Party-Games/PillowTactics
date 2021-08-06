@@ -1,6 +1,6 @@
-﻿namespace PillowFight.Repositories.Interfaces
+﻿namespace PillowFight.Api.Models
 {
-    public interface IWeaponItem : IItem
+    public class Weapon : Item
     {
         public int Attack { get; set; }
 

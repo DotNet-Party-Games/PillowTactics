@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowFight.Repositories", "PillowFight.Repositories\PillowFight.Repositories.csproj", "{33B68FFD-5978-4719-BFD1-656970A7C8B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowFight.App", "PillowFight.App\PillowFight.App.csproj", "{B9C87181-7061-44A4-892D-CA5B2A72BB6D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowFight.BusinessServices", "PillowFight.BusinessServices\PillowFight.BusinessServices.csproj", "{506560CF-EED9-41E1-90A2-5400AF458E88}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowFight.Api", "PillowFight.Api\PillowFight.Api.csproj", "{B658A979-EFE8-40DB-87C8-475244402A81}"
@@ -21,10 +19,6 @@ Global
 		{33B68FFD-5978-4719-BFD1-656970A7C8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33B68FFD-5978-4719-BFD1-656970A7C8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33B68FFD-5978-4719-BFD1-656970A7C8B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B9C87181-7061-44A4-892D-CA5B2A72BB6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9C87181-7061-44A4-892D-CA5B2A72BB6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9C87181-7061-44A4-892D-CA5B2A72BB6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9C87181-7061-44A4-892D-CA5B2A72BB6D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{506560CF-EED9-41E1-90A2-5400AF458E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{506560CF-EED9-41E1-90A2-5400AF458E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{506560CF-EED9-41E1-90A2-5400AF458E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
