@@ -34,9 +34,11 @@ namespace PillowFight.Api
             });
             services.AddDbContext<PillowContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")))
                 .AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
-<<<<<<< HEAD
-                .AddScoped<IPlayerBL >(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
-            services.AddCors((builder) => {
+
+                .AddScoped<IPlayerBL >(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()))
+                .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
+
+/*             services.AddCors((builder) => {
                 builder.AddDefaultPolicy((policy)=>
                 {
                     policy.WithOrigin("http://127.0.0.1:4200", "https://pillow.azurewebsites.net")
@@ -44,10 +46,7 @@ namespace PillowFight.Api
                     .AllowAnyMethod();    
                 });
             }
-            );
-=======
-                .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
->>>>>>> d7da6a5d2cdf3e0138f70b72ed9412f41f6dc462
+            ); */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
