@@ -38,15 +38,16 @@ namespace PillowFight.Api
                 .AddScoped<IPlayerBL >(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()))
                 .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
 
-/*             services.AddCors((builder) => {
+            services.AddCors((builder) => {
                 builder.AddDefaultPolicy((policy)=>
                 {
-                    policy.WithOrigin("http://127.0.0.1:4200", "https://pillow.azurewebsites.net")
+                    //["http://127.0.0.1:4200", "https://pillow.azurewebsites.net"]
+                    policy.AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod();    
                 });
             }
-            ); */
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
