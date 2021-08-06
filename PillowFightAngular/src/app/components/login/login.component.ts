@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { ILogin } from 'src/app/shared/services/auth/Login';
+
 
 
 @Component({
@@ -11,12 +13,12 @@ import { ILogin } from 'src/app/shared/services/auth/Login';
   ]
 })
 export class LoginComponent implements OnInit {
-
+    //meaningless comment
     loginCred =  new FormGroup({
     Username: new FormControl(),
     Password: new FormControl()});
 
-  constructor(private authService:AuthService) { 
+  constructor(private authService:AuthService, private router:Router) { 
 
   }
 
@@ -32,7 +34,11 @@ export class LoginComponent implements OnInit {
       Password:f.get("password")?.value
     }
 
-    this.authService.login(f.value).subscribe(loginObserver);
+    const token = this.authService.login(f.value).subscribe(loginObserver);
+    if (token){
+      localStorage.setItem('token', f.get('username')?.value)
+      this.router.navigate([''])
+    }
   }
 
 }
