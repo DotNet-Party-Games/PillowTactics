@@ -2,23 +2,20 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PillowFight.Repositories;
 using PillowFight.Repositories.Enumerations;
 
-namespace PillowFight.App.Migrations
+namespace PillowFight.Api.Migrations
 {
     [DbContext(typeof(PillowContext))]
-    [Migration("20210804203602_PlayerDetails")]
-    partial class PlayerDetails
+    partial class PillowContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("PillowFight")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -29,9 +26,6 @@ namespace PillowFight.App.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("ArmsSlotItem")
-                        .HasColumnType("text");
 
                     b.Property<int>("ArmsSlotItemId")
                         .HasColumnType("integer");
@@ -52,31 +46,19 @@ namespace PillowFight.App.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("HeadSlotItem")
-                        .HasColumnType("text");
-
                     b.Property<int>("HeadSlotItemId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Intelligence")
                         .HasColumnType("integer");
 
-                    b.Property<string>("LegsSlotItem")
-                        .HasColumnType("text");
-
                     b.Property<int>("LegsSlotItemId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("MainHandSlotItem")
-                        .HasColumnType("text");
 
                     b.Property<int>("MainHandSlotItemId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("OffHandSlotItem")
                         .HasColumnType("text");
 
                     b.Property<int>("OffHandSlotSlotItemId")
@@ -88,9 +70,6 @@ namespace PillowFight.App.Migrations
                     b.Property<int>("Strength")
                         .HasColumnType("integer");
 
-                    b.Property<string>("TorsoSlotItem")
-                        .HasColumnType("text");
-
                     b.Property<int>("TorsoSlotItemId")
                         .HasColumnType("integer");
 
@@ -98,6 +77,10 @@ namespace PillowFight.App.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MainHandSlotItemId");
+
+                    b.HasIndex("TorsoSlotItemId");
 
                     b.ToTable("Characters");
 
@@ -136,8 +119,10 @@ namespace PillowFight.App.Migrations
 
             modelBuilder.Entity("PillowFight.Repositories.Models.Player", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -154,10 +139,13 @@ namespace PillowFight.App.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
                     b.Property<int>("Wins")
                         .HasColumnType("integer");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.ToTable("Players");
                 });
@@ -165,9 +153,6 @@ namespace PillowFight.App.Migrations
             modelBuilder.Entity("PillowFight.Repositories.Models.PlayerCharacter", b =>
                 {
                     b.HasBaseType("PillowFight.Repositories.Models.Character");
-
-                    b.Property<string>("Player")
-                        .HasColumnType("text");
 
                     b.Property<int>("PlayerId")
                         .HasColumnType("integer");
@@ -206,6 +191,25 @@ namespace PillowFight.App.Migrations
                         .HasColumnType("integer");
 
                     b.HasDiscriminator().HasValue("SpellItem");
+                });
+
+            modelBuilder.Entity("PillowFight.Repositories.Models.Character", b =>
+                {
+                    b.HasOne("PillowFight.Repositories.Models.WeaponItem", "MainHandSlotItem")
+                        .WithMany()
+                        .HasForeignKey("MainHandSlotItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PillowFight.Repositories.Models.ArmorItem", "TorsoSlotItem")
+                        .WithMany()
+                        .HasForeignKey("TorsoSlotItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MainHandSlotItem");
+
+                    b.Navigation("TorsoSlotItem");
                 });
 #pragma warning restore 612, 618
         }

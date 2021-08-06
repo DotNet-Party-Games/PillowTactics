@@ -1,6 +1,4 @@
 ﻿using PillowFight.Repositories.Enumerations;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace PillowFight.Repositories.Interfaces
 {

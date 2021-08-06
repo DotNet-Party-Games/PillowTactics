@@ -1,8 +1,9 @@
-﻿using PillowFight.Repositories.Models;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
+using PillowFight.Repositories.Enumerations;
+using PillowFight.Repositories.Interfaces;
+using PillowFight.Repositories.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PillowFight.Repositories.DataServices
@@ -16,14 +17,67 @@ namespace PillowFight.Repositories.DataServices
             _context = p_context;
         }
 
-        public void CreatePlayer(Player p_player)
+        public async Task CreatePlayerAsync(Player p_player)
         {
             _context.Players.Add(p_player);
+            await _context.SaveChangesAsync();
         }
 
-        public Player GetPlayer(string p_username, string p_password)
+        public async Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass)
         {
-            return _context.Players.Where(p => p.Name == p_username).FirstOrDefault();
+            _context.PlayerCharacters.Add(new PlayerCharacter()
+            {
+                PlayerId = userId,
+                Name = name,
+                Class = characterClass,
+                MainHandSlotItemId = 2,
+                TorsoSlotItemId = 4
+            });
+            await _context.SaveChangesAsync();
+            return await _context.PlayerCharacters
+                .Include(p_character => p_character.MainHandSlotItem)
+                .Include(p_character => p_character.TorsoSlotItem)
+                .FirstOrDefaultAsync(p_character => p_character.Name == name);
+        }
+
+        public async Task<bool> DeletePlayerCharacterAsync(int userId, int characterId)
+        {
+            try
+            {
+                _context.PlayerCharacters
+                    .Remove(await _context.PlayerCharacters
+                    .Where(p_character => p_character.PlayerId == userId && p_character.Id == characterId)
+                    .FirstOrDefaultAsync());
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<IPlayer> GetPlayerAsync(string p_username, string p_password)
+        {
+            return await _context.Players.Where(p => p.UserName == p_username).FirstOrDefaultAsync();
+        }
+
+        public async Task<IPlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId)
+        {
+            return await _context.PlayerCharacters
+                .Where(p_playerCharacter => p_playerCharacter.PlayerId == userId && p_playerCharacter.Id == characterId)
+                .Include(p_playerCharacter => p_playerCharacter.TorsoSlotItem)
+                .Include(p_playerCharacter => p_playerCharacter.MainHandSlotItem)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<IPlayerCharacter>> GetPlayerCharactersAsync(int userId)
+        {
+            return await _context.PlayerCharacters
+                .Where(p_playerCharacter => p_playerCharacter.PlayerId == userId)
+                .Include(p_playerCharacter => p_playerCharacter.TorsoSlotItem)
+                .Include(p_playerCharacter => p_playerCharacter.MainHandSlotItem)
+                .ToListAsync();
         }
     }
 }

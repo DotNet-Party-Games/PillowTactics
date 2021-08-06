@@ -1,11 +1,10 @@
 ﻿using PillowFight.Repositories.Enumerations;
 using PillowFight.Repositories.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PillowFight.Repositories.Models
 {
-    public class Item : IItem   
+    public class Item : IItem
     {
         public int Id { get; set; }
 
