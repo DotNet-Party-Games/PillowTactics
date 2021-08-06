@@ -44,6 +44,6 @@ jobs:
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
       with:
-        app-name: PillowTactics
+        app-name: 'PillowTactics'
         publish-profile: ${{ secrets.FRONTEND }}
         package: ./PillowFightAngular/dist/PillowFightAngular
