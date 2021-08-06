@@ -44,7 +44,7 @@ namespace PillowFight.Api
             services.AddCors((builder) => {
                 builder.AddDefaultPolicy((policy)=>
                 {
-                    policy.WithOrigin("http://127.0.0.1:4200")
+                    policy.WithOrigin("http://127.0.0.1:4200", "https://pillow.azurewebsites.net")
                     .AllowAnyHeader()
                     .AllowAnyMethod();    
                 });
