@@ -1,5 +1,4 @@
-﻿using PillowFight.Repositories.Enumerations;
-using PillowFight.Repositories.Interfaces;
+﻿using PillowFight.Repositories.Interfaces;
 
 namespace PillowFight.Repositories.Models
 {
