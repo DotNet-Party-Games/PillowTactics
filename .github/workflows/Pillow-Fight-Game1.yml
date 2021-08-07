@@ -3,6 +3,7 @@ on:
   push:
     branches:
     - Backend-Branch
+    - master
 env:
   AZURE_WEBAPP_NAME: Pillow-Fight-Game
   AZURE_WEBAPP_PACKAGE_PATH: PillowFight.Api/publish
