@@ -6,9 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PillowFight.Api.Hubs;
 using PillowFight.BusinessServices;
 using PillowFight.Repositories;
 using PillowFight.Repositories.DataServices;
+
 
 namespace PillowFight.Api
 {
@@ -28,13 +30,14 @@ namespace PillowFight.Api
             services.AddControllers();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie();
+            services.AddSignalR();
+            services.AddDbContext<PillowContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")))
+                .AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
+                .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PillowFight.Api", Version = "v1" });
             });
-            services.AddDbContext<PillowContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")))
-                .AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
-                .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +59,7 @@ namespace PillowFight.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<GameHub>("/gameHub");
             });
         }
     }
