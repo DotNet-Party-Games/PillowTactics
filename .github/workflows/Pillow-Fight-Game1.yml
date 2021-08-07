@@ -2,6 +2,7 @@ name: Build and deploy .NET Core app to Windows WebApp Pillow-Fight-Game
 on:
   push:
     branches:
+    - Backend-Branch
     - master
 env:
   AZURE_WEBAPP_NAME: Pillow-Fight-Game
