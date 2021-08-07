@@ -27,6 +27,9 @@ namespace PillowFight.Repositories
                 .HasOne(p_c => (WeaponItem)p_c.MainHandSlotItem)
                 .WithMany()
                 .HasForeignKey(p_c => p_c.MainHandSlotItemId);
+            modelBuilder.Entity<Player>()
+                .HasIndex(b => b.UserName)
+                .IsUnique();
         }
     }
 }
