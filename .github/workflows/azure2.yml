@@ -1,9 +1,9 @@
 
 on:
   push: 
-    branches: [ master ]
+    branches: [ master , Front-end-Branch ]
   pull_request: 
-    branches: [ master ]
+    branches: [ master , Front-end-Branch ]
 
 jobs:
   build-and-deploy:
