@@ -34,17 +34,12 @@ namespace PillowFight.Api
             });
             services.AddDbContext<PillowContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")))
                 .AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
-                .AddScoped<IPlayerBL >(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()))
                 .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()))
                 .AddScoped<IPlayerBL >(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
 
             services.AddCors((builder) => {
                 builder.AddDefaultPolicy((policy)=>
                 {
-<<<<<<< HEAD
-                    //["http://127.0.0.1:4200", "https://pillow.azurewebsites.net"]
-=======
->>>>>>> 2d935fae85e2c04bc97a3c9321643eafc7dd26ff
                     policy.AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod();    
