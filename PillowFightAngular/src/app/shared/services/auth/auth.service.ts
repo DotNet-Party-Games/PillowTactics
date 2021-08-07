@@ -6,21 +6,23 @@ import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import { IRegister } from './Register';
 import { ILogin } from './Login';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  authURL="apistring";
-  headervalue="somevalue";
+  private authURL="https://pillow-fight-game.azurewebsites.net/api/Login";
   constructor(private http:HttpClient) { }
 
-  register(model:any){
-    return this.http.post<IRegister>(this.authURL+"Register", model);
+  register(model:any) : Observable<IRegister>{
+    let a=this.http.post<IRegister>(this.authURL+"/Register", model);
+    console.log(JSON.stringify(model));
+    return a;
   }
 
-  login(model:any) {
-    return this.http.post<ILogin>(this.authURL+"Login", model);
-}
+  login(model:any): Observable<ILogin> {
+    return this.http.post<ILogin>(this.authURL+"/Login", model);
+  }
 }

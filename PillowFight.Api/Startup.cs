@@ -34,8 +34,9 @@ namespace PillowFight.Api
             });
             services.AddDbContext<PillowContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")))
                 .AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
-                .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
+                .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()))
                 .AddScoped<IPlayerBL >(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
+
             services.AddCors((builder) => {
                 builder.AddDefaultPolicy((policy)=>
                 {
@@ -43,7 +44,7 @@ namespace PillowFight.Api
                     .AllowAnyHeader()
                     .AllowAnyMethod();    
                 });
-            }
+            } 
             );
         }
 

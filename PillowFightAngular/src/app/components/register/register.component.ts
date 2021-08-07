@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, NgForm , FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { IRegister } from 'src/app/shared/services/auth/Register';
 
@@ -15,9 +16,10 @@ export class RegisterComponent implements OnInit {
     registration =  new FormGroup({
     Email: new FormControl("", [Validators.required]),
     Username: new FormControl("", [Validators.required]),
-    Password: new FormControl("", [Validators.required])
+    Password: new FormControl("", [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required])
   });
-  constructor(private authService: AuthService) {     
+  constructor(private authService: AuthService, private router:Router) {     
     
 }
   ngOnInit(): void {
@@ -29,15 +31,16 @@ export class RegisterComponent implements OnInit {
       next:(x: any)=> console.log('User logged in'),
       error:(err: any)=> console.log(err),
     }
+    console.log(f.value)
     let tempPlayer:IRegister = {
-
-      Email: f.get("email")?.value,
-      Username:f.get("username")?.value,
-      Password:f.get("password")?.value
+      Email: this.registration.get("Email")?.value,
+      Username:this.registration.get("Username")?.value,
+      Password:this.registration.get("Password")?.value
     }
     const token=this.authService.register(tempPlayer).subscribe(registerObserver);
-    if ('token'){
-    localStorage.setItem('token', f.get('Username')?.value);
+    if (token){
+    localStorage.setItem('token', this.registration.get('Username')?.value);
+    this.router.navigate(['']);
     }
   }
 }
