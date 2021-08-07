@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using PillowFight.Api.Models;
 using PillowFight.Repositories.Enumerations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PillowFight.Api.Hubs
@@ -31,7 +29,7 @@ namespace PillowFight.Api.Hubs
         {
             /*
              * Parameter 'actions' will remain null until game server implemented.
-             */ 
+             */
             await Clients.Caller.ReceiveAvailableActions(characterId, null);
         }
     }
