@@ -1,6 +1,5 @@
 ﻿using PillowFight.Repositories.DataServices;
 using PillowFight.Repositories.Enumerations;
-using PillowFight.Repositories.Interfaces;
 using PillowFight.Repositories.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,7 +8,9 @@ namespace PillowFight.BusinessServices
 {
     public class PlayerBL : IPlayerBL
     {
-        private IDatastore _datastore;
+        private const int starterWeaponId = 0;
+        private const int starterArmorId = 1;
+        private readonly IDatastore _datastore;
 
         public PlayerBL(IDatastore p_datastore)
         {
@@ -26,9 +27,9 @@ namespace PillowFight.BusinessServices
             });
         }
 
-        public async Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass)
+        public async Task<PlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass)
         {
-            return await _datastore.CreatePlayerCharacterAsync(userId, name, characterClass);
+            return await _datastore.CreatePlayerCharacterAsync(userId, name, characterClass, starterWeaponId, starterArmorId);
         }
 
         public async Task<bool> DeletePlayerCharacterAsync(int userId, int characterId)
@@ -36,17 +37,17 @@ namespace PillowFight.BusinessServices
             return await _datastore.DeletePlayerCharacterAsync(userId, characterId);
         }
 
-        public async Task<IPlayer> GetPlayerAsync(string p_username, string p_password)
+        public async Task<Player> GetPlayerAsync(string p_username, string p_password)
         {
             return await _datastore.GetPlayerAsync(p_username, p_password);
         }
 
-        public async Task<IPlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId)
+        public async Task<PlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId)
         {
             return await _datastore.GetPlayerCharacterAsync(userId, characterId);
         }
 
-        public async Task<IEnumerable<IPlayerCharacter>> GetPlayerCharactersAsync(int userId)
+        public async Task<IEnumerable<PlayerCharacter>> GetPlayerCharactersAsync(int userId)
         {
             return await _datastore.GetPlayerCharactersAsync(userId);
         }
