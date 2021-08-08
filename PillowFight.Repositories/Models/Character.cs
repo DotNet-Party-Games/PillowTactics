@@ -26,22 +26,22 @@ namespace PillowFight.Repositories.Models
 
         public int Wisdom { get; set; }
 
-        public int TorsoSlotItemId { get; set; }
+        public int? TorsoSlotItemId { get; set; }
 
         public IArmorItem TorsoSlotItem { get; set; }
 
-        public int MainHandSlotItemId { get; set; }
+        public int? MainHandSlotItemId { get; set; }
 
         public IWeaponItem MainHandSlotItem { get; set; }
 
         //ignoring everything below this so that we arent too bogged down
 
-        public int ArmsSlotItemId { get; set; }
+        public int? ArmsSlotItemId { get; set; }
 
-        public int HeadSlotItemId { get; set; }
+        public int? HeadSlotItemId { get; set; }
 
-        public int LegsSlotItemId { get; set; }
+        public int? LegsSlotItemId { get; set; }
 
-        public int OffHandSlotSlotItemId { get; set; }
+        public int? OffHandSlotSlotItemId { get; set; }
     }
 }

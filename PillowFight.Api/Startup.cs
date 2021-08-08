@@ -41,7 +41,7 @@ namespace PillowFight.Api
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
-            } 
+            }
             );
             services.AddSwaggerGen(c =>
             {
