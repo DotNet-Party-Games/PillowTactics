@@ -13,7 +13,7 @@ namespace PillowFight.Api.Hubs
 
         Task ReceiveAvailableActions(int characterId, IEnumerable<ActionTypeEnum> actions);
 
-        Task ReceiveJoinRoomRequest(GameRoom room);
+        Task ReceiveJoinRoomRequest(GameRoom room, bool hasJoined);
 
         Task ReceiveNewRoomRequest(GameRoom room);
     }
