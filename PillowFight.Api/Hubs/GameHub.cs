@@ -1,12 +1,34 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using PillowFight.Api.Models;
 using PillowFight.Repositories.Enumerations;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PillowFight.Api.Hubs
 {
+    [Authorize]
     public class GameHub : Hub<IGameHubClient>
     {
+        private const string userIdKey = "UserId";
+
+        private List<int> lobbyClients = new List<int>();
+        private Dictionary<Guid, GameRoom> rooms = new Dictionary<Guid, GameRoom>();
+
+        public override async Task OnConnectedAsync()
+        {
+            Context.Items[userIdKey] = Convert.ToInt32(Context.UserIdentifier);
+            lobbyClients.Add((int)Context.Items[userIdKey]);
+            await base.OnConnectedAsync();
+        }
+
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            lobbyClients.Remove((int)Context.Items[userIdKey]);
+            await base.OnDisconnectedAsync(exception);
+        }
+
         public async Task SendAction(CharacterAction characterAction)
         {
             /*
@@ -14,7 +36,7 @@ namespace PillowFight.Api.Hubs
              * Parameter 'resultDescription' will remain empty until game server is implemented.
              * Parameter 'characters' will remain null until game server is implemented.
              */
-            await Clients.All.ReceiveAction(null, string.Empty, null);
+            await Clients.Group("").ReceiveAction(null, string.Empty, null);
         }
 
         public async Task SendActionOptions(int characterId, ActionTypeEnum action)
@@ -31,6 +53,51 @@ namespace PillowFight.Api.Hubs
              * Parameter 'actions' will remain null until game server implemented.
              */
             await Clients.Caller.ReceiveAvailableActions(characterId, null);
+        }
+
+        public async Task SendJoinRoomRequest(string roomId)
+        {
+            try
+            {
+                var room = rooms[Guid.Parse(roomId)];
+
+                if (room.Player1Id == null)
+                {
+                    room.Player1Id = (int)Context.Items[userIdKey];
+                }
+                else if (room.Player2Id == null)
+                {
+                    room.Player2Id = (int)Context.Items[userIdKey];
+                }
+                else
+                {
+                }
+
+                await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+            }
+            catch
+            {
+
+            }
+        }
+
+        public async Task SendNewRoomRequest(string roomName)
+        {
+
+            lobbyClients.Remove((int)Context.Items[userIdKey]);
+            var room = new GameRoom()
+            {
+                Id = Guid.NewGuid(),
+                Name = roomName,
+                Player1Id = (int)Context.Items[userIdKey]
+            };
+            rooms[room.Id] = room;
+
+
+            /*
+             * Create a new game server hereabouts.
+             */
+
         }
     }
 }
