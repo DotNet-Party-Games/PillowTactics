@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NgForm , FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormGroup, NgForm , FormControl, ReactiveFormsModule, Validators, ValidatorFn} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { IRegister } from 'src/app/shared/services/auth/Register';
@@ -16,9 +16,9 @@ export class RegisterComponent implements OnInit {
     registration =  new FormGroup({
     Email: new FormControl("", [Validators.required]),
     Username: new FormControl("", [Validators.required]),
-    Password: new FormControl("", [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required])
-  });
+    Password: new FormControl("", [Validators.required])
+    }
+  );
   constructor(private authService: AuthService, private router:Router) {     
     
 }

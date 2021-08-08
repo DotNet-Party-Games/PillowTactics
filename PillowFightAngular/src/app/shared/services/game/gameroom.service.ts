@@ -33,4 +33,8 @@ export class GameroomService {
     this.hubconnection?.invoke("SendNewRoomRequest")
 
   }
+
+  SendJoinRoomRequest(arenaID:string){
+    this.hubconnection?.invoke("SendJoinRoomRequest",arenaID)
+  }
 }

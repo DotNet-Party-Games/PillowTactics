@@ -2,12 +2,15 @@
         <h1 >Welcome To PillowTactics</h1>
         <div class="body"> 
             <h2>We are the hottest new arena fighter on the market. Fight as your favorite fantasy character like knight and ranger and rogue</h2>
-            <button *ngIf="loggedin()">Enter Arena</button>
-            <div *ngIf ="!loggedin()">
-                <button class="btn btn-block btn-primary">Login</button>
-                <br>
-                <br>
-                <button class="btn btn-block btn-danger"> Register</button>
+            <br>
+            <div style="position: relative; margin: auto;">
+                <button *ngIf="loggedin()" class='btn btn-block btn-primary' routerLink="/arenalist">Enter Arena</button>
+                <div *ngIf ="!loggedin()">
+                    <button class="btn btn-block btn-primary" routerLink="/login">Login</button>
+                    <br>
+                    <br>
+                    <button class="btn btn-block btn-danger" routerLink="/register"> Register</button>
+                </div>
             </div>
         </div>
 </div>

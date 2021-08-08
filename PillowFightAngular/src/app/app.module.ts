@@ -38,7 +38,8 @@ import { ArenalistComponent } from './components/arenalist/arenalist.component';
       {path: "edit", component: EditcharacterComponent},
       {path: "arena", component: ArenaComponent},
       {path:"login", component: LoginComponent},
-      {path:"register", component:RegisterComponent}
+      {path:"register", component:RegisterComponent},
+      {path:"arenalist", component:ArenalistComponent}
     ]),
     ReactiveFormsModule,
     HttpClientModule

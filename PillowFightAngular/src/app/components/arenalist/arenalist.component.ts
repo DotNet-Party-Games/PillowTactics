@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GameroomService } from 'src/app/shared/services/game/gameroom.service';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-arenalist',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArenalistComponent implements OnInit {
 
-  constructor() { }
+  arenaname = new FormGroup({
+    ArenaName: new FormControl("", [Validators.required])
+
+  })
+  arenas:string[] = [];
+  selectedArena?: string;
+  constructor(private GameRoom:GameroomService) { }
 
   ngOnInit(): void {
   }
 
+  addArena(f:FormGroup) {
+    let name:string = f.get("ArenaName")?.value;
+    this.GameRoom.SendNewRoomRequest();
+  }
+
+  loadArena(id: string) {
+    this.GameRoom.SendJoinRoomRequest(id);
+  }
 }
