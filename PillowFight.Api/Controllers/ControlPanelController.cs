@@ -62,7 +62,7 @@ namespace PillowFight.Api.Controllers
         public async Task<ActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Ok();
+            return SignOut();
         }
     }
 }

@@ -12,5 +12,9 @@ namespace PillowFight.Api.Hubs
         Task ReceiveActionOptions(int characterId, IEnumerable<ActionTypeOption> options);
 
         Task ReceiveAvailableActions(int characterId, IEnumerable<ActionTypeEnum> actions);
+
+        Task ReceiveJoinRoomRequest(GameRoom room);
+
+        Task ReceiveNewRoomRequest(GameRoom room);
     }
 }
