@@ -34,8 +34,7 @@
 
           <li class="nav-item" *ngIf="loggedin()">
             <a class="nav-link"
-            routerLink="/logout"
-            routerLinkActive="active"
+            (click)="onlogout()"
             >Logout</a>
           </li>
 
