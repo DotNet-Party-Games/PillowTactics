@@ -58,31 +58,35 @@ namespace PillowFight.Api.Models
 
         public Weapon MainHandSlotItem { get; set; }
 
-/*        public static explicit operator PlayerCharacter(Repositories.Models.PlayerCharacter playerCharacter)
-        {
-            return new PlayerCharacter()
-            {
-                Id = playerCharacter.Id,
-                Name = playerCharacter.Name,
-                Class = playerCharacter.Class,
-                Strength = playerCharacter.Strength,
-                Dexterity = playerCharacter.Dexterity,
-                Constitution = playerCharacter.Constitution,
-                Intelligence = playerCharacter.Intelligence,
-                Wisdom = playerCharacter.Wisdom,
-                MainHandSlotItem = new Weapon()
-                {
-                    Name = playerCharacter.MainHandSlotItem.Name,
-                    Attack = playerCharacter.MainHandSlotItem.Attack,
-                    Range = playerCharacter.MainHandSlotItem.Range
+        public int xCoordinate { get; set; }
 
-                },
-                TorsoSlotItem = new Armor()
+        public int yCoordinate { get; set; }
+
+        /*        public static explicit operator PlayerCharacter(Repositories.Models.PlayerCharacter playerCharacter)
                 {
-                    Name = playerCharacter.TorsoSlotItem.Name,
-                    Defense = playerCharacter.TorsoSlotItem.Defense
-                }
-            };
-        }*/
+                    return new PlayerCharacter()
+                    {
+                        Id = playerCharacter.Id,
+                        Name = playerCharacter.Name,
+                        Class = playerCharacter.Class,
+                        Strength = playerCharacter.Strength,
+                        Dexterity = playerCharacter.Dexterity,
+                        Constitution = playerCharacter.Constitution,
+                        Intelligence = playerCharacter.Intelligence,
+                        Wisdom = playerCharacter.Wisdom,
+                        MainHandSlotItem = new Weapon()
+                        {
+                            Name = playerCharacter.MainHandSlotItem.Name,
+                            Attack = playerCharacter.MainHandSlotItem.Attack,
+                            Range = playerCharacter.MainHandSlotItem.Range
+
+                        },
+                        TorsoSlotItem = new Armor()
+                        {
+                            Name = playerCharacter.TorsoSlotItem.Name,
+                            Defense = playerCharacter.TorsoSlotItem.Defense
+                        }
+                    };
+                }*/
     }
 }
