@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PillowFight.Repositories.Models
 {
-    public class Map : IMap
+    public class Map
     {
         public int Id { get; set; }
 

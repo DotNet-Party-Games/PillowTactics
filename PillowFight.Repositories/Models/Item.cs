@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PillowFight.Repositories.Models
 {
-    public class Item : IItem
+    public class Item : IAtom
     {
         public int Id { get; set; }
 

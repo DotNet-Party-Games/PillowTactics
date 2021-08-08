@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using PillowFight.Api.Models;
 using PillowFight.BusinessServices;
-using PillowFight.Repositories.Interfaces;
+using PillowFight.Repositories.Models;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -34,7 +34,7 @@ namespace PillowFight.Api.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<PlayerDetails>> LogIn(PlayerLoginDetails details)
         {
-            IPlayer player;
+            Player player;
 
             player = await _playerBL.GetPlayerAsync(details.UserName, details.Password);
             if (player == null)
