@@ -56,6 +56,19 @@ namespace PillowFight.Repositories.DataServices
             }
         }
 
+        public async Task EquipCharacterAsync(int userId, int characterId, int itemId)
+        {
+            var inventoryTask = GetPlayerInventoryAsync(userId);
+            var characterTask = GetPlayerCharactersAsync(userId);
+            var itemTask = GetItemAsync(itemId);
+            await Task.WhenAll(inventoryTask, characterTask, itemTask);
+        }
+
+        public async Task<Item> GetItemAsync(int itemId)
+        {
+            return await _context.Items.FindAsync(itemId);
+        }
+
         public async Task<Player> GetPlayerAsync(string p_username, string p_password)
         {
             return await _context.Players.Where(p => p.UserName == p_username).FirstOrDefaultAsync();
@@ -76,6 +89,13 @@ namespace PillowFight.Repositories.DataServices
                 .Where(p_playerCharacter => p_playerCharacter.PlayerId == userId)
                 .Include(p_playerCharacter => p_playerCharacter.TorsoSlotItem)
                 .Include(p_playerCharacter => p_playerCharacter.MainHandSlotItem)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<InventoryItem>> GetPlayerInventoryAsync(int userId)
+        {
+            return await _context.Inventory
+                .Where(l_inventoryItem => l_inventoryItem.PlayerId == userId)
                 .ToListAsync();
         }
     }

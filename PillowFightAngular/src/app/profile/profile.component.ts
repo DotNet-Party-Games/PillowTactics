@@ -14,7 +14,22 @@ export class ProfileComponent implements OnInit {
   constructor(private router:Router) 
   {
     this.character = {
-      name: "Bob"
+      name: "Bob",
+      class: "Knight",
+      strength: 5,
+      dexterity: 5,
+      constitution: 5,
+      intelligence: 5,
+      wisdom: 5,
+      weapon: {
+        name: "Bob's Sword",
+        attack: 5,
+        range: 5
+      },
+      armor: {
+        name: "Bob's Armor",
+        defense: 5
+      }
     }
   }
 
