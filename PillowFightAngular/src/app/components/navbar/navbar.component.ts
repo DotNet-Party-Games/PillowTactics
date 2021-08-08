@@ -23,7 +23,6 @@ export class NavbarComponent implements OnInit {
       error:(err: any)=> console.log(err),
     }
     localStorage.removeItem("token");
-    this.authService.logout();
-    //.subscribe(logoutObserver);
+    this.authService.logout().subscribe(logoutObserver);
   }
 }
