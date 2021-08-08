@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
   registerPlayer(f:FormGroup)
   {
     const registerObserver={
-      next:(x: any)=> console.log('User logged in'),
+      next:(x: any)=> console.log('User registered'),
       error:(err: any)=> console.log(err),
     }
     console.log(f.value)
