@@ -1,1 +1,13 @@
-<p>home works!</p>
+<div class="container">
+        <h1 >Welcome To PillowTactics</h1>
+        <div class="body"> 
+            <h2>We are the hottest new arena fighter on the market. Fight as your favorite fantasy character like knight and ranger and rogue</h2>
+            <button *ngIf="loggedin()">Enter Arena</button>
+            <div *ngIf ="!loggedin()">
+                <button class="btn btn-block btn-primary">Login</button>
+                <br>
+                <br>
+                <button class="btn btn-block btn-danger"> Register</button>
+            </div>
+        </div>
+</div>
