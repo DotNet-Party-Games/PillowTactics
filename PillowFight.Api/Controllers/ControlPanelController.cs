@@ -58,6 +58,12 @@ namespace PillowFight.Api.Controllers
             return Ok(characters.Select(p_character => new PlayerCharacter(p_character)));
         }
 
+        /*        [HttpGet("PlayerInventory")]
+                public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetPlayerInventory()
+                {
+
+                }*/
+
         [HttpGet("Logout")]
         public async Task<ActionResult> LogOut()
         {

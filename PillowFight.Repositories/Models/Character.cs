@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PillowFight.Repositories.Models
 {
-    public class Character : ICharacter
+    public class Character
     {
         public int Id { get; set; }
 
@@ -28,11 +28,11 @@ namespace PillowFight.Repositories.Models
 
         public int? TorsoSlotItemId { get; set; }
 
-        public IArmorItem TorsoSlotItem { get; set; }
+        public ArmorItem TorsoSlotItem { get; set; }
 
         public int? MainHandSlotItemId { get; set; }
 
-        public IWeaponItem MainHandSlotItem { get; set; }
+        public WeaponItem MainHandSlotItem { get; set; }
 
         //ignoring everything below this so that we arent too bogged down
 

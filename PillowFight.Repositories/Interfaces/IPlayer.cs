@@ -1,4 +1,5 @@
 ﻿using PillowFight.Repositories.Enumerations;
+using System.Collections.Generic;
 
 namespace PillowFight.Repositories.Interfaces
 {
@@ -19,5 +20,7 @@ namespace PillowFight.Repositories.Interfaces
         public int Wins { get; set; }
 
         public UserRoleEnum Role { get; set; }
+
+        public List<IInventoryItem> Inventory { get; set; }
     }
 }
