@@ -1,8 +1,6 @@
-﻿using PillowFight.Repositories.Interfaces;
-
-namespace PillowFight.Repositories.Models
+﻿namespace PillowFight.Repositories.Models
 {
-    public class WeaponItem : Item, IWeaponItem
+    public class WeaponItem : Item
     {
         public int Attack { get; set; }
 

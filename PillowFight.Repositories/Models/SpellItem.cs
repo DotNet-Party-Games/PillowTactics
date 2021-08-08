@@ -1,8 +1,6 @@
-﻿using PillowFight.Repositories.Interfaces;
-
-namespace PillowFight.Repositories.Models
+﻿namespace PillowFight.Repositories.Models
 {
-    public class SpellItem : WeaponItem, ISpellItem
+    public class SpellItem : WeaponItem
     {
         public int Cost { get; set; }
     }

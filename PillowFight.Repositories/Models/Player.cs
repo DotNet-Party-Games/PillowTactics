@@ -1,9 +1,9 @@
 ﻿using PillowFight.Repositories.Enumerations;
-using PillowFight.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace PillowFight.Repositories.Models
 {
-    public class Player : IPlayer
+    public class Player
     {
         public int Id { get; set; }
 
@@ -20,5 +20,7 @@ namespace PillowFight.Repositories.Models
         public int Wins { get; set; }
 
         public UserRoleEnum Role { get; set; }
+
+        public List<InventoryItem> Inventory { get; set; }
     }
 }

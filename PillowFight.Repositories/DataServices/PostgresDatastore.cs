@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PillowFight.Repositories.Enumerations;
-using PillowFight.Repositories.Interfaces;
 using PillowFight.Repositories.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +22,7 @@ namespace PillowFight.Repositories.DataServices
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass, int? mainHandSlotItemId, int? torsoSlotItemId)
+        public async Task<PlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass, int? mainHandSlotItemId, int? torsoSlotItemId)
         {
             _context.PlayerCharacters.Add(new PlayerCharacter()
             {
@@ -57,12 +56,12 @@ namespace PillowFight.Repositories.DataServices
             }
         }
 
-        public async Task<IPlayer> GetPlayerAsync(string p_username, string p_password)
+        public async Task<Player> GetPlayerAsync(string p_username, string p_password)
         {
             return await _context.Players.Where(p => p.UserName == p_username).FirstOrDefaultAsync();
         }
 
-        public async Task<IPlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId)
+        public async Task<PlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId)
         {
             return await _context.PlayerCharacters
                 .Where(p_playerCharacter => p_playerCharacter.PlayerId == userId && p_playerCharacter.Id == characterId)
@@ -71,7 +70,7 @@ namespace PillowFight.Repositories.DataServices
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<IPlayerCharacter>> GetPlayerCharactersAsync(int userId)
+        public async Task<IEnumerable<PlayerCharacter>> GetPlayerCharactersAsync(int userId)
         {
             return await _context.PlayerCharacters
                 .Where(p_playerCharacter => p_playerCharacter.PlayerId == userId)
