@@ -13,10 +13,16 @@ namespace PillowFight.Repositories.DataServices
 
         public Task<bool> DeletePlayerCharacterAsync(int userId, int characterId);
 
+        public Task EquipCharacterAsync(int userId, int characterId, int itemId);
+
+        public Task<Item> GetItemAsync(int itemId);
+
         public Task<Player> GetPlayerAsync(string p_username, string p_password);
 
         public Task<PlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId);
 
         public Task<IEnumerable<PlayerCharacter>> GetPlayerCharactersAsync(int userId);
+
+        public Task<IEnumerable<InventoryItem>> GetPlayerInventoryAsync(int userId);
     }
 }

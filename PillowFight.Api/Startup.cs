@@ -30,7 +30,7 @@ namespace PillowFight.Api
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(l_options =>
                 {
-                    l_options.LoginPath = "";
+                    l_options.LoginPath = "/";
                     l_options.LogoutPath = "/login";
                 });
             services.AddSignalR();

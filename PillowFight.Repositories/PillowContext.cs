@@ -25,11 +25,11 @@ namespace PillowFight.Repositories
                 .IsUnique();
 
             modelBuilder.Entity<Character>()
-                .HasOne(l_character => (ArmorItem)l_character.TorsoSlotItem)
+                .HasOne(l_character => l_character.TorsoSlotItem)
                 .WithMany()
                 .HasForeignKey(l_character => l_character.TorsoSlotItemId);
             modelBuilder.Entity<Character>()
-                .HasOne(l_character => (WeaponItem)l_character.MainHandSlotItem)
+                .HasOne(l_character => l_character.MainHandSlotItem)
                 .WithMany()
                 .HasForeignKey(l_character => l_character.MainHandSlotItemId);
 
