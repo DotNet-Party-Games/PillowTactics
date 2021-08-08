@@ -9,7 +9,9 @@ namespace PillowFight.BusinessServices
 {
     public class PlayerBL : IPlayerBL
     {
-        private IDatastore _datastore;
+        private const int starterWeaponId = 0;
+        private const int starterArmorId = 1;
+        private readonly IDatastore _datastore;
 
         public PlayerBL(IDatastore p_datastore)
         {
@@ -28,7 +30,7 @@ namespace PillowFight.BusinessServices
 
         public async Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass)
         {
-            return await _datastore.CreatePlayerCharacterAsync(userId, name, characterClass);
+            return await _datastore.CreatePlayerCharacterAsync(userId, name, characterClass, starterWeaponId, starterArmorId);
         }
 
         public async Task<bool> DeletePlayerCharacterAsync(int userId, int characterId)

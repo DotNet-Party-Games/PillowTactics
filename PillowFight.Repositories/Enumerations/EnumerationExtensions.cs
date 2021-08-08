@@ -7,8 +7,8 @@
             switch (itemType)
             {
                 //weapons
-                case (ItemTypeEnum.Sword):
-                    return ItemSlotEnum.Torso;
+                case (ItemTypeEnum.LongSword):
+                    return ItemSlotEnum.EitherHand;
                 //armor
                 case (ItemTypeEnum.Boots):
                     return ItemSlotEnum.Legs;

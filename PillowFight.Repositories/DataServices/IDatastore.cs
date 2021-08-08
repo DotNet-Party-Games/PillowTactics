@@ -10,7 +10,7 @@ namespace PillowFight.Repositories.DataServices
     {
         public Task CreatePlayerAsync(Player p_player);
 
-        public Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass);
+        public Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass, int? mainHandSlotItemId, int? torsoSlotItemId);
 
         public Task<bool> DeletePlayerCharacterAsync(int userId, int characterId);
 

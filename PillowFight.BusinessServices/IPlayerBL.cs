@@ -9,7 +9,7 @@ namespace PillowFight.BusinessServices
     {
         public Task CreatePlayerAsync(string p_username, string p_password, string p_email);
 
-        public Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass);
+        Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass);
 
         public Task<bool> DeletePlayerCharacterAsync(int userId, int characterId);
 

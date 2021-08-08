@@ -2,13 +2,19 @@
 {
     public enum ItemTypeEnum
     {
-        Boots,
-        Gloves,
-        Helmet,
-        Robe,
+        // Weapon types.
+        Staff = 0,
+        LongSword,
+        LongBow,
+        // Armor types.
+        Robe = 100,
         Leather,
         PlateMail,
-        Spell,
-        Sword
+        // Accessory types.
+        Boots = 200,
+        Gloves,
+        Helmet,
+        // Special types.
+        Spell = 300,
     }
 }
