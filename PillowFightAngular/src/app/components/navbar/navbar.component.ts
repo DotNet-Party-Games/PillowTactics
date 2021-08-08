@@ -1,3 +1,4 @@
+import { tokenize } from '@angular/compiler/src/ml_parser/lexer';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
@@ -22,6 +23,7 @@ export class NavbarComponent implements OnInit {
       error:(err: any)=> console.log(err),
     }
     localStorage.removeItem("token");
-    this.authService.logout().subscribe(logoutObserver);
+    this.authService.logout();
+    //.subscribe(logoutObserver);
   }
 }
