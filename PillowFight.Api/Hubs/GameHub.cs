@@ -12,6 +12,7 @@ namespace PillowFight.Api.Hubs
     public class GameHub : Hub<IGameHubClient>
     {
         private const string userIdKey = "UserId";
+        private const string groupIdKey = "GroupId";
 
         private List<int> lobbyClients = new List<int>();
         private Dictionary<Guid, GameRoom> rooms = new Dictionary<Guid, GameRoom>();
@@ -23,7 +24,7 @@ namespace PillowFight.Api.Hubs
             await base.OnConnectedAsync();
         }
 
-        public override async Task OnDisconnectedAsync(Exception? exception)
+        public override async Task OnDisconnectedAsync(Exception exception)
         {
             lobbyClients.Remove((int)Context.Items[userIdKey]);
             await base.OnDisconnectedAsync(exception);
@@ -59,8 +60,10 @@ namespace PillowFight.Api.Hubs
         {
             try
             {
+                // Get the requested room.
                 var room = rooms[Guid.Parse(roomId)];
 
+                // Attempt to join room.
                 if (room.Player1Id == null)
                 {
                     room.Player1Id = (int)Context.Items[userIdKey];
@@ -71,33 +74,48 @@ namespace PillowFight.Api.Hubs
                 }
                 else
                 {
+                    await Clients.Caller.ReceiveJoinRoomRequest(null, false);
                 }
 
+                // Remove player from lobby.
+                lobbyClients.Remove((int)Context.Items[userIdKey]);
+
+                // Add the player to the group associated with the room.
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
             }
             catch
             {
-
+                await Clients.Caller.ReceiveJoinRoomRequest(null, false);
             }
         }
 
         public async Task SendNewRoomRequest(string roomName)
         {
-
+            // Remove player from lobby.
             lobbyClients.Remove((int)Context.Items[userIdKey]);
+
+            // Create a new game room.
             var room = new GameRoom()
             {
                 Id = Guid.NewGuid(),
                 Name = roomName,
                 Player1Id = (int)Context.Items[userIdKey]
             };
+
+            // Track the room.
             rooms[room.Id] = room;
 
+            // Create a new group associated with the room id and add the player.
+            await Groups.AddToGroupAsync(Context.ConnectionId, room.Id.ToString());
+
+            // Associate the room with this player's connection.
+            Context.Items[groupIdKey] = room.Id;
 
             /*
              * Create a new game server hereabouts.
              */
 
+            await Clients.Caller.ReceiveNewRoomRequest(room);
         }
     }
 }
