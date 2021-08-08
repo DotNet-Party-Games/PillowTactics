@@ -56,12 +56,48 @@ namespace PillowFight.Repositories.DataServices
             }
         }
 
-        public async Task EquipCharacterAsync(int userId, int characterId, int itemId)
+        public async Task<bool> EquipCharacterAsync(int userId, int characterId, int itemId)
         {
             var inventoryTask = GetPlayerInventoryAsync(userId);
-            var characterTask = GetPlayerCharactersAsync(userId);
-            var itemTask = GetItemAsync(itemId);
-            await Task.WhenAll(inventoryTask, characterTask, itemTask);
+            var characterTask = GetPlayerCharacterAsync(userId, characterId);
+
+            // Verify that the item exists.
+            var item = await GetItemAsync(itemId);
+            if (item == null)
+                return false;
+
+            // Verify that the item exists in the player's inventory.
+            var inventoryItem = inventoryTask.Result
+                .Where(l_inventoryItem => l_inventoryItem.ItemId == itemId)
+                .FirstOrDefault();
+            if (inventoryItem == null)
+                return false;
+
+            // Equipping an item decreases it's quantity and possibly removes it from inventory.
+            inventoryItem.Quantity--;
+            if (inventoryItem.Quantity == 0)
+            {
+                _context.Inventory.Remove(inventoryItem);
+            }
+
+            // Set proper equipment slot to the item's id.
+            var character = await characterTask;
+            switch (item.Type.GetSlotLocation())
+            {
+                case ItemSlotEnum.MainHand:
+                    if (character.MainHandSlotItemId != null)
+                        await UnequipCharacterAsync(userId, characterId, character.MainHandSlotItemId.Value);
+                    character.MainHandSlotItemId = item.Id;
+                    break;
+                case ItemSlotEnum.Torso:
+                    if (character.TorsoSlotItemId != null)
+                        await UnequipCharacterAsync(userId, characterId, character.TorsoSlotItemId.Value);
+                    character.TorsoSlotItemId = item.Id;
+                    break;
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<Item> GetItemAsync(int itemId)
@@ -97,6 +133,57 @@ namespace PillowFight.Repositories.DataServices
             return await _context.Inventory
                 .Where(l_inventoryItem => l_inventoryItem.PlayerId == userId)
                 .ToListAsync();
+        }
+
+        // Note: Add an overload of this with just the item slot substituted for the item id;
+        // would be useful in EquipCharacterAsync
+        public async Task<bool> UnequipCharacterAsync(int userId, int characterId, int itemId)
+        {
+            var characterTask = GetPlayerCharacterAsync(userId, characterId);
+            var inventoryTask = GetPlayerInventoryAsync(userId);
+            var item = await GetItemAsync(itemId);
+
+            if (item == null)
+                return false;
+
+            // Set item's equipment slot to null.
+            var character = await characterTask;
+            switch (item.Type.GetSlotLocation())
+            {
+                case ItemSlotEnum.MainHand:
+                    if (character.MainHandSlotItemId == item.Id)
+                    {
+                        character.MainHandSlotItemId = null;
+                        break;
+                    }
+                    else
+                        return false;
+                case ItemSlotEnum.Torso:
+                    if (character.TorsoSlotItemId == item.Id)
+                    {
+                        character.TorsoSlotItemId = null;
+                        break;
+                    }
+                    else
+                        return false;
+            }
+
+            // Return item to inventory.
+            var inventoryItem = inventoryTask.Result
+                .Where(l_inventoryItem => l_inventoryItem.ItemId == itemId)
+                .FirstOrDefault();
+            if (inventoryItem == null)
+                _context.Inventory.Add(new()
+                {
+                    PlayerId = userId,
+                    ItemId = itemId,
+                    Quantity = 1
+                });
+            else
+                inventoryItem.Quantity++;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
