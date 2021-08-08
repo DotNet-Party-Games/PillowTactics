@@ -23,15 +23,15 @@ namespace PillowFight.Repositories.DataServices
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass)
+        public async Task<IPlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass, int? mainHandSlotItemId, int? torsoSlotItemId)
         {
             _context.PlayerCharacters.Add(new PlayerCharacter()
             {
                 PlayerId = userId,
                 Name = name,
                 Class = characterClass,
-                MainHandSlotItemId = 2,
-                TorsoSlotItemId = 4
+                MainHandSlotItemId = mainHandSlotItemId,
+                TorsoSlotItemId = torsoSlotItemId
             });
             await _context.SaveChangesAsync();
             return await _context.PlayerCharacters
