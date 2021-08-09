@@ -7,7 +7,7 @@ namespace PillowFight.Repositories.DataServices
 {
     public interface IDatastore
     {
-        public Task CreatePlayerAsync(Player p_player);
+        public Task CreatePlayerAsync(Player player);
 
         public Task<PlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass, int? mainHandSlotItemId, int? torsoSlotItemId);
 
@@ -26,5 +26,7 @@ namespace PillowFight.Repositories.DataServices
         public Task<IEnumerable<InventoryItem>> GetPlayerInventoryAsync(int userId);
 
         public Task<bool> UnequipCharacterAsync(int userId, int characterId, int itemId);
+
+        public Task UnequipCharacterAsync(int userId, int characterId, ItemSlotEnum slot);
     }
 }
