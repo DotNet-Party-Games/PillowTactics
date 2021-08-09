@@ -32,6 +32,7 @@ namespace PillowFight.Api
                 {
                     l_options.LoginPath = "/";
                     l_options.LogoutPath = "/login";
+                    l_options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
                 });
             services.AddSignalR();
             services.AddDbContext<PillowContext>(p_dbContextOptionsBuilder => p_dbContextOptionsBuilder.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")));
