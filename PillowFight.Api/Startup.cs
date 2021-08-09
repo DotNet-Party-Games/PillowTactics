@@ -62,7 +62,8 @@ namespace PillowFight.Api
                 {
                     p_corsPolicyBuilder.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .AllowCredentials();
                 });
             }
             );
