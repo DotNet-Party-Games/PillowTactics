@@ -11,6 +11,7 @@ using PillowFight.Api.Hubs;
 using PillowFight.BusinessServices;
 using PillowFight.Repositories;
 using PillowFight.Repositories.DataServices;
+using System.Threading.Tasks;
 
 namespace PillowFight.Api
 {
@@ -26,15 +27,31 @@ namespace PillowFight.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(l_options =>
                 {
-                    l_options.LoginPath = "/";
-                    l_options.LogoutPath = "/login";
-                    l_options.Cookie.SameSite = SameSiteMode.Unspecified;
+                    l_options.Cookie.HttpOnly = true;
+                    l_options.Cookie.IsEssential = true;
+                    l_options.Cookie.SameSite = SameSiteMode.None;
+                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
+            services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
+            {
+                OnRedirectToLogin = options =>
+                {
+                    //options.RedirectUri = "https://pillow.azurewebsites.net/login";
+                    options.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                },
+                OnRedirectToLogout = options =>
+                {
+                    //options.RedirectUri = "https://pillow.azurewebsites.net/";
+                    options.Response.StatusCode = 200;
+                    return Task.CompletedTask;
+                }
+
+            });
             services.AddSignalR();
             services.AddDbContext<PillowContext>(p_dbContextOptionsBuilder => p_dbContextOptionsBuilder.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")));
             services.AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
@@ -45,7 +62,8 @@ namespace PillowFight.Api
                 {
                     p_corsPolicyBuilder.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .AllowCredentials();
                 });
             }
             );
