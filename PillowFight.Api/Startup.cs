@@ -32,8 +32,6 @@ namespace PillowFight.Api
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(l_options =>
                 {
-                    l_options.LoginPath = "/";
-                    l_options.LogoutPath = "/login";
                     l_options.Cookie.SameSite = SameSiteMode.Unspecified;
                 });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
