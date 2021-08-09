@@ -6,7 +6,7 @@ import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 })
 export class GameroomService {
 
-  private hubconnection:signalR.HubConnection | undefined;
+  private hubconnection:HubConnection | undefined;
 
   constructor() { }
 
