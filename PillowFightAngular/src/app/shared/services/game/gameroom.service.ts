@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import * as signalR from '@aspnet/signalr';
+import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameroomService {
 
-  private hubconnection:signalR.HubConnection | undefined;
+  private hubconnection:HubConnection | undefined;
 
   constructor() { }
 
   startconnection=()=>{
-    this.hubconnection= new signalR.HubConnectionBuilder().withUrl("https://myappurl/chathub").build();
+    this.hubconnection= new HubConnectionBuilder().withUrl("https://pillow.azurewebsites.net").build();
     this.hubconnection.start().then(() => {
       console.log("Hub Connection Started");
     })
@@ -24,7 +24,7 @@ export class GameroomService {
   }
 
   OnConnectedAsyncListener(){
-    this.hubconnection?.on("askServerResponse", (someText)=> {
+    this.hubconnection?.on("askServerResponse", (someText:string)=> {
       console.log(someText);
     })
   }
