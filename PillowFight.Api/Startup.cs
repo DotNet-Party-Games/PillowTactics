@@ -33,7 +33,9 @@ namespace PillowFight.Api
                 .AddCookie(l_options =>
                 {
                     l_options.Cookie.Domain = ".pillow-fight-game.azurewebsites.net";
+                    l_options.Cookie.IsEssential = true;
                     l_options.Cookie.SameSite = SameSiteMode.None;
+                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.None;
                 });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
@@ -42,7 +44,7 @@ namespace PillowFight.Api
                     //options.RedirectUri = "https://pillow.azurewebsites.net/login";
                     options.Response.StatusCode = 401;
                     return Task.CompletedTask;
-                    },
+                },
                 OnRedirectToLogout = options =>
                 {
                     //options.RedirectUri = "https://pillow.azurewebsites.net/";
