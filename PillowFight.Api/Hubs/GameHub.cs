@@ -4,6 +4,7 @@ using PillowFight.Api.Models;
 using PillowFight.Repositories.Enumerations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PillowFight.Api.Hubs
@@ -58,6 +59,11 @@ namespace PillowFight.Api.Hubs
              * Parameter 'actions' will remain null until game server implemented.
              */
             await Clients.Caller.ReceiveAvailableActions(characterId, null);
+        }
+
+        public async Task SendAvailableRooms()
+        {
+            await Clients.Caller.ReceiveAvailableRooms(rooms.Values);
         }
 
         public async Task SendJoinRoomRequest(string roomId)
