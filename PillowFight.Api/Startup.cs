@@ -32,7 +32,7 @@ namespace PillowFight.Api
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(l_options =>
                 {
-                    l_options.Cookie.SameSite = SameSiteMode.Unspecified;
+                    l_options.Cookie.SameSite = SameSiteMode.Lax;
                 });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
