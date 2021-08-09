@@ -11,7 +11,7 @@ export class GameroomService {
   constructor() { }
 
   startconnection=()=>{
-    this.hubconnection= new signalR.HubConnectionBuilder().withUrl("https://myappurl/chathub").build();
+    this.hubconnection= new signalR.HubConnectionBuilder().withUrl("https://pillow.azurewebsites.net").build();
     this.hubconnection.start().then(() => {
       console.log("Hub Connection Started");
     })
@@ -24,7 +24,7 @@ export class GameroomService {
   }
 
   OnConnectedAsyncListener(){
-    this.hubconnection?.on("askServerResponse", (someText)=> {
+    this.hubconnection?.on("askServerResponse", (someText:string)=> {
       console.log(someText);
     })
   }
