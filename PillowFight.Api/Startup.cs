@@ -33,7 +33,7 @@ namespace PillowFight.Api
                 .AddCookie(l_options =>
                 {
                     l_options.Cookie.Domain = "pillow-fight-game.azurewebsites.net";
-                    l_options.Cookie.SameSite = SameSiteMode.None;
+                    l_options.Cookie.SameSite = SameSiteMode.Unspecified;
                 });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
