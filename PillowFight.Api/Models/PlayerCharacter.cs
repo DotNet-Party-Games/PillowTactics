@@ -9,7 +9,7 @@ namespace PillowFight.Api.Models
 
         }
 
-        public PlayerCharacter(Repositories.Interfaces.IPlayerCharacter playerCharacter)
+        public PlayerCharacter(Repositories.Models.PlayerCharacter playerCharacter)
         {
             Id = playerCharacter.Id;
             Name = playerCharacter.Name;

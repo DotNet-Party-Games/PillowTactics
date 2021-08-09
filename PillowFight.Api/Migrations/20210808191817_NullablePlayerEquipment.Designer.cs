@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PillowFight.Repositories;
@@ -11,9 +12,10 @@ using PillowFight.Repositories.Enumerations;
 namespace PillowFight.Api.Migrations
 {
     [DbContext(typeof(PillowContext))]
-    partial class PillowContextModelSnapshot : ModelSnapshot
+    [Migration("20210808191817_NullablePlayerEquipment")]
+    partial class NullablePlayerEquipment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,31 +88,6 @@ namespace PillowFight.Api.Migrations
                     b.ToTable("Characters");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Character");
-                });
-
-            modelBuilder.Entity("PillowFight.Repositories.Models.InventoryItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("PlayerId", "ItemId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("Inventory");
                 });
 
             modelBuilder.Entity("PillowFight.Repositories.Models.Item", b =>
@@ -235,30 +212,6 @@ namespace PillowFight.Api.Migrations
                     b.Navigation("MainHandSlotItem");
 
                     b.Navigation("TorsoSlotItem");
-                });
-
-            modelBuilder.Entity("PillowFight.Repositories.Models.InventoryItem", b =>
-                {
-                    b.HasOne("PillowFight.Repositories.Models.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PillowFight.Repositories.Models.Player", "Player")
-                        .WithMany("Inventory")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-
-                    b.Navigation("Player");
-                });
-
-            modelBuilder.Entity("PillowFight.Repositories.Models.Player", b =>
-                {
-                    b.Navigation("Inventory");
                 });
 #pragma warning restore 612, 618
         }

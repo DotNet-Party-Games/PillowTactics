@@ -1,0 +1,16 @@
+<div class='sidenav'>
+    <form [formGroup]="arenaname">
+        <div class="form-group">
+            <input type="text" class="form-control" formControlName="ArenaName" placeholder="Arena Name">
+        </div>
+        <br>
+        <div class="form-group">
+            <button (click)='addArena(arenaname)' class="btn btn-primary btn-block"> New Arena </button>
+        </div>
+    </form>
+    
+
+    <button [class.selected]='arenaId === selectedArena' (click)='loadArena(arenaId)' *ngFor='let arenaId of arenas'>
+      Join {{ arenaId }}
+  </button>
+</div>

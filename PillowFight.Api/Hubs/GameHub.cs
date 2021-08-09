@@ -14,8 +14,8 @@ namespace PillowFight.Api.Hubs
         private const string userIdKey = "UserId";
         private const string groupIdKey = "GroupId";
 
-        private List<int> lobbyClients = new List<int>();
-        private Dictionary<Guid, GameRoom> rooms = new Dictionary<Guid, GameRoom>();
+        private readonly List<int> lobbyClients = new();
+        private readonly Dictionary<Guid, GameRoom> rooms = new();
 
         public override async Task OnConnectedAsync()
         {
@@ -26,6 +26,10 @@ namespace PillowFight.Api.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
+            /*
+             * Probably add some code in here to remove abandoned rooms, etc.
+             */
+
             lobbyClients.Remove((int)Context.Items[userIdKey]);
             await base.OnDisconnectedAsync(exception);
         }

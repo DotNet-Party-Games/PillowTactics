@@ -28,7 +28,11 @@ namespace PillowFight.Api
 
             services.AddControllers();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
+                .AddCookie(l_options =>
+                {
+                    l_options.LoginPath = "/";
+                    l_options.LogoutPath = "/login";
+                });
             services.AddSignalR();
             services.AddDbContext<PillowContext>(p_dbContextOptionsBuilder => p_dbContextOptionsBuilder.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")));
             services.AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
@@ -41,7 +45,7 @@ namespace PillowFight.Api
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
-            } 
+            }
             );
             services.AddSwaggerGen(c =>
             {
