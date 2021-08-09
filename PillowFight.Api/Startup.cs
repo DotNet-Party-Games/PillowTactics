@@ -27,15 +27,13 @@ namespace PillowFight.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(l_options =>
                 {
-                    l_options.Cookie.Domain = ".pillow-fight-game.azurewebsites.net";
                     l_options.Cookie.IsEssential = true;
                     l_options.Cookie.SameSite = SameSiteMode.None;
-                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
