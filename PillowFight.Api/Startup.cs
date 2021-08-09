@@ -31,7 +31,8 @@ namespace PillowFight.Api
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(l_options =>
                 {
-                    l_options.Cookie.HttpOnly = true;
+                    l_options.Cookie.Name = "PillowTactics";
+                    l_options.Cookie.HttpOnly = false;
                     l_options.Cookie.IsEssential = true;
                     l_options.Cookie.SameSite = SameSiteMode.None;
                     l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
