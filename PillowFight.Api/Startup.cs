@@ -54,7 +54,7 @@ namespace PillowFight.Api
 
             });
             services.AddSignalR();
-            services.AddDbContext<PillowContext>(p_dbContextOptionsBuilder => p_dbContextOptionsBuilder.UseNpgsql(Configuration.GetConnectionString("AppDB"), b => b.MigrationsAssembly("PillowFight.Api")));
+            services.AddDbContext<PillowContext>(p_dbContextOptionsBuilder => p_dbContextOptionsBuilder.UseNpgsql(Configuration.GetConnectionString("AppDB")));
             services.AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
                 .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
             services.AddCors(p_corsOptions =>
@@ -64,7 +64,8 @@ namespace PillowFight.Api
                     p_corsPolicyBuilder.WithOrigins(Configuration["CorsOrigins"].Split(';'))
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowCredentials();
+                    .AllowCredentials()
+                    .WithExposedHeaders("Access-Control-Allow-Origin");
                 });
             }
             );
