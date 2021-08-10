@@ -2,8 +2,8 @@
 
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using System;
 using PillowFight.Repositories;
+using System;
 
 namespace PillowFight.Test
 {
