@@ -19,6 +19,21 @@ namespace PillowFight.Test
             _factory = new ConnectionFactory();
         }
 
+        [Fact]
+        public void NewDbIsEmpty()
+        {
+            PillowContext context = _factory.CreateContextForSQLite();
+
+            Assert.Equal(0, context.ArmorItems.Count());
+            Assert.Equal(0, context.Characters.Count());
+            Assert.Equal(0, context.Items.Count());
+            Assert.Equal(0, context.Players.Count());
+            Assert.Equal(0, context.PlayerCharacters.Count());
+            Assert.Equal(0, context.Inventory.Count());
+            Assert.Equal(0, context.SpellItems.Count());
+            Assert.Equal(0, context.WeaponItems.Count());
+
+        }
         [Theory]
         [InlineData("foo@bar.baz", "Joeseph Blowtarski", "Joe_Blow", "xyz", UserRoleEnum.User, 3, 4)]
         public void CreateOnePlayer(string p_email, string p_realName, string p_userName, string p_password, UserRoleEnum p_role,
