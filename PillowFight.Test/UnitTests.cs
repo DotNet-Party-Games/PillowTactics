@@ -62,5 +62,50 @@ namespace PillowFight.Test
             Assert.Equal(player.Wins, newPlayer.Wins);
             Assert.Equal(player.Losses, newPlayer.Losses);
         }
+        [Theory]
+        [InlineData("foo@bar.baz", "Joeseph Blowtarski", "Joe_Blow", "xyz", UserRoleEnum.User, 3, 4)]
+        public void UserNamesMustBeUnique(string p_email, string p_realName, string p_userName, string p_password, UserRoleEnum p_role,
+            int p_wins, int p_losses)
+        {
+            PillowContext context = _factory.CreateContextForSQLite();
+            PostgresDatastore datastore = new(context);
+            Player player1 = new Player
+            {
+                Email = p_email,
+                RealName = p_realName,
+                UserName = p_userName,
+                Password = p_password,
+                Role = p_role,
+                Wins = p_wins,
+                Losses = p_losses
+            };
+            datastore.CreatePlayerAsync(player1).Wait();
+            Player player2 = new Player
+            {
+                Email = p_email,
+                RealName = p_realName,
+                UserName = p_userName,
+                Password = p_password,
+                Role = p_role,
+                Wins = p_wins,
+                Losses = p_losses
+            };
+            Exception ex = Assert.Throws<AggregateException>(() => datastore.CreatePlayerAsync(player2).Wait());
+            Assert.True(ex is AggregateException);
+            if (ex is AggregateException)
+            {
+                int nUpdateExceptions = 0;
+                ((AggregateException)ex).Handle((x) =>
+                {
+                    if (x is Microsoft.EntityFrameworkCore.DbUpdateException)
+                    {
+                        nUpdateExceptions++;
+                    }
+                    return true;
+                }
+                );
+                Assert.Equal(1, nUpdateExceptions);
+            }
+        }
     }
 }
