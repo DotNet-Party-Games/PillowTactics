@@ -34,8 +34,8 @@ namespace PillowFight.Api
                     l_options.Cookie.Name = "PillowTactics";
                     l_options.Cookie.HttpOnly = false;
                     l_options.Cookie.IsEssential = true;
-                    l_options.Cookie.SameSite = SameSiteMode.None;
-                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    l_options.Cookie.SameSite = SameSiteMode.Lax;
+                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.None;
                 });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
