@@ -30,13 +30,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
-      {path: "", component:HomeComponent},
+      {path: "", component: HomeComponent},
       {path: "profile", component: ProfileComponent},
       {path: "create", component: CreatecharacterComponent},
       {path: "edit", component: EditcharacterComponent},
       {path: "arena", component: ArenaComponent},
-      {path:"login", component: LoginComponent},
-      {path:"register", component:RegisterComponent}
+      {path: "login", component: LoginComponent},
+      {path: "register", component: RegisterComponent}
     ]),
     ReactiveFormsModule,
     HttpClientModule
