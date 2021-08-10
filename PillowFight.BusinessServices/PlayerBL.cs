@@ -8,8 +8,8 @@ namespace PillowFight.BusinessServices
 {
     public class PlayerBL : IPlayerBL
     {
-        private const int starterWeaponId = 0;
-        private const int starterArmorId = 1;
+        private readonly int? starterWeaponId = null;
+        private readonly int? starterArmorId = null;
         private readonly IDatastore _datastore;
 
         public PlayerBL(IDatastore p_datastore)
