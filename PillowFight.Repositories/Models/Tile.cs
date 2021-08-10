@@ -12,8 +12,6 @@ namespace PillowFight.Repositories.Models
 
         public string Description { get; set; }
 
-        public List<StatusEffectEnum> StatusEffects { get; set; }
-
         public int MapId { get; set; }
 
         public int XPosition { get; set; }
