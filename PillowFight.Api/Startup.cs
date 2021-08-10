@@ -65,7 +65,7 @@ namespace PillowFight.Api
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
-                    .WithExposedHeaders("Access-Control-Allow-Origin", "Authorization");
+                    .WithExposedHeaders("Access-Control-Allow-Origin");
                 });
             }
             );
