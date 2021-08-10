@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using PillowFight.Api.Hubs;
 using PillowFight.BusinessServices;
@@ -34,7 +35,7 @@ namespace PillowFight.Api
                     l_options.Cookie.Name = "PillowTactics";
                     l_options.Cookie.HttpOnly = false;
                     l_options.Cookie.IsEssential = true;
-                    l_options.Cookie.SameSite = SameSiteMode.None;
+                    l_options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
                     l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
@@ -62,11 +63,11 @@ namespace PillowFight.Api
                 p_corsOptions.AddDefaultPolicy(p_corsPolicyBuilder =>
                 {
                     p_corsPolicyBuilder.WithOrigins(Configuration["CorsOrigins"].Split(';'))
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials()
-                    .WithHeaders("Access-Control-Allow-Origin")
-                    .WithExposedHeaders("Access-Control-Allow-Origin");
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithHeaders("*")
+                        .WithExposedHeaders("*");
                 });
             }
             );
