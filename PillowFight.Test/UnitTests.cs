@@ -31,6 +31,10 @@ namespace PillowFight.Test
                 Email = p_email,
                 RealName = p_realName,
                 UserName = p_userName,
+                Password = p_password,
+                Role = p_role,
+                Wins = p_wins,
+                Losses = p_losses
             };
             datastore.CreatePlayerAsync(player).Wait();
             Player newPlayer = context.Players.FirstOrDefault();
