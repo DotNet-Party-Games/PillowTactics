@@ -19,9 +19,9 @@ namespace PillowFight.Api.Hubs
 
         public override async Task OnConnectedAsync()
         {
+            await base.OnConnectedAsync();
             Context.Items[userIdKey] = Convert.ToInt32(Context.UserIdentifier);
             lobbyClients.Add((int)Context.Items[userIdKey]);
-            await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
@@ -30,8 +30,8 @@ namespace PillowFight.Api.Hubs
              * Probably add some code in here to remove abandoned rooms, etc.
              */
 
-            lobbyClients.Remove((int)Context.Items[userIdKey]);
             await base.OnDisconnectedAsync(exception);
+            lobbyClients.Remove((int)Context.Items[userIdKey]);
         }
 
         public async Task SendAction(CharacterAction characterAction)
@@ -58,6 +58,11 @@ namespace PillowFight.Api.Hubs
              * Parameter 'actions' will remain null until game server implemented.
              */
             await Clients.Caller.ReceiveAvailableActions(characterId, null);
+        }
+
+        public async Task SendAvailableRooms()
+        {
+            await Clients.Caller.ReceiveAvailableRooms(rooms.Values);
         }
 
         public async Task SendJoinRoomRequest(string roomId)
