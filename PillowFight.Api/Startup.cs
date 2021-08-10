@@ -62,7 +62,7 @@ namespace PillowFight.Api
                 p_corsOptions.AddDefaultPolicy(p_corsPolicyBuilder =>
                 {
                     p_corsPolicyBuilder.WithOrigins(Configuration["CorsOrigins"].Split(';'))
-                    .AllowAnyHeader()
+                    //.AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
                 });
