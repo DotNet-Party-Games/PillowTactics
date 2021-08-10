@@ -30,7 +30,7 @@ namespace PillowFight.Api.Controllers
         [HttpPost("CreateCharacter")]
         public async Task<ActionResult> CreateCharacter(CharacterCreationDetails details)
         {
-            return Ok(await _playerBL.CreatePlayerCharacterAsync(_UserId, details.Name, details.Class));
+            return Ok(await _playerBL.CreatePlayerCharacterAsync(_UserId, details.Name, (CharacterClassEnum)Enum.Parse(typeof(CharacterClassEnum), details.CharacterClass)));
         }
 
         [HttpGet("DeleteCharacter")]
@@ -56,7 +56,7 @@ namespace PillowFight.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(playerCharacter);
+            return Ok(new PlayerCharacter(playerCharacter));
         }
 
         [HttpGet("Characters")]
@@ -67,9 +67,9 @@ namespace PillowFight.Api.Controllers
         }
 
         [HttpGet("PlayerInventory")]
-        public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetPlayerInventory()
+        public async Task<ActionResult<IEnumerable<InventoryItem>>> GetPlayerInventory()
         {
-            return Ok(await _playerBL.GetPlayerInventoryAsync(_UserId));
+            return Ok((await _playerBL.GetPlayerInventoryAsync(_UserId)).Select(l_inventoryItem => new InventoryItem(l_inventoryItem)));
         }
 
         [HttpGet("Logout")]

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using PillowFight.Api.Models;
-using PillowFight.Repositories.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -34,7 +33,7 @@ namespace PillowFight.Api.Hubs
             lobbyClients.Remove((int)Context.Items[userIdKey]);
         }
 
-        public async Task SendAction(CharacterAction characterAction)
+        public async Task SendAction(string characterAction)
         {
             /*
              * Parameter 'characterAction' will remain null until game server is implemented.
@@ -44,7 +43,7 @@ namespace PillowFight.Api.Hubs
             await Clients.Group("").ReceiveAction(null, string.Empty, null);
         }
 
-        public async Task SendActionOptions(int characterId, ActionTypeEnum action)
+        public async Task SendActionOptions(int characterId, string action)
         {
             /*
              * Parameter 'options' will remain null until game server implemented.
