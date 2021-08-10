@@ -17,14 +17,14 @@
             Constitution = playerCharacter.Constitution;
             Intelligence = playerCharacter.Intelligence;
             Wisdom = playerCharacter.Wisdom;
-            MainHandSlotItem = new Weapon()
+            MainHandSlotItem = !playerCharacter.MainHandSlotItemId.HasValue ? null : new Weapon()
             {
                 Name = playerCharacter.MainHandSlotItem.Name,
                 Attack = playerCharacter.MainHandSlotItem.Attack,
                 Range = playerCharacter.MainHandSlotItem.Range
 
             };
-            TorsoSlotItem = new Armor()
+            TorsoSlotItem = !playerCharacter.TorsoSlotItemId.HasValue ? null : new Armor()
             {
                 Name = playerCharacter.TorsoSlotItem.Name,
                 Defense = playerCharacter.TorsoSlotItem.Defense
