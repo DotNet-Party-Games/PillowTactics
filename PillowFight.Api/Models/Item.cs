@@ -1,6 +1,4 @@
-﻿using PillowFight.Repositories.Enumerations;
-
-namespace PillowFight.Api.Models
+﻿namespace PillowFight.Api.Models
 {
     public class Item
     {
