@@ -32,14 +32,14 @@ namespace PillowFight.Api.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<PlayerDetails>> LogIn(PlayerLoginDetails details)
+        public async Task LogIn(PlayerLoginDetails details)
         {
             Player player;
 
             player = await _playerBL.GetPlayerAsync(details.UserName, details.Password);
             if (player == null)
             {
-                return NotFound();
+                //return NotFound();
             }
 
             var claims = new List<Claim>
@@ -54,13 +54,13 @@ namespace PillowFight.Api.Controllers
 
             await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity), authProperties);
 
-            return Ok(new PlayerDetails()
+/*            return Ok(new PlayerDetails()
             {
                 UserName = player.UserName,
                 Email = player.Email,
                 Wins = player.Wins,
                 Losses = player.Losses
-            });
+            });*/
         }
     }
 }
