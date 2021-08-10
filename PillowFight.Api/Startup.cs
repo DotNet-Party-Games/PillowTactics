@@ -27,12 +27,15 @@ namespace PillowFight.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(l_options =>
                 {
-                    l_options.Cookie.SameSite = SameSiteMode.Unspecified;
+                    l_options.Cookie.Name = "PillowTactics";
+                    l_options.Cookie.HttpOnly = false;
+                    l_options.Cookie.IsEssential = true;
+                    l_options.Cookie.SameSite = SameSiteMode.None;
+                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
@@ -41,7 +44,7 @@ namespace PillowFight.Api
                     //options.RedirectUri = "https://pillow.azurewebsites.net/login";
                     options.Response.StatusCode = 401;
                     return Task.CompletedTask;
-                    },
+                },
                 OnRedirectToLogout = options =>
                 {
                     //options.RedirectUri = "https://pillow.azurewebsites.net/";
@@ -58,9 +61,10 @@ namespace PillowFight.Api
             {
                 p_corsOptions.AddDefaultPolicy(p_corsPolicyBuilder =>
                 {
-                    p_corsPolicyBuilder.AllowAnyOrigin()
+                    p_corsPolicyBuilder.WithOrigins(Configuration["CorsOrigins"].Split(';'))
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .AllowCredentials();
                 });
             }
             );
@@ -81,6 +85,8 @@ namespace PillowFight.Api
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthentication();
 

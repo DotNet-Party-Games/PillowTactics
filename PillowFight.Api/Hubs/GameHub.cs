@@ -4,7 +4,6 @@ using PillowFight.Api.Models;
 using PillowFight.Repositories.Enumerations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PillowFight.Api.Hubs
@@ -20,10 +19,9 @@ namespace PillowFight.Api.Hubs
 
         public override async Task OnConnectedAsync()
         {
+            await base.OnConnectedAsync();
             Context.Items[userIdKey] = Convert.ToInt32(Context.UserIdentifier);
             lobbyClients.Add((int)Context.Items[userIdKey]);
-            await base.OnConnectedAsync();
-            await Clients.Caller.ReceiveAvailableRooms(rooms.Values);
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
@@ -32,8 +30,8 @@ namespace PillowFight.Api.Hubs
              * Probably add some code in here to remove abandoned rooms, etc.
              */
 
-            lobbyClients.Remove((int)Context.Items[userIdKey]);
             await base.OnDisconnectedAsync(exception);
+            lobbyClients.Remove((int)Context.Items[userIdKey]);
         }
 
         public async Task SendAction(CharacterAction characterAction)
