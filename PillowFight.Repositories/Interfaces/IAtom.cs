@@ -14,6 +14,5 @@ namespace PillowFight.Repositories.Interfaces
 
         public string Description { get; set; }
 
-        public List<StatusEffectEnum> StatusEffects { get; set; }
     }
 }
