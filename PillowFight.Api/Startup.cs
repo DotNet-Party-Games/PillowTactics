@@ -61,7 +61,7 @@ namespace PillowFight.Api
             {
                 p_corsOptions.AddDefaultPolicy(p_corsPolicyBuilder =>
                 {
-                    p_corsPolicyBuilder.WithOrigins("https://pillow.azurewebsites.net", "localhost:31537")
+                    p_corsPolicyBuilder.WithOrigins(Configuration["CorsOrigins"].Split(';'))
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
