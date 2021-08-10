@@ -30,8 +30,8 @@ namespace PillowFight.Api.Hubs
              * Probably add some code in here to remove abandoned rooms, etc.
              */
 
-            lobbyClients.Remove((int)Context.Items[userIdKey]);
             await base.OnDisconnectedAsync(exception);
+            lobbyClients.Remove((int)Context.Items[userIdKey]);
         }
 
         public async Task SendAction(CharacterAction characterAction)
