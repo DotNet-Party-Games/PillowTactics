@@ -8,8 +8,8 @@ import { ICharacter } from './character';
 })
 export class ProfileService {
 
-  //private url="https://pillow-fight-game.azurewebsites.net/api/ControlPanel";
-  private url="http://localhost:5000/api/ControlPanel/Characters";
+  private url="https://pillow-fight-game.azurewebsites.net/api/ControlPanel";
+  //private url="http://localhost:5000/api/ControlPanel/Characters";
 
   constructor(private http:HttpClient) { }
 

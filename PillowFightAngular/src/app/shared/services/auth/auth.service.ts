@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
- // private authURL="https://pillow-fight-game.azurewebsites.net/api/Login";
-  private authURL="http://localhost:5000/api/Login";
+  private authURL="https://pillow-fight-game.azurewebsites.net/api/Login";
+ // private authURL="http://localhost:5000/api/Login";
   constructor(private http:HttpClient) { }
 
   register(model:any) : Observable<IRegister>{
