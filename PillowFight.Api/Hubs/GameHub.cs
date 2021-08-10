@@ -22,7 +22,6 @@ namespace PillowFight.Api.Hubs
             await base.OnConnectedAsync();
             Context.Items[userIdKey] = Convert.ToInt32(Context.UserIdentifier);
             lobbyClients.Add((int)Context.Items[userIdKey]);
-            await Clients.Caller.ReceiveAvailableRooms(rooms.Values);
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
