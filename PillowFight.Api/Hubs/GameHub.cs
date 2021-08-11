@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using PillowFight.Api.Models;
 using System;
 using System.Collections.Concurrent;
@@ -153,7 +152,7 @@ namespace PillowFight.Api.Hubs
             {
                 var room = rooms[Guid.Parse((string)Context.Items[groupIdKey])];
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, (string)Context.Items[groupIdKey]);
-                
+
                 if (room.Player1Id == (int)Context.Items[userIdKey])
                 {
                     room.Player1Id = null;

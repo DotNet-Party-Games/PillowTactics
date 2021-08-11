@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PillowFight.Repositories.Models
 {
-    public class Map
+    public class GameMap
     {
         public int Id { get; set; }
 

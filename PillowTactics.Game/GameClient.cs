@@ -1,27 +1,66 @@
 ﻿using PillowFight.Repositories.Models;
+using PillowTactics.Game.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PillowTactics.Game
 {
     public class GameClient
     {
-        private readonly int _userId1;
-        private readonly IEnumerable<int> _characterIds1;
-        private readonly int _userId2;
-        private readonly IEnumerable<int> _characterIds2;
+        private readonly IEnumerable<InGamePlayerCharacter> _allCharacters;
 
-        public GameClient(int userId1, IEnumerable<int> characterIds1, int userId2, IEnumerable<int> characterIds2)
+        public GameClient(Player player1, IEnumerable<PlayerCharacter> team1, Player player2, IEnumerable<PlayerCharacter> team2, GameMap gameMap = null)
         {
-            this._userId1 = userId1;
-            this._characterIds1 = characterIds1;
-            this._userId2 = userId2;
-            this._characterIds2 = characterIds2;
+            Player1 = player1;
+            Team1 = team1.Select(a_playerCharacter => new InGamePlayerCharacter(a_playerCharacter));
+            Player2 = player2;
+            Team2 = team1.Select(a_playerCharacter => new InGamePlayerCharacter(a_playerCharacter));
+            GameMap = gameMap;
+
+            if (gameMap == null)
+            {
+                GameMap = new()
+                {
+                    Name = "Demo Map",
+                    Description = string.Empty,
+                    Width = 12,
+                    Depth = 12
+                };
+            }
+
+            _allCharacters = Team1.Concat(Team2);
+
+            /*
+             * Set character starting positions.
+            */
+            var startColumn = (GameMap.Width - Team2.Count()) / 2;
+            foreach (var character in Team1)
+            {
+                character.XCoordinate = startColumn++;
+                character.YCoordinate = 0;
+            }
+            startColumn = (GameMap.Width - Team2.Count()) / 2;
+            foreach (var character in Team2)
+            {
+                character.XCoordinate = startColumn++;
+                character.YCoordinate = GameMap.Depth;
+            }
         }
 
-        public Map Map { get; set; }
+        public Player Player1 { get; }
+        public IEnumerable<InGamePlayerCharacter> Team1 { get; }
+        public Player Player2 { get; }
+        public IEnumerable<InGamePlayerCharacter> Team2 { get; }
+        public GameMap GameMap { get; }
 
-        public Team TeamA { get; set; }
+        public void Start()
+        {
 
-        public Team TeamB { get; set; }
+
+            var 
+
+            while
+
+        }
     }
 }
