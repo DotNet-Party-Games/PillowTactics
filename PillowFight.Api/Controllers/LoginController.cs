@@ -46,7 +46,7 @@ namespace PillowFight.Api.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, player.Id.ToString())
             };
-            var claimsIdentity = new ClaimsIdentity(claims);
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = true
