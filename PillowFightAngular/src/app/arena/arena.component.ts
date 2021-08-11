@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArenaComponent implements OnInit {
   grid:number[]
+  characters?:any[];
+  winner?:string;
+  nextplayer?:boolean;
+  
+  
 
   constructor() { 
     this.grid = new Array(144)
@@ -17,11 +22,14 @@ export class ArenaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
-  generateArena()
-  {
+  newfight(){
+    this.nextplayer=false;
+  }
 
+  moveup(){
   }
 
 }
