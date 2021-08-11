@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace PillowFight.Api.Controllers
 {
+    [Authorize(Policy = "Player")]
     [Route("api/[controller]")]
     [ApiController]
     public class ControlPanelController : ControllerBase

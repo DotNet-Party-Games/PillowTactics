@@ -42,10 +42,9 @@ namespace PillowFight.Api
 
             services.AddAuthorization(l_options =>
             {
-                l_options.FallbackPolicy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
+                l_options.AddPolicy("Player", l_policyBuilder => l_policyBuilder.RequireClaim("NameIdentifier"));
             });
+
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
                 OnRedirectToLogin = options =>
