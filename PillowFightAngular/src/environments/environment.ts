@@ -4,8 +4,6 @@
 
 export const environment = {
   production: false,
-  domain:"dev-ucgo4sph.us.auth0.com",
-  clientId:"opT45R17RlaW8e4cWcBCQf8p2M05FgyZ"
 };
 
 /*

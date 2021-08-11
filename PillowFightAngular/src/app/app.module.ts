@@ -33,10 +33,6 @@ import { environment } from 'src/environments/environment';
   imports: [
     BrowserModule,
     FormsModule,
-    AuthModule.forRoot({
-      domain:environment.domain,
-      clientId: environment.clientId
-    }),
     RouterModule.forRoot([
       {path: "", component: HomeComponent},
       {path: "profile", component: ProfileComponent},
