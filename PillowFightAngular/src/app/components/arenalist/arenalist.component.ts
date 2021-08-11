@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { GameroomService } from 'src/app/shared/services/game/gameroom.service';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IGameroom } from 'src/app/shared/services/game/Gameroom';
-import * as alertify from "alertifyjs";
 
 @Component({
   selector: 'app-arenalist',
@@ -31,7 +30,7 @@ export class ArenalistComponent implements OnInit {
 
   addArena(f:FormGroup) {
     if(f.get("ArenaName")?.value==""){
-        alertify.error("Need an Arena Name");
+        alert("Arena needs an Arena Name");
     }
     let name:string = f.get("ArenaName")?.value;
     this.GameRoom.SendNewRoomRequest(name);
@@ -41,7 +40,7 @@ export class ArenalistComponent implements OnInit {
     this.GameRoom.SendJoinRoomRequest(id);
     this.joinable=this.GameRoom.canJoin;
     if (this.joinable==false){
-      alertify.error("You cannot join this room");
+      alert("You cannot join this room");
     }
     
   }

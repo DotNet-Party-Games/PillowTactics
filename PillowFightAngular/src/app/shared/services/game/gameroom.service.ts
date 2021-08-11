@@ -10,6 +10,7 @@ export class GameroomService {
   rooms: IGameroom[] = [];
   canJoin?:boolean = true;
   yourRoom?: IGameroom;
+  myuserid?:number;
 
 
   private hubconnection:HubConnection | undefined;
@@ -17,12 +18,19 @@ export class GameroomService {
   constructor() { }
   //pillow-fight-game.azurewebsites.net
   startconnection=()=>{
-    this.hubconnection= new HubConnectionBuilder().withUrl("https://localhost:5000/gameHub").build();
+    this.hubconnection= new HubConnectionBuilder().withUrl("https://pillow-fight-game.azurewebsites.net/gameHub").build();
     this.hubconnection.start().then(() => {
       console.log("Hub Connection Started");
     })
     .catch(err=> console.log("Error occured while starting connection: "+err))
   }
+  SendUserId(userId:number){
+    this.hubconnection?.invoke("SendUserId", userId).catch(err=>console.error(err));
+  }
+
+  ReceiveUserId(){
+    this.hubconnection?.on("RecieveUserId", (userID)=> (this.myuserid=userID));
+  };
 
   OnConnectedAsync() {
     this.hubconnection?.invoke("OnConnectedAsync")
