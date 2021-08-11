@@ -8,12 +8,12 @@ using Xunit;
 
 namespace PillowFight.Test
 {
-    public class UnitTests
+    public class DLUnitTests
     {
         private ConnectionFactory _factory;
 
 
-        public UnitTests()
+        public DLUnitTests()
         {
             _factory = new ConnectionFactory();
         }
