@@ -17,5 +17,7 @@ namespace PillowFight.Api.Hubs
         Task ReceiveJoinRoomRequest(GameRoom room, bool hasJoined);
 
         Task ReceiveNewRoomRequest(GameRoom room);
+
+        Task ReceiveUserId(int userId);
     }
 }
