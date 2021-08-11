@@ -40,8 +40,12 @@ namespace PillowFight.Api
                     l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
 
-            services.AddAuthorization();
-
+            services.AddAuthorization(l_options =>
+            {
+                l_options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
                 OnRedirectToLogin = options =>
