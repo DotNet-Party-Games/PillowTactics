@@ -25,7 +25,7 @@ export class ArenalistComponent implements OnInit {
 
   ngOnInit(): void {
     const selectObserver={
-      next:(x: any)=> {alert('User registered, please log in'), this.selectedArena=x},
+      next:(x: any)=> {this.selectedArena=x},
       error:(err: any)=> console.log(err)
     }
     const listobserver={
@@ -33,7 +33,7 @@ export class ArenalistComponent implements OnInit {
       error:(err:any)=>console.log(err)
     }
     this.GameRoom.SendAvailableRooms();
-    this.arenasSub=this.GameRoom.rooms.subscribe(arenas => listobserver);
+    this.arenasSub=this.GameRoom.rooms.subscribe(listobserver);
     this.arenaSelectSub=this.GameRoom.yourRoom.subscribe(selectObserver);
     console.log(this.selectedArena);
     console.log(this.arenas);
@@ -45,7 +45,6 @@ export class ArenalistComponent implements OnInit {
     }
     let name:string = f.get("ArenaName")?.value;
     this.GameRoom.SendNewRoomRequest(name);
-    console.log(this.selectedArena);
   }
 
   loadArena(id: string) {

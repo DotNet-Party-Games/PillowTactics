@@ -8,6 +8,7 @@ import {IGameroom} from "./Gameroom";
 export class GameroomService {
 
   rooms = new EventEmitter<any>();
+  allrooms?: IGameroom[];
   canJoin?:boolean = true;
   yourRoom = new EventEmitter<IGameroom>();
   myuserid?:number;
@@ -25,6 +26,18 @@ export class GameroomService {
       console.log("sent userid");
     })
     .catch(err=> console.log("Error occured while starting connection: "+err))
+    this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> {this.yourRoom.emit(room);});
+    this.hubconnection?.on("RecieveUserId", (userID)=> (this.myuserid=userID));
+    this.hubconnection?.on("ReceiveAvailableRooms", (roomIDs:any)=>{console.log("got all rooms"); this.rooms.emit(roomIDs); console.log("groom", roomIDs)})
+    this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> {console.log("Made a new room"); this.yourRoom.emit(room); this.SendAvailableRooms();});
+    this.hubconnection?.on("ReceiveJoinRoomRequest", (request) => {
+      if (request== null){
+        this.canJoin=false;
+      }
+      else{
+        this.yourRoom=request;
+      }
+    });
   }
   SendUserId(userId:number){
     this.hubconnection?.invoke("SendUserId", userId).catch(err=>console.error(err));
@@ -33,11 +46,6 @@ export class GameroomService {
   ReceiveUserId(){
     this.hubconnection?.on("RecieveUserId", (userID)=> (this.myuserid=userID));
   };
-
-  OnConnectedAsync() {
-    this.hubconnection?.invoke("OnConnectedAsync")
-      .catch(err=> console.error(err));
-  }
 
   SendAvailableRooms() {
     this.hubconnection?.invoke("SendAvailableRooms").catch(err=>console.error(err));
@@ -54,7 +62,6 @@ export class GameroomService {
     this.hubconnection?.invoke("SendNewRoomRequest", name).catch(err=> console.error(err));
   }
   ReceiveNewRoomRequest(room:any){
-    console.log("Making a new room");
     this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> this.yourRoom.emit(room));
   }
 
