@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GameroomService } from './shared/services/game/gameroom.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'PillowFightAngular';
-  constructor(private router:Router)
+  constructor(private router:Router, private gamehub:GameroomService)
   {
 
   }
@@ -16,5 +17,9 @@ export class AppComponent {
   ngOnInit()
   {
     this.router.navigate([""]);
+    this.gamehub.startconnection();
+    setTimeout(() => {
+        this.gamehub.startconnection
+    }, 2000);
   }
 }
