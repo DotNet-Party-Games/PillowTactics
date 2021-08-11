@@ -26,6 +26,6 @@ export class AuthService {
   }
 
   logout(){
-      return this.http.get(this.controlURL+"/Logout");
+      return this.http.get(this.controlURL+"/Logout", { withCredentials: true });
   }
 }

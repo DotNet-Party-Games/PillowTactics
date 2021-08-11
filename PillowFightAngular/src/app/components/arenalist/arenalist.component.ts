@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GameroomService } from 'src/app/shared/services/game/gameroom.service';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { IGameroom } from 'src/app/shared/services/game/Gameroom';
+import * as alertify from "alertifyjs";
 
 @Component({
   selector: 'app-arenalist',
@@ -13,19 +15,34 @@ export class ArenalistComponent implements OnInit {
     ArenaName: new FormControl("", [Validators.required])
 
   })
-  arenas:string[] = [];
+  arenas:IGameroom[]= [];
   selectedArena?: string;
+  joinable?:boolean = false;
+
   constructor(private GameRoom:GameroomService) { }
 
   ngOnInit(): void {
+/*     this.GameRoom.startconnection();
+    this.GameRoom.OnConnectedAsync();
+    this.selectedArena = this.GameRoom.yourRoom?.Id;
+    this.GameRoom.SendAvailableRooms();
+    this.arenas=this.GameRoom.rooms; */
   }
 
   addArena(f:FormGroup) {
+    if(f.get("ArenaName")?.value==""){
+        alertify.error("Need an Arena Name");
+    }
     let name:string = f.get("ArenaName")?.value;
-    this.GameRoom.SendNewRoomRequest();
+    this.GameRoom.SendNewRoomRequest(name);
   }
 
   loadArena(id: string) {
     this.GameRoom.SendJoinRoomRequest(id);
+    this.joinable=this.GameRoom.canJoin;
+    if (this.joinable==false){
+      alertify.error("You cannot join this room");
+    }
+    
   }
 }

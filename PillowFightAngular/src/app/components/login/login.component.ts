@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { ILogin } from 'src/app/shared/services/auth/Login';
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +17,7 @@ export class LoginComponent implements OnInit {
     Username: new FormControl('', [Validators.required]),
     Password: new FormControl('', [Validators.required])
   });
-
+  success:boolean=false;
   constructor(private authService:AuthService, private router:Router) { 
 
   }
@@ -28,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   login(f:FormGroup){
     const loginObserver={
-      next:(x: any)=> console.log('User logged in'),
+      next:(x: any)=> {console.log('User logged in'), this.success=true},
       error:(err: any)=> console.log(err),
     }
     let tempLogin:ILogin = {
@@ -36,11 +35,11 @@ export class LoginComponent implements OnInit {
       Password:this.loginCred.get("Password")?.value
     }
 
-    const token = this.authService.login(tempLogin).subscribe(loginObserver);
-    if (token){
+    this.authService.login(tempLogin).subscribe(loginObserver);
+    console.log(this.success);
+    if (this.success==true){
       localStorage.setItem('token', this.loginCred.get('Username')?.value)
       this.router.navigate([''])
     }
   }
-
 }

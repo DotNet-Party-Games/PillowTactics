@@ -14,9 +14,14 @@
             <!-- Describes Player 1 status info -->
             <!-- Only a placeholder -->
             <div>
-                HP: 100/100
+                <button onclick="dropDown()">Show options</button>
+                    <ul id="dropdown">
+                    <li><button></button></li>
+                    <li><a href="google.com">Option 2</a></li>
+                    <li><a href="google.com">Option 3</a></li>
+                    <li><a href="google.com">Option 4</a></li>
+                    </ul>
             </div>
-            <button>Attack!</button>
         </div>
 
         <!-- Describes Player 2 information and actions -->
@@ -29,3 +34,16 @@
         </div>
     </div>
 </div>
+<script>
+    var x = 0;
+
+function dropDown(){
+    if(x == 0){
+        document.getElementById("dropdown").style.display="none";
+        x = 1;
+    }else{
+        document.getElementById("dropdown").style.display="block";
+        x = 0;
+    }
+}
+</script>
