@@ -28,6 +28,7 @@ namespace PillowFight.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+/*
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
                 OnRedirectToLogin = options =>
@@ -43,6 +44,7 @@ namespace PillowFight.Api
                     return Task.CompletedTask;
                 }
             });
+*/
 
             services.AddCors(p_corsOptions =>
             {
@@ -93,14 +95,14 @@ namespace PillowFight.Api
             {
                 app.UseHsts();
             }
-
+/*
             app.UseCookiePolicy(new CookiePolicyOptions
             {
                 MinimumSameSitePolicy = SameSiteMode.None,
                 HttpOnly = HttpOnlyPolicy.None,
                 Secure = CookieSecurePolicy.Always
             });
-
+*/
             app.UseRouting();
 
             app.UseCors();
@@ -108,7 +110,7 @@ namespace PillowFight.Api
             app.UseAuthentication();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
