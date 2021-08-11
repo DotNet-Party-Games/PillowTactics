@@ -2,7 +2,7 @@
 
 namespace PillowFight.Api.Models
 {
-    public class ActionTypeOptions
+    public class ActionTypeTargets
     {
         public string ActionType { get; set; }
 
