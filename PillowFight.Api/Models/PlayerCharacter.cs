@@ -56,7 +56,7 @@
 
         public Weapon MainHandSlotItem { get; set; }
 
-        public MapCoordinate Location { get; set; }
+        public MapPosition Position { get; set; }
 
         /*        public static explicit operator PlayerCharacter(Repositories.Models.PlayerCharacter playerCharacter)
                 {

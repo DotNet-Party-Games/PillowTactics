@@ -1,5 +1,4 @@
-﻿using PillowFight.Repositories.Enumerations;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PillowFight.Api.Models
 {
@@ -7,6 +6,6 @@ namespace PillowFight.Api.Models
     {
         public string ActionType { get; set; }
 
-        public IEnumerable<MapCoordinate> Targets { get; set; }
+        public IEnumerable<MapPosition> Targets { get; set; }
     }
 }

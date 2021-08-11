@@ -1,8 +1,5 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +9,6 @@ using PillowFight.Api.Hubs;
 using PillowFight.BusinessServices;
 using PillowFight.Repositories;
 using PillowFight.Repositories.DataServices;
-using System.Threading.Tasks;
 
 namespace PillowFight.Api
 {
@@ -28,23 +24,23 @@ namespace PillowFight.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-/*
-            services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
-            {
-                OnRedirectToLogin = options =>
-                {
-                    //options.RedirectUri = "https://pillow.azurewebsites.net/login";
-                    options.Response.StatusCode = 401;
-                    return Task.CompletedTask;
-                },
-                OnRedirectToLogout = options =>
-                {
-                    //options.RedirectUri = "https://pillow.azurewebsites.net/";
-                    options.Response.StatusCode = 200;
-                    return Task.CompletedTask;
-                }
-            });
-*/
+            /*
+                        services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
+                        {
+                            OnRedirectToLogin = options =>
+                            {
+                                //options.RedirectUri = "https://pillow.azurewebsites.net/login";
+                                options.Response.StatusCode = 401;
+                                return Task.CompletedTask;
+                            },
+                            OnRedirectToLogout = options =>
+                            {
+                                //options.RedirectUri = "https://pillow.azurewebsites.net/";
+                                options.Response.StatusCode = 200;
+                                return Task.CompletedTask;
+                            }
+                        });
+            */
 
             services.AddCors(p_corsOptions =>
             {
@@ -58,16 +54,16 @@ namespace PillowFight.Api
                         .WithExposedHeaders("*");
                 });
             });
-/*
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(l_options =>
-                {
-                    l_options.Cookie.Name = "PillowTactics";
-                    l_options.Cookie.HttpOnly = false;
-                    l_options.Cookie.SameSite = SameSiteMode.None;
-                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                });
-*/
+            /*
+                        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                            .AddCookie(l_options =>
+                            {
+                                l_options.Cookie.Name = "PillowTactics";
+                                l_options.Cookie.HttpOnly = false;
+                                l_options.Cookie.SameSite = SameSiteMode.None;
+                                l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                            });
+            */
             services.AddControllers();
 
             services.AddSignalR();
@@ -95,22 +91,22 @@ namespace PillowFight.Api
             {
                 app.UseHsts();
             }
-/*
-            app.UseCookiePolicy(new CookiePolicyOptions
-            {
-                MinimumSameSitePolicy = SameSiteMode.None,
-                HttpOnly = HttpOnlyPolicy.None,
-                Secure = CookieSecurePolicy.Always
-            });
-*/
+            /*
+                        app.UseCookiePolicy(new CookiePolicyOptions
+                        {
+                            MinimumSameSitePolicy = SameSiteMode.None,
+                            HttpOnly = HttpOnlyPolicy.None,
+                            Secure = CookieSecurePolicy.Always
+                        });
+            */
             app.UseRouting();
 
             app.UseCors();
-/*
-            app.UseAuthentication();
+            /*
+                        app.UseAuthentication();
 
-            app.UseAuthorization();
-*/
+                        app.UseAuthorization();
+            */
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
