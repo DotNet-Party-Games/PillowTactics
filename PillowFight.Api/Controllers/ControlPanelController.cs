@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace PillowFight.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ControlPanelController : ControllerBase
@@ -25,31 +25,31 @@ namespace PillowFight.Api.Controllers
             _playerBL = serviceProvider.GetRequiredService<IPlayerBL>();
         }
 
-        private int _UserId => Convert.ToInt32(User.Claims.FirstOrDefault().Value);
+        //private int _UserId => Convert.ToInt32(User.Claims.FirstOrDefault().Value);
 
         [HttpPost("CreateCharacter")]
-        public async Task<ActionResult> CreateCharacter(CharacterCreationDetails details)
+        public async Task<ActionResult> CreateCharacter(int userId, CharacterCreationDetails details)
         {
-            return Ok(await _playerBL.CreatePlayerCharacterAsync(_UserId, details.Name, (CharacterClassEnum)Enum.Parse(typeof(CharacterClassEnum), details.CharacterClass)));
+            return Ok(await _playerBL.CreatePlayerCharacterAsync(userId, details.Name, (CharacterClassEnum)Enum.Parse(typeof(CharacterClassEnum), details.CharacterClass)));
         }
 
         [HttpGet("DeleteCharacter")]
-        public async Task<ActionResult> DeleteCharacter(int characterId)
+        public async Task<ActionResult> DeleteCharacter(int userId, int characterId)
         {
-            return Ok(await _playerBL.DeletePlayerCharacterAsync(_UserId, characterId));
+            return Ok(await _playerBL.DeletePlayerCharacterAsync(userId, characterId));
         }
 
         // Hmm, maybe return the updated Character instead of a bool indicating the operation was successful?
         [HttpGet("EquipCharacter")]
-        public async Task<ActionResult<bool>> EquipCharacter(int characterId, int itemId)
+        public async Task<ActionResult<bool>> EquipCharacter(int userId, int characterId, int itemId)
         {
-            return Ok(await _playerBL.EquipCharacterAsync(_UserId, characterId, itemId));
+            return Ok(await _playerBL.EquipCharacterAsync(userId, characterId, itemId));
         }
 
         [HttpGet("Character")]
-        public async Task<ActionResult<PlayerCharacter>> GetCharacter(int characterId)
+        public async Task<ActionResult<PlayerCharacter>> GetCharacter(int userId, int characterId)
         {
-            var playerCharacter = await _playerBL.GetPlayerCharacterAsync(_UserId, characterId);
+            var playerCharacter = await _playerBL.GetPlayerCharacterAsync(userId, characterId);
 
             if (playerCharacter == null)
             {
@@ -60,29 +60,33 @@ namespace PillowFight.Api.Controllers
         }
 
         [HttpGet("Characters")]
-        public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters()
+        public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetCharacters(int userId)
         {
-            var characters = await _playerBL.GetPlayerCharactersAsync(_UserId);
+            var characters = await _playerBL.GetPlayerCharactersAsync(userId);
             return Ok(characters.Select(p_character => new PlayerCharacter(p_character)));
         }
 
         [HttpGet("PlayerInventory")]
-        public async Task<ActionResult<IEnumerable<InventoryItem>>> GetPlayerInventory()
+        public async Task<ActionResult<IEnumerable<InventoryItem>>> GetPlayerInventory(int userId)
         {
-            return Ok((await _playerBL.GetPlayerInventoryAsync(_UserId)).Select(l_inventoryItem => new InventoryItem(l_inventoryItem)));
+            return Ok((await _playerBL.GetPlayerInventoryAsync(userId)).Select(l_inventoryItem => new InventoryItem(l_inventoryItem)));
         }
 
+        #region AuthLogout
+/*
         [HttpGet("Logout")]
         public async Task<ActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok();
         }
+*/
+        #endregion
 
         [HttpGet("Unequip")]
-        public async Task<ActionResult> UnequipCharacter(int characterId, ItemSlotEnum slot)
+        public async Task<ActionResult> UnequipCharacter(int userId, int characterId, ItemSlotEnum slot)
         {
-            await _playerBL.UnequipCharacterAsync(_UserId, characterId, slot);
+            await _playerBL.UnequipCharacterAsync(userId, characterId, slot);
             return Ok();
         }
     }
