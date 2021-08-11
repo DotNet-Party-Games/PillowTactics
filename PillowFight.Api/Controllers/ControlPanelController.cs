@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace PillowFight.Api.Controllers
 {
-    [Authorize(Policy = "Player")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ControlPanelController : ControllerBase
@@ -73,9 +73,10 @@ namespace PillowFight.Api.Controllers
         }
 
         [HttpGet("Logout")]
-        public async Task LogOut()
+        public async Task<ActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok();
         }
 
         [HttpGet("Unequip")]
