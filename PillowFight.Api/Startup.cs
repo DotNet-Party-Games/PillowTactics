@@ -58,7 +58,7 @@ namespace PillowFight.Api
                         .WithExposedHeaders("*");
                 });
             });
-
+/*
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(l_options =>
                 {
@@ -67,7 +67,7 @@ namespace PillowFight.Api
                     l_options.Cookie.SameSite = SameSiteMode.None;
                     l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
-
+*/
             services.AddControllers();
 
             services.AddSignalR();
@@ -106,11 +106,11 @@ namespace PillowFight.Api
             app.UseRouting();
 
             app.UseCors();
-
+/*
             app.UseAuthentication();
 
             app.UseAuthorization();
-            
+*/
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

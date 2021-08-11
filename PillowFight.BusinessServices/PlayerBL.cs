@@ -59,17 +59,17 @@ namespace PillowFight.BusinessServices
 
         public async Task<IEnumerable<InventoryItem>> GetPlayerInventoryAsync(int userId)
         {
-            return await GetPlayerInventoryAsync(userId);
+            return await _datastore.GetPlayerInventoryAsync(userId);
         }
 
         public async Task<bool> UnequipCharacterAsync(int userId, int characterId, int itemId)
         {
-            return await UnequipCharacterAsync(userId, characterId, itemId);
+            return await _datastore.UnequipCharacterAsync(userId, characterId, itemId);
         }
 
         public async Task UnequipCharacterAsync(int userId, int characterId, ItemSlotEnum slot)
         {
-            await UnequipCharacterAsync(userId, characterId, slot);
+            await _datastore.UnequipCharacterAsync(userId, characterId, slot);
         }
     }
 }

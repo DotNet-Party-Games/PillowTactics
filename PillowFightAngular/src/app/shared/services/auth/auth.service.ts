@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {map} from "rxjs/operators";
-
-import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import { IRegister } from './Register';
 import { ILogin } from './Login';
 import { Observable } from 'rxjs';
+import { ILogout } from './Logout';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +12,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   private authURL="https://pillow-fight-game.azurewebsites.net/api/Login";
- // private authURL="http://localhost:5000/api/Login";
+  private controlURL = "https://pillow-fight-game.azurewebsites.net/api/ControlPanel";
   constructor(private http:HttpClient) { }
 
   register(model:any) : Observable<IRegister>{
@@ -25,5 +23,9 @@ export class AuthService {
 
   login(model:any): Observable<ILogin> {
     return this.http.post<ILogin>(this.authURL+"/Login", model);
+  }
+
+  logout(){
+      return this.http.get(this.controlURL+"/Logout");
   }
 }
