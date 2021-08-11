@@ -25,14 +25,25 @@ namespace PillowFight.Test
         public void CreateOnePlayer(string p_email, string p_userName, string p_password)
         {
             PillowContext context = _factory.CreateContextForSQLite();
+            SqliteConnection connection = (SqliteConnection)context.Database.GetDbConnection();
+            SqliteCommand command = new SqliteCommand("SELECT * FROM \"Players\";", connection);
+            using (SqliteDataReader reader = command.ExecuteReader())
+            {
+                Assert.False(reader.HasRows);
+            }
             PostgresDatastore datastore = new(context);
             PlayerBL bl = new(datastore);
             bl.CreatePlayerAsync(p_userName, p_password, p_email).Wait();
-            Player newPlayer = context.Players.FirstOrDefault();
-            Assert.Equal(1, context.Players.Count()); // There is one row in the table
-            Assert.Equal(p_email, newPlayer.Email); //The fields match
-            Assert.Equal(p_userName, newPlayer.UserName);
-            Assert.Equal(p_password, newPlayer.Password);
+            command = new SqliteCommand("SELECT \"Email\", \"Username\", \"Password\" FROM \"Players\" ", connection);
+            using (SqliteDataReader reader = command.ExecuteReader())
+            {
+                Assert.True(reader.HasRows);
+                Assert.True(reader.Read());
+                Assert.Equal(p_email, reader[0]);
+                Assert.Equal(p_userName, reader[1]);
+                Assert.Equal(p_password, reader[2]);
+                Assert.False(reader.Read());
+            }
         }
 
         [Theory]
