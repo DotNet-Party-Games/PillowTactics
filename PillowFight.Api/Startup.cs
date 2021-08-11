@@ -44,15 +44,6 @@ namespace PillowFight.Api
                 }
             });
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(l_options =>
-                {
-                    l_options.Cookie.Name = "PillowTactics";
-                    l_options.Cookie.HttpOnly = false;
-                    l_options.Cookie.SameSite = SameSiteMode.None;
-                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                });
-
             services.AddCors(p_corsOptions =>
             {
                 p_corsOptions.AddDefaultPolicy(p_corsPolicyBuilder =>
@@ -65,6 +56,15 @@ namespace PillowFight.Api
                         .WithExposedHeaders("*");
                 });
             });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(l_options =>
+                {
+                    l_options.Cookie.Name = "PillowTactics";
+                    l_options.Cookie.HttpOnly = false;
+                    l_options.Cookie.SameSite = SameSiteMode.None;
+                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                });
 
             services.AddControllers();
 
@@ -103,11 +103,11 @@ namespace PillowFight.Api
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
