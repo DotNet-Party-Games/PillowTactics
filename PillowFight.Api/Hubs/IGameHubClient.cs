@@ -1,5 +1,4 @@
 ﻿using PillowFight.Api.Models;
-using PillowFight.Repositories.Enumerations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,11 +6,13 @@ namespace PillowFight.Api.Hubs
 {
     public interface IGameHubClient
     {
-        Task ReceiveAction(CharacterAction characterAction, string resultDescription, IEnumerable<PlayerCharacter> characters);
+        Task ReceiveAction(string characterAction, string resultDescription, IEnumerable<PlayerCharacter> characters);
 
-        Task ReceiveActionOptions(int characterId, IEnumerable<ActionTypeOption> options);
+        Task ReceiveActionOptions(int characterId, IEnumerable<string> options);
 
-        Task ReceiveAvailableActions(int characterId, IEnumerable<ActionTypeEnum> actions);
+        Task ReceiveAvailableActions(int characterId, IEnumerable<string> actions);
+
+        Task ReceiveAvailableRooms(IEnumerable<GameRoom> rooms);
 
         Task ReceiveJoinRoomRequest(GameRoom room, bool hasJoined);
 

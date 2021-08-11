@@ -46,19 +46,13 @@ namespace PillowFight.Api.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, player.Id.ToString())
             };
-
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = true
             };
 
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
+            await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity), authProperties);
 
             return Ok(new PlayerDetails()
             {

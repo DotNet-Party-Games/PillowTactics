@@ -32,7 +32,7 @@ import { ArenalistComponent } from './components/arenalist/arenalist.component';
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
-      {path: "", component:HomeComponent},
+      {path: "", component: HomeComponent},
       {path: "profile", component: ProfileComponent},
       {path: "create", component: CreatecharacterComponent},
       {path: "edit", component: EditcharacterComponent},

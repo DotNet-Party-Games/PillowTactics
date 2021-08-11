@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using PillowFight.Api.Models;
-using PillowFight.Repositories.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,9 +18,9 @@ namespace PillowFight.Api.Hubs
 
         public override async Task OnConnectedAsync()
         {
+            await base.OnConnectedAsync();
             Context.Items[userIdKey] = Convert.ToInt32(Context.UserIdentifier);
             lobbyClients.Add((int)Context.Items[userIdKey]);
-            await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
@@ -30,11 +29,11 @@ namespace PillowFight.Api.Hubs
              * Probably add some code in here to remove abandoned rooms, etc.
              */
 
-            lobbyClients.Remove((int)Context.Items[userIdKey]);
             await base.OnDisconnectedAsync(exception);
+            lobbyClients.Remove((int)Context.Items[userIdKey]);
         }
 
-        public async Task SendAction(CharacterAction characterAction)
+        public async Task SendAction(string characterAction)
         {
             /*
              * Parameter 'characterAction' will remain null until game server is implemented.
@@ -44,7 +43,7 @@ namespace PillowFight.Api.Hubs
             await Clients.Group("").ReceiveAction(null, string.Empty, null);
         }
 
-        public async Task SendActionOptions(int characterId, ActionTypeEnum action)
+        public async Task SendActionOptions(int characterId, string action)
         {
             /*
              * Parameter 'options' will remain null until game server implemented.
@@ -58,6 +57,11 @@ namespace PillowFight.Api.Hubs
              * Parameter 'actions' will remain null until game server implemented.
              */
             await Clients.Caller.ReceiveAvailableActions(characterId, null);
+        }
+
+        public async Task SendAvailableRooms()
+        {
+            await Clients.Caller.ReceiveAvailableRooms(rooms.Values);
         }
 
         public async Task SendJoinRoomRequest(string roomId)

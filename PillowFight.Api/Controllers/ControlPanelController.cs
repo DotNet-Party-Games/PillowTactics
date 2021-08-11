@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using PillowFight.Api.Models;
 using PillowFight.BusinessServices;
+using PillowFight.Repositories.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace PillowFight.Api.Controllers
         [HttpPost("CreateCharacter")]
         public async Task<ActionResult> CreateCharacter(CharacterCreationDetails details)
         {
-            return Ok(await _playerBL.CreatePlayerCharacterAsync(_UserId, details.Name, details.Class));
+            return Ok(await _playerBL.CreatePlayerCharacterAsync(_UserId, details.Name, (CharacterClassEnum)Enum.Parse(typeof(CharacterClassEnum), details.CharacterClass)));
         }
 
         [HttpGet("DeleteCharacter")]
@@ -38,8 +39,15 @@ namespace PillowFight.Api.Controllers
             return Ok(await _playerBL.DeletePlayerCharacterAsync(_UserId, characterId));
         }
 
+        // Hmm, maybe return the updated Character instead of a bool indicating the operation was successful?
+        [HttpGet("EquipCharacter")]
+        public async Task<ActionResult<bool>> EquipCharacter(int characterId, int itemId)
+        {
+            return Ok(await _playerBL.EquipCharacterAsync(_UserId, characterId, itemId));
+        }
+
         [HttpGet("Character")]
-        public async Task<ActionResult> GetCharacter(int characterId)
+        public async Task<ActionResult<PlayerCharacter>> GetCharacter(int characterId)
         {
             var playerCharacter = await _playerBL.GetPlayerCharacterAsync(_UserId, characterId);
 
@@ -48,7 +56,7 @@ namespace PillowFight.Api.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return Ok(new PlayerCharacter(playerCharacter));
         }
 
         [HttpGet("Characters")]
@@ -58,17 +66,24 @@ namespace PillowFight.Api.Controllers
             return Ok(characters.Select(p_character => new PlayerCharacter(p_character)));
         }
 
-        /*        [HttpGet("PlayerInventory")]
-                public async Task<ActionResult<IEnumerable<PlayerCharacter>>> GetPlayerInventory()
-                {
-
-                }*/
+        [HttpGet("PlayerInventory")]
+        public async Task<ActionResult<IEnumerable<InventoryItem>>> GetPlayerInventory()
+        {
+            return Ok((await _playerBL.GetPlayerInventoryAsync(_UserId)).Select(l_inventoryItem => new InventoryItem(l_inventoryItem)));
+        }
 
         [HttpGet("Logout")]
         public async Task<ActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return SignOut();
+        }
+
+        [HttpGet("Unequip")]
+        public async Task<ActionResult> UnequipCharacter(int characterId, ItemSlotEnum slot)
+        {
+            await _playerBL.UnequipCharacterAsync(_UserId, characterId, slot);
+            return Ok();
         }
     }
 }

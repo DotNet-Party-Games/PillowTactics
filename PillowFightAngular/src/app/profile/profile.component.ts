@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ICharacter } from "./character";
 import { Router } from "@angular/router";
+import { ICharacter } from '../shared/services/profile/character';
+import { ProfileService } from '../shared/services/profile/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,46 +10,25 @@ import { Router } from "@angular/router";
 })
 export class ProfileComponent implements OnInit {
 
-  character:ICharacter
+  character: ICharacter[] = [];
 
-  constructor(private router:Router) 
-  {
-    this.character = {
-      name: "Bob",
-      class: "Knight",
-      strength: 5,
-      dexterity: 5,
-      constitution: 5,
-      intelligence: 5,
-      wisdom: 5,
-      weapon: {
-        name: "Bob's Sword",
-        attack: 5,
-        range: 5
-      },
-      armor: {
-        name: "Bob's Armor",
-        defense: 5
-      }
-    }
-  }
+  constructor(private api:ProfileService) 
+  { }
 
   ngOnInit(): void {
+    this.api.getCharacters().subscribe(
+      (response) => {
+        this.character = response;
+      }
+    );
   }
 
-  goToCreate()
+  getCharacters()
   {
-    this.router.navigate(["/create"]);
+    this.api.getCharacters().subscribe(
+      (response) => {
+        this.character = response;
+      }
+    );
   }
-
-  goToEdit()
-  {
-    this.router.navigate(["/edit"]);
-  }
-
-  goToArena()
-  {
-    this.router.navigate(["/arena"]);
-  }
-
 }

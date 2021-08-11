@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowFight.BusinessService
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowFight.Api", "PillowFight.Api\PillowFight.Api.csproj", "{B658A979-EFE8-40DB-87C8-475244402A81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PillowTactics.Game", "PillowTactics.Game\PillowTactics.Game.csproj", "{3F517846-9D9C-41C3-98F4-C261326E2ECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowTactics.Game", "PillowTactics.Game\PillowTactics.Game.csproj", "{3F517846-9D9C-41C3-98F4-C261326E2ECB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowFight.Test", "PillowFight.Test\PillowFight.Test.csproj", "{89F1EF70-CEE8-490E-BCEB-F5616AD778F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3F517846-9D9C-41C3-98F4-C261326E2ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F517846-9D9C-41C3-98F4-C261326E2ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F517846-9D9C-41C3-98F4-C261326E2ECB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89F1EF70-CEE8-490E-BCEB-F5616AD778F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89F1EF70-CEE8-490E-BCEB-F5616AD778F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89F1EF70-CEE8-490E-BCEB-F5616AD778F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89F1EF70-CEE8-490E-BCEB-F5616AD778F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
