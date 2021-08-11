@@ -20,21 +20,27 @@ namespace PillowFight.Test
         {
             _factory = new ConnectionFactory();
         }
+
+        private bool _VerifyTableEmpty(SqliteConnection p_connection, string p_tableName)
+        {
+            SqliteCommand command = new SqliteCommand($"SELECT * FROM \"{p_tableName}\";", p_connection);
+            using (SqliteDataReader reader = command.ExecuteReader())
+            {
+                return(!reader.HasRows);
+            }
+        }
+
         [Theory]
         [InlineData("foo@bar.baz", "Joe_Blow", "xyz")]
         public void CreateOnePlayer(string p_email, string p_userName, string p_password)
         {
             PillowContext context = _factory.CreateContextForSQLite();
             SqliteConnection connection = (SqliteConnection)context.Database.GetDbConnection();
-            SqliteCommand command = new SqliteCommand("SELECT * FROM \"Players\";", connection);
-            using (SqliteDataReader reader = command.ExecuteReader())
-            {
-                Assert.False(reader.HasRows);
-            }
+            Assert.True(_VerifyTableEmpty(connection, "Players"));
             PostgresDatastore datastore = new(context);
             PlayerBL bl = new(datastore);
             bl.CreatePlayerAsync(p_userName, p_password, p_email).Wait();
-            command = new SqliteCommand("SELECT \"Email\", \"Username\", \"Password\" FROM \"Players\" ", connection);
+            SqliteCommand command = new SqliteCommand("SELECT \"Email\", \"Username\", \"Password\" FROM \"Players\" ", connection);
             using (SqliteDataReader reader = command.ExecuteReader())
             {
                 Assert.True(reader.HasRows);
@@ -48,19 +54,16 @@ namespace PillowFight.Test
 
         [Theory]
         [InlineData("Lothar", CharacterClassEnum.Fighter)]
-        public void CreateCharacter(string p_name, CharacterClassEnum p_class)
+        public void CreateAndDestroyCharacter(string p_name, CharacterClassEnum p_class)
         {
             PillowContext context = _factory.CreateContextForSQLite();
             SqliteConnection connection = (SqliteConnection)context.Database.GetDbConnection();
-            SqliteCommand command = new SqliteCommand("SELECT * FROM \"Characters\";", connection);
-            using (SqliteDataReader reader = command.ExecuteReader())
-            {
-                Assert.False(reader.HasRows);
-            }
+            Assert.True(_VerifyTableEmpty(connection, "Players"));
             PostgresDatastore datastore = new(context);
             PlayerBL bl = new(datastore);
             bl.CreatePlayerCharacterAsync(1, p_name, p_class).Wait();
-            command = new SqliteCommand("SELECT \"Name\", \"Class\" FROM \"Characters\" ", connection);
+            SqliteCommand command = new SqliteCommand("SELECT \"Name\", \"Class\", \"Id\" FROM \"Characters\" ", connection);
+            int id;
             using (SqliteDataReader reader = command.ExecuteReader())
             {
                 Assert.True(reader.HasRows);
@@ -68,7 +71,11 @@ namespace PillowFight.Test
                 Assert.Equal(p_name, reader[0]);
                 Assert.Equal((int)p_class, reader.GetInt32(1));
                 Assert.False(reader.Read());
+                id = reader.GetInt32(2);
+                Assert.True(id > 0);
             }
+            bl.DeletePlayerCharacterAsync(1, id).Wait();
+            Assert.True(_VerifyTableEmpty(connection, "Players"));
         }
     }
 }
