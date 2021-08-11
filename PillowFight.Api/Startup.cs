@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
@@ -29,22 +28,6 @@ namespace PillowFight.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(l_options =>
-                {
-                    l_options.Cookie.Name = "PillowTactics";
-                    l_options.Cookie.HttpOnly = false;
-                    l_options.Cookie.SameSite = SameSiteMode.None;
-                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                });
-
-            services.AddAuthorization(l_options =>
-            {
-                l_options.AddPolicy("Player", l_policyBuilder => l_policyBuilder.RequireClaim("NameIdentifier"));
-            });
-
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
                 OnRedirectToLogin = options =>
@@ -61,6 +44,15 @@ namespace PillowFight.Api
                 }
             });
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(l_options =>
+                {
+                    l_options.Cookie.Name = "PillowTactics";
+                    l_options.Cookie.HttpOnly = false;
+                    l_options.Cookie.SameSite = SameSiteMode.None;
+                    l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                });
+
             services.AddCors(p_corsOptions =>
             {
                 p_corsOptions.AddDefaultPolicy(p_corsPolicyBuilder =>
@@ -68,12 +60,14 @@ namespace PillowFight.Api
                     p_corsPolicyBuilder.WithOrigins(Configuration["CorsOrigins"].Split(';'))
                         .AllowAnyHeader()
                         .AllowAnyMethod()
+                        .AllowAnyHeader()
                         .AllowCredentials()
-                        .WithHeaders("*")
                         .WithExposedHeaders("*");
                 });
-            }
-);
+            });
+
+            services.AddControllers();
+
             services.AddSignalR();
 
             services.AddDbContext<PillowContext>(p_dbContextOptionsBuilder => p_dbContextOptionsBuilder.UseNpgsql(Configuration.GetConnectionString("AppDB")));
@@ -95,6 +89,10 @@ namespace PillowFight.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PillowFight.Api v1"));
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseCookiePolicy(new CookiePolicyOptions
             {
@@ -105,11 +103,11 @@ namespace PillowFight.Api
 
             app.UseRouting();
 
-            app.UseCors();
-
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

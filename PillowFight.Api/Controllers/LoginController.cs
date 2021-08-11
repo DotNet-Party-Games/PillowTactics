@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace PillowFight.Api.Controllers
 {
-    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -34,14 +32,14 @@ namespace PillowFight.Api.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task LogIn(PlayerLoginDetails details)
+        public async Task<ActionResult<PlayerDetails>> LogIn(PlayerLoginDetails details)
         {
             Player player;
 
             player = await _playerBL.GetPlayerAsync(details.UserName, details.Password);
             if (player == null)
             {
-                //return NotFound();
+                return NotFound();
             }
 
             var claims = new List<Claim>
@@ -56,13 +54,13 @@ namespace PillowFight.Api.Controllers
 
             await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity), authProperties);
 
-/*            return Ok(new PlayerDetails()
+            return Ok(new PlayerDetails()
             {
                 UserName = player.UserName,
                 Email = player.Email,
                 Wins = player.Wins,
                 Losses = player.Losses
-            });*/
+            });
         }
     }
 }
