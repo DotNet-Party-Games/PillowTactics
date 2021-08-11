@@ -1,5 +1,6 @@
 ﻿using PillowFight.Repositories.Models;
 using PillowTactics.Game.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,7 @@ namespace PillowTactics.Game
     public class GameClient
     {
         private readonly IEnumerable<InGamePlayerCharacter> _allCharacters;
+        private Queue<InGamePlayerCharacter> _turnSortedCharacters = new();
 
         public GameClient(Player player1, IEnumerable<PlayerCharacter> team1, Player player2, IEnumerable<PlayerCharacter> team2, GameMap gameMap = null)
         {
@@ -53,14 +55,20 @@ namespace PillowTactics.Game
         public IEnumerable<InGamePlayerCharacter> Team2 { get; }
         public GameMap GameMap { get; }
 
-        public void Start()
+        public int GetActiveCharacter()
         {
+            // All character's have taken their turns? Get the new turn order.
+            if (_turnSortedCharacters.Any())
+            {
+                // Poor man's tiebreaking.
+                _turnSortedCharacters = new Queue<InGamePlayerCharacter>(_allCharacters
+                    .Where(a_character => a_character.HP > 0)
+                    .Select(a_character => new { a_character, TieBreaker = Guid.NewGuid() })
+                    .OrderByDescending(a_tieBreakingCharacter => new { a_tieBreakingCharacter.a_character.Dexterity, a_tieBreakingCharacter.TieBreaker })
+                    .Select(a_tieBreakingCharacter => a_tieBreakingCharacter.a_character));
+            }
 
-
-            var 
-
-            while
-
+            return _turnSortedCharacters.Dequeue().Id;
         }
     }
 }
