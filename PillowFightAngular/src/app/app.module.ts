@@ -38,7 +38,7 @@ import { environment } from 'src/environments/environment';
       clientId: environment.clientId
     }),
     RouterModule.forRoot([
-      {path: "", component:HomeComponent},
+      {path: "", component: HomeComponent},
       {path: "profile", component: ProfileComponent},
       {path: "create", component: CreatecharacterComponent},
       {path: "edit", component: EditcharacterComponent},

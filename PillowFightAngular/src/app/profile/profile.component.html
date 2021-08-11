@@ -1,10 +1,12 @@
 <!--Create Character only if there is no character on record, otherwise it is edit character -->
 <!--This will lead to a Create/Edit component-->
+<!--
+
 <div *ngIf = "character.name" style="text-align: center;">
-    <button (click) = "goToEdit()">Edit Character</button>
+    <button>Edit Character</button>
     <div id="snapshot">
         <p style="font: 30px Arial; color:#4f0505">{{character.name}}</p>
-        <!--Placeholder Image that will show a character-->
+        Placeholder Image that will show a character
         <img src="https://st.depositphotos.com/2212674/3353/i/600/depositphotos_33530773-stock-photo-work-is-getting-more-and.jpg" style="width: 300px;">
         <div style="height: 400px">
             <div class="container">
@@ -23,8 +25,11 @@
             </div>
         </div>
     </div>
-    <button (click) = "goToArena()">Enter Arena</button>
+    <button>Enter Arena</button>
 </div>
 <div *ngIf = "!character.name">
-    <button (click) = "goToCreate()">Create Character</button>
+    <button>Create Character</button>
 </div>
+-->
+
+<button (onlick) = "getCharacters()">Please Work</button>

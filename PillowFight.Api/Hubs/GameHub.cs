@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace PillowFight.Api.Hubs
 {
-    [Authorize]
+    //[Authorize]
     public class GameHub : Hub<IGameHubClient>
     {
         private const string userIdKey = "UserId";
         private const string groupIdKey = "GroupId";
+        private const string lobbyGroup = "LobbyGroup";
 
         private readonly List<int> lobbyClients = new();
         private readonly Dictionary<Guid, GameRoom> rooms = new();
@@ -19,8 +20,8 @@ namespace PillowFight.Api.Hubs
         public override async Task OnConnectedAsync()
         {
             await base.OnConnectedAsync();
-            Context.Items[userIdKey] = Convert.ToInt32(Context.UserIdentifier);
-            lobbyClients.Add((int)Context.Items[userIdKey]);
+            //Context.Items[userIdKey] = Convert.ToInt32(Context.UserIdentifier);
+            //lobbyClients.Add((int)Context.Items[userIdKey]);
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
@@ -87,6 +88,7 @@ namespace PillowFight.Api.Hubs
 
                 // Remove player from lobby.
                 lobbyClients.Remove((int)Context.Items[userIdKey]);
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, lobbyGroup);
 
                 // Add the player to the group associated with the room.
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
@@ -114,6 +116,8 @@ namespace PillowFight.Api.Hubs
             rooms[room.Id] = room;
 
             // Create a new group associated with the room id and add the player.
+            lobbyClients.Remove((int)Context.Items[userIdKey]);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, lobbyGroup);
             await Groups.AddToGroupAsync(Context.ConnectionId, room.Id.ToString());
 
             // Associate the room with this player's connection.
@@ -124,6 +128,14 @@ namespace PillowFight.Api.Hubs
              */
 
             await Clients.Caller.ReceiveNewRoomRequest(room);
+        }
+
+        public async Task SendUserId(int userId)
+        {
+            Context.Items[userIdKey] = userId;
+            lobbyClients.Add((int)Context.Items[userIdKey]);
+            await Groups.AddToGroupAsync(Context.ConnectionId, lobbyGroup);
+            await Clients.Group(lobbyGroup).ReceiveUserId(userId);
         }
     }
 }
