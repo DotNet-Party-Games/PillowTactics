@@ -1,5 +1,4 @@
 ﻿using PillowFight.Repositories.Enumerations;
-using System.Collections.Generic;
 
 namespace PillowFight.Repositories.Models
 {

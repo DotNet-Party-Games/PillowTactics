@@ -1,7 +1,4 @@
-﻿using PillowFight.Repositories.Enumerations;
-using System.Collections.Generic;
-
-namespace PillowFight.Repositories.Interfaces
+﻿namespace PillowFight.Repositories.Interfaces
 {
     /// <summary>
     /// The base interface for everything within the game world.

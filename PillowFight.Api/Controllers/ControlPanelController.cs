@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace PillowFight.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ControlPanelController : ControllerBase
     {
         readonly IPlayerBL _playerBL;
@@ -24,10 +24,6 @@ namespace PillowFight.Api.Controllers
         {
             _playerBL = serviceProvider.GetRequiredService<IPlayerBL>();
         }
-
-
-
-        #region AuthCode
 
         private int _UserId => Convert.ToInt32(User.Claims.FirstOrDefault().Value);
 
@@ -80,7 +76,7 @@ namespace PillowFight.Api.Controllers
         public async Task<ActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return SignOut();
+            return Ok();
         }
 
         [HttpGet("Unequip")]
@@ -89,7 +85,5 @@ namespace PillowFight.Api.Controllers
             await _playerBL.UnequipCharacterAsync(_UserId, characterId, slot);
             return Ok();
         }
-
-        #endregion
     }
 }
