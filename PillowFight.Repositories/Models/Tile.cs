@@ -1,6 +1,4 @@
-﻿using PillowFight.Repositories.Enumerations;
-using PillowFight.Repositories.Interfaces;
-using System.Collections.Generic;
+﻿using PillowFight.Repositories.Interfaces;
 
 namespace PillowFight.Repositories.Models
 {
@@ -11,8 +9,6 @@ namespace PillowFight.Repositories.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        public List<StatusEffectEnum> StatusEffects { get; set; }
 
         public int MapId { get; set; }
 

@@ -1,6 +1,4 @@
-﻿using PillowFight.Repositories.Enumerations;
-
-namespace PillowFight.Api.Models
+﻿namespace PillowFight.Api.Models
 {
     public class PlayerCharacter
     {
@@ -13,20 +11,20 @@ namespace PillowFight.Api.Models
         {
             Id = playerCharacter.Id;
             Name = playerCharacter.Name;
-            Class = playerCharacter.Class;
+            CharacterClass = playerCharacter.Class.ToString();
             Strength = playerCharacter.Strength;
             Dexterity = playerCharacter.Dexterity;
             Constitution = playerCharacter.Constitution;
             Intelligence = playerCharacter.Intelligence;
             Wisdom = playerCharacter.Wisdom;
-            MainHandSlotItem = new Weapon()
+            MainHandSlotItem = !playerCharacter.MainHandSlotItemId.HasValue ? null : new Weapon()
             {
                 Name = playerCharacter.MainHandSlotItem.Name,
                 Attack = playerCharacter.MainHandSlotItem.Attack,
                 Range = playerCharacter.MainHandSlotItem.Range
 
             };
-            TorsoSlotItem = new Armor()
+            TorsoSlotItem = !playerCharacter.TorsoSlotItemId.HasValue ? null : new Armor()
             {
                 Name = playerCharacter.TorsoSlotItem.Name,
                 Defense = playerCharacter.TorsoSlotItem.Defense
@@ -37,7 +35,7 @@ namespace PillowFight.Api.Models
 
         public string Name { get; set; }
 
-        public CharacterClassEnum Class { get; set; }
+        public string CharacterClass { get; set; }
 
         //Should these be derived from class, constitution, intelligence values?
         /*        public int HP { get; set; }
@@ -58,9 +56,7 @@ namespace PillowFight.Api.Models
 
         public Weapon MainHandSlotItem { get; set; }
 
-        public int xCoordinate { get; set; }
-
-        public int yCoordinate { get; set; }
+        public MapCoordinate Location { get; set; }
 
         /*        public static explicit operator PlayerCharacter(Repositories.Models.PlayerCharacter playerCharacter)
                 {

@@ -1,6 +1,4 @@
-﻿using PillowFight.Repositories.Enumerations;
-
-namespace PillowFight.Api.Models
+﻿namespace PillowFight.Api.Models
 {
     public class Item
     {
@@ -8,6 +6,6 @@ namespace PillowFight.Api.Models
 
         public string Description { get; set; }
 
-        public ItemTypeEnum Type { get; set; }
+        public string ItemType { get; set; }
     }
 }
