@@ -17,7 +17,8 @@ export class AppComponent {
   ngOnInit()
   {
     this.router.navigate([""]);
-    this.gamehub.startconnection();
+    let a = this.gamehub.startconnection()
+    console.log(a);
     setTimeout(() => {
         this.gamehub.startconnection
     }, 2000);

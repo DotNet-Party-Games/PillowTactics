@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IGameroom } from '../shared/services/game/Gameroom';
+import { GameroomService } from '../shared/services/game/gameroom.service';
 
 @Component({
   selector: 'app-arena',
@@ -10,10 +12,10 @@ export class ArenaComponent implements OnInit {
   characters?:any[];
   winner?:string;
   nextplayer?:boolean;
-  
+  roominfo?:IGameroom;
   
 
-  constructor() { 
+  constructor(private gamehub:GameroomService) { 
     this.grid = new Array(144)
     for (var i = 0; i < this.grid.length; i++)
     {
@@ -27,6 +29,7 @@ export class ArenaComponent implements OnInit {
 
   newfight(){
     this.nextplayer=false;
+
   }
 
   moveup(){

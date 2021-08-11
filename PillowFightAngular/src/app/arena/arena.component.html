@@ -9,11 +9,14 @@
 
     <!-- All info under the Arena-->
     <div>
+        <p *ngIf="nextplayer ==false"> It is Player 1's turn</p>
+        <p *ngIf="nextplayer==true"> It is Player 2's turn</p>
         <!-- Describes Player 1 information and actions-->
         <div style="text-align:center; display:inline-block; width:340px">
             <!-- Describes Player 1 status info -->
             <!-- Only a placeholder -->
             <div>
+                <p>Player 1: </p>
                 <button onclick="dropDown()">Show options</button>
                     <ul id="dropdown">
                     <li><button></button></li>
