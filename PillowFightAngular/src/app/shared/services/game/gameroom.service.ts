@@ -9,7 +9,7 @@ export class GameroomService {
 
   rooms = new EventEmitter<any>();
   canJoin?:boolean = true;
-  yourRoom?: IGameroom;
+  yourRoom = new EventEmitter<IGameroom>();
   myuserid?:number;
 
   private hubconnection?:HubConnection;
@@ -53,9 +53,9 @@ export class GameroomService {
     console.log("sent room request");
     this.hubconnection?.invoke("SendNewRoomRequest", name).catch(err=> console.error(err));
   }
-  ReceiveNewRoomRequest(){
+  ReceiveNewRoomRequest(room:any){
     console.log("Making a new room");
-    this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> this.yourRoom=room)
+    this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> this.yourRoom.emit(room));
   }
 
 
@@ -67,6 +67,9 @@ export class GameroomService {
     this.hubconnection?.on("ReceiveJoinRoomRequest", (request) => {
       if (request== null){
         this.canJoin=false;
+      }
+      else{
+        this.yourRoom=request;
       }
     })
   }

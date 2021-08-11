@@ -20,7 +20,7 @@
                     {{arena.Name}}
                 </td>
                 <td>
-                    <button [class.clicked]='arena.Id === selectedArena' (click)='loadArena(arena.Id)' *ngIf>Join {{ arena.Name }}</button>
+                    <button [class.clicked]='arena.Id === selectedArena?.Id' (click)='loadArena(arena.Id)' *ngIf>Join {{ arena.Name }}</button>
                 </td>
             </tr>
             
