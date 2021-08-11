@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -32,9 +33,9 @@ namespace PillowFight.Api
                 .AddCookie(l_options =>
                 {
                     l_options.Cookie.Name = "PillowTactics";
-                    l_options.Cookie.HttpOnly = false;
+                    //l_options.Cookie.HttpOnly = false;
                     l_options.Cookie.IsEssential = true;
-                    l_options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+                    l_options.Cookie.SameSite = SameSiteMode.None;
                     l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
@@ -90,8 +91,8 @@ namespace PillowFight.Api
 
             app.UseCookiePolicy(new CookiePolicyOptions
             {
-                MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None,
-                HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.None,
+                MinimumSameSitePolicy = SameSiteMode.None,
+                HttpOnly = HttpOnlyPolicy.None,
                 Secure = CookieSecurePolicy.Always
             });
 
