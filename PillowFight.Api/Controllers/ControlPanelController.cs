@@ -15,7 +15,6 @@ namespace PillowFight.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ControlPanelController : ControllerBase
     {
         readonly IPlayerBL _playerBL;
@@ -73,10 +72,9 @@ namespace PillowFight.Api.Controllers
         }
 
         [HttpGet("Logout")]
-        public async Task<ActionResult> LogOut()
+        public async Task LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return SignOut();
         }
 
         [HttpGet("Unequip")]

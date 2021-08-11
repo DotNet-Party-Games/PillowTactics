@@ -33,8 +33,7 @@ namespace PillowFight.Api
                 .AddCookie(l_options =>
                 {
                     l_options.Cookie.Name = "PillowTactics";
-                    //l_options.Cookie.HttpOnly = false;
-                    l_options.Cookie.IsEssential = true;
+                    l_options.Cookie.HttpOnly = false;
                     l_options.Cookie.SameSite = SameSiteMode.None;
                     l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
@@ -87,14 +86,14 @@ namespace PillowFight.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PillowFight.Api v1"));
             }
 
-            app.UseRouting();
-
             app.UseCookiePolicy(new CookiePolicyOptions
             {
                 MinimumSameSitePolicy = SameSiteMode.None,
                 HttpOnly = HttpOnlyPolicy.None,
                 Secure = CookieSecurePolicy.Always
             });
+
+            app.UseRouting();
 
             app.UseCors();
 
