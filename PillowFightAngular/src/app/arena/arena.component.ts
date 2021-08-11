@@ -11,6 +11,7 @@ export class ArenaComponent implements OnInit {
   winner?:string;
   nextplayer?:boolean;
   
+  
 
   constructor() { 
     this.grid = new Array(144)
@@ -30,7 +31,5 @@ export class ArenaComponent implements OnInit {
 
   moveup(){
   }
-
-  moveup(){}
 
 }
