@@ -1,3 +1,5 @@
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using PillowFight.BusinessServices;
 using PillowFight.Repositories;
 using PillowFight.Repositories.DataServices;
@@ -33,5 +35,29 @@ namespace PillowFight.Test
             Assert.Equal(p_password, newPlayer.Password);
         }
 
+        [Theory]
+        [InlineData("Lothar", CharacterClassEnum.Fighter)]
+        public void CreateCharacter(string p_name, CharacterClassEnum p_class)
+        {
+            PillowContext context = _factory.CreateContextForSQLite();
+            SqliteConnection connection = (SqliteConnection)context.Database.GetDbConnection();
+            SqliteCommand command = new SqliteCommand("SELECT * FROM \"Characters\";", connection);
+            using (SqliteDataReader reader = command.ExecuteReader())
+            {
+                Assert.False(reader.HasRows);
+            }
+            PostgresDatastore datastore = new(context);
+            PlayerBL bl = new(datastore);
+            bl.CreatePlayerCharacterAsync(1, p_name, p_class).Wait();
+            command = new SqliteCommand("SELECT \"Name\", \"Class\" FROM \"Characters\" ", connection);
+            using (SqliteDataReader reader = command.ExecuteReader())
+            {
+                Assert.True(reader.HasRows);
+                Assert.True(reader.Read());
+                Assert.Equal(p_name, reader[0]);
+                Assert.Equal((int)p_class, reader.GetInt32(1));
+                Assert.False(reader.Read());
+            }
+        }
     }
 }
