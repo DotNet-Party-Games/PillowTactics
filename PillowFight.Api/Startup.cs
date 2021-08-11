@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,7 @@ namespace PillowFight.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(l_options =>
                 {
@@ -37,6 +39,9 @@ namespace PillowFight.Api
                     l_options.Cookie.SameSite = SameSiteMode.None;
                     l_options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 });
+
+            services.AddAuthorization();
+
             services.ConfigureApplicationCookie(l_options => l_options.Events = new CookieAuthenticationEvents
             {
                 OnRedirectToLogin = options =>
@@ -51,12 +56,8 @@ namespace PillowFight.Api
                     options.Response.StatusCode = 200;
                     return Task.CompletedTask;
                 }
-
             });
-            services.AddSignalR();
-            services.AddDbContext<PillowContext>(p_dbContextOptionsBuilder => p_dbContextOptionsBuilder.UseNpgsql(Configuration.GetConnectionString("AppDB")));
-            services.AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
-                .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
+
             services.AddCors(p_corsOptions =>
             {
                 p_corsOptions.AddDefaultPolicy(p_corsPolicyBuilder =>
@@ -69,7 +70,13 @@ namespace PillowFight.Api
                         .WithExposedHeaders("*");
                 });
             }
-            );
+);
+            services.AddSignalR();
+
+            services.AddDbContext<PillowContext>(p_dbContextOptionsBuilder => p_dbContextOptionsBuilder.UseNpgsql(Configuration.GetConnectionString("AppDB")));
+            services.AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
+                .AddScoped<IPlayerBL>(sp => new PlayerBL(sp.GetRequiredService<IDatastore>()));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PillowFight.Api", Version = "v1" });

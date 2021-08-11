@@ -15,7 +15,6 @@ namespace PillowFight.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ControlPanelController : ControllerBase
     {
         readonly IPlayerBL _playerBL;
