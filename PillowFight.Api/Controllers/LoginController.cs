@@ -42,25 +42,50 @@ namespace PillowFight.Api.Controllers
                 return NotFound();
             }
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, player.Id.ToString())
-            };
-            var claimsIdentity = new ClaimsIdentity(claims, "PillowTactics");
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = true
-            };
-
-            await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity), authProperties);
-
             return Ok(new PlayerDetails()
             {
+                UserId = player.Id,
                 UserName = player.UserName,
                 Email = player.Email,
                 Wins = player.Wins,
                 Losses = player.Losses
-            });
+            });;
         }
+
+        #region AuthLogin
+        /*
+                [HttpPost("Login")]
+                public async Task<ActionResult<PlayerDetails>> LogIn(PlayerLoginDetails details)
+                {
+                    Player player;
+
+                    player = await _playerBL.GetPlayerAsync(details.UserName, details.Password);
+                    if (player == null)
+                    {
+                        return NotFound();
+                    }
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, player.Id.ToString())
+                    };
+                    var claimsIdentity = new ClaimsIdentity(claims, "PillowTactics");
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    };
+
+                    await HttpContext.SignInAsync(new ClaimsPrincipal(claimsIdentity), authProperties);
+
+                    return Ok(new PlayerDetails()
+                    {
+                        UserName = player.UserName,
+                        Email = player.Email,
+                        Wins = player.Wins,
+                        Losses = player.Losses
+                    });
+                }
+        */
+        #endregion
     }
 }
