@@ -8,6 +8,7 @@ namespace PillowTactics.Game
 {
     public class GameClient
     {
+        private readonly Random randomizer = new();
         private readonly IEnumerable<InGamePlayerCharacter> _allCharacters;
         private Queue<InGamePlayerCharacter> _turnSortedCharacters = new();
 
@@ -62,7 +63,7 @@ namespace PillowTactics.Game
             {
                 // Poor man's tiebreaking.
                 _turnSortedCharacters = new Queue<InGamePlayerCharacter>(_allCharacters
-                    .Select(a_character => new { a_character, TieBreaker = Guid.NewGuid() })
+                    .Select(a_character => new { a_character, TieBreaker = randomizer.Next() })
                     .OrderByDescending(a_tieBreakingCharacter => new { a_tieBreakingCharacter.a_character.Dexterity, a_tieBreakingCharacter.TieBreaker })
                     .Select(a_tieBreakingCharacter => a_tieBreakingCharacter.a_character));
             }
