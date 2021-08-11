@@ -32,8 +32,4 @@ export class AuthService {
   login(model:any): Observable<ILoggedInUser> {
     return this.http.post<ILogin>(this.authURL+"/Login", model);
   }
-
-  logout(){
-      return this.http.get(this.controlURL+"/Logout", { withCredentials: true });
-  }
 }

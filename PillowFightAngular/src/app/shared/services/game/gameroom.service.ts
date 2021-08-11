@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr'; 
 import {IGameroom} from "./Gameroom";
 
@@ -7,13 +7,12 @@ import {IGameroom} from "./Gameroom";
 })
 export class GameroomService {
 
-  rooms: IGameroom[] = [];
+  rooms = new EventEmitter<any>();
   canJoin?:boolean = true;
   yourRoom?: IGameroom;
   myuserid?:number;
 
-
-  private hubconnection:HubConnection | undefined;
+  private hubconnection?:HubConnection;
 
   constructor() { }
   //pillow-fight-game.azurewebsites.net
@@ -21,6 +20,9 @@ export class GameroomService {
     this.hubconnection= new HubConnectionBuilder().withUrl("https://pillow-fight-game.azurewebsites.net/gameHub").build();
     this.hubconnection.start().then(() => {
       console.log("Hub Connection Started");
+      if(sessionStorage.getItem('userid')){
+      this.SendUserId(parseInt(sessionStorage.getItem('userid')!))}
+      console.log("sent userid");
     })
     .catch(err=> console.log("Error occured while starting connection: "+err))
   }
@@ -42,10 +44,13 @@ export class GameroomService {
   }
   ReceiveAvailableRooms(){
     console.log("getting available rooms");
-    this.hubconnection?.on("ReceiveAvailableRooms", (roomIDs)=> (this.rooms=roomIDs))
+    this.hubconnection?.on("ReceiveAvailableRooms", (roomIDs:any)=>{
+      this.rooms.emit(roomIDs);
+    })
   }
 
   SendNewRoomRequest(name:string){
+    console.log("sent room request");
     this.hubconnection?.invoke("SendNewRoomRequest", name).catch(err=> console.error(err));
   }
   ReceiveNewRoomRequest(){
@@ -66,12 +71,15 @@ export class GameroomService {
     })
   }
 
+  //in-game options
   SendActionOptions(charID:number, ){
     this.hubconnection?.invoke("SendActionOptions", charID, )
   }
   SendAvailableActions(charID:number){
-    this.hubconnection?.invoke("SendAvailableActions", charID).catch(err => console.error(err));
+    this.hubconnection?.invoke("SendAvailableActions", charID).catch((err) => console.error(err));
   }
+
+
 
 
 

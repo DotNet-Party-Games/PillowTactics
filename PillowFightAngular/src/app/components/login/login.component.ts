@@ -26,10 +26,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(f:FormGroup){
-/*     const loginObserver={
-      next:(x: any)=> {console.log('User logged in'), this.success=true},
-      error:(err: any)=> console.log(err),
-    } */
     let tempLogin:ILogin = {
       username: f.get("Username")?.value,
       password:this.loginCred.get("Password")?.value
@@ -40,6 +36,7 @@ export class LoginComponent implements OnInit {
         if (loginObserver){
           sessionStorage.setItem('userid', loginObserver.userId!.toString());
           sessionStorage.setItem('username', loginObserver.userName!.toString());
+          console.log("Logged in");
           this.router.navigate([''])
         }
     });

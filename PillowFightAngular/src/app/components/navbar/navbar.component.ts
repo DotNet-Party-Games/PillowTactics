@@ -24,6 +24,5 @@ export class NavbarComponent implements OnInit {
     }
     sessionStorage.removeItem("userid");
     sessionStorage.removeItem("username")
-    this.authService.logout().subscribe(logoutObserver);
   }
 }
