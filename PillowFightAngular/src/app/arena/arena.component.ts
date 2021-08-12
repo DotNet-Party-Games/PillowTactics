@@ -34,5 +34,8 @@ export class ArenaComponent implements OnInit {
 
   moveup(){
   }
+  leaveRoom(){
+    this.gamehub.SendLeaveRoomRequest();
+  }
 
 }
