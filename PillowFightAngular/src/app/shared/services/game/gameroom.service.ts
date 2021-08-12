@@ -27,7 +27,7 @@ export class GameroomService {
     })
     .catch(err=> console.log("Error occured while starting connection: "+err))
     this.hubconnection?.on("RecieveUserId", (userID)=> (this.myuserid=userID));
-    this.hubconnection?.on("ReceiveAvailableRooms", (roomIDs:any)=>{console.log("got all rooms"); this.rooms.emit(roomIDs);})
+    this.hubconnection?.on("ReceiveAvailableRooms", (roomIDs:any)=>{console.log("got all rooms"); console.log(roomIDs); this.allrooms=roomIDs; this.rooms.emit(roomIDs); })
     this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> {console.log("Made a new room"); this.allrooms.push(room); this.yourRoom.emit(room); this.SendAvailableRooms();});
     this.hubconnection?.on("ReceiveJoinRoomRequest", (request) => {
       if (request== null){
@@ -59,9 +59,6 @@ export class GameroomService {
   SendNewRoomRequest(name:string){
     console.log("sent room request");
     this.hubconnection?.invoke("SendNewRoomRequest", name).catch(err=> console.error(err));
-  }
-  ReceiveNewRoomRequest(room:any){
-    this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> this.yourRoom.emit(room));
   }
 
   SendJoinRoomRequest(arenaID:string){

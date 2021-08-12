@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, HostListener, OnDestroy } from '@angular/core';
 import { GameroomService } from 'src/app/shared/services/game/gameroom.service';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IGameroom } from 'src/app/shared/services/game/Gameroom';
@@ -20,7 +20,10 @@ export class ArenalistComponent implements OnInit {
   joinable?:boolean = false;
   private arenasSub?:Subscription;
   private arenaSelectSub?:Subscription;
-
+  listobserver={
+    next:(x:any)=> {this.arenas=this.GameRoom.allrooms, console.log("arenalist component: list of rooms", this.arenas)},
+    error:(err:any)=>console.log(err)
+  }
   constructor(private GameRoom:GameroomService) { }
 
   ngOnInit(): void {
@@ -28,15 +31,17 @@ export class ArenalistComponent implements OnInit {
       next:(x: any)=> {this.selectedArena=x; console.log(this.selectedArena)},
       error:(err: any)=> console.log(err)
     }
-    const listobserver={
-      next:(x:any)=> {this.arenas=this.GameRoom.allrooms, console.log("arenalist component: list of rooms", this.arenas)},
-      error:(err:any)=>console.log(err)
-    }
+
     this.GameRoom.SendAvailableRooms();
-    this.arenasSub=this.GameRoom.rooms.subscribe(listobserver);
+    this.arenasSub=this.GameRoom.rooms.subscribe(this.listobserver);
     this.arenaSelectSub=this.GameRoom.yourRoom.subscribe(selectObserver);
     console.log(this.selectedArena);
     console.log(this.arenas);
+  }
+  ngOnDestroy() {
+    this.arenaSelectSub?.unsubscribe();
+    this.arenasSub?.unsubscribe();
+    console.log("Deleted");
   }
 
   addArena(f:FormGroup) {
@@ -53,12 +58,14 @@ export class ArenalistComponent implements OnInit {
     if (this.joinable==false){
       alert("You cannot join this room");
     }
-    
   }
+
   refreshArenaList(){
+    console.log("refreshing gameroom");
     this.arenas=this.GameRoom.allrooms;
     this.arenasSub?.unsubscribe();
     this.GameRoom.SendAvailableRooms();
-    this.arenasSub = this.GameRoom.rooms.subscribe(rooms => this.arenas = rooms);
+    this.GameRoom.rooms.subscribe(this.listobserver)
+    this.arenas=this.GameRoom.allrooms
   }
 }
