@@ -1,8 +1,8 @@
-<!--Create Character only if there are no characters on record, otherwise the characters will show -->
-<!--This will lead to a Create/Edit component-->
-
+<!--List of characters will only show if one exists-->
+<div style="text-align: center;">
+    <button (click) = "goToCreate()">Create Characters</button>
+</div>
 <div *ngIf= "characters[0]" style="text-align: center;">
-        <button (click) = "goToEdit()">Edit Characters</button>
         <div id="snapshot" *ngFor="let character of characters">
             <p style="font: 30px Arial; color:#4f0505">{{character.name}}</p>
             
@@ -29,9 +29,4 @@
             </div>
         </div>
         <button (click) = "goToArena()">Enter Arena</button>
-</div>
-
-<!--No Characters? Go to Create-->
-<div *ngIf= "!characters[0]" style="text-align: center;">
-    <button (click) = "goToCreate()">Create Characters</button>
 </div>

@@ -45,11 +45,6 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(["create"]);
   }
 
-  goToEdit()
-  {
-    this.router.navigate(["edit"]);
-  }
-
   goToArena()
   {
     this.router.navigate(["arena"]);
