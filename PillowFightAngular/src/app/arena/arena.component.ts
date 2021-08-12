@@ -11,7 +11,7 @@ export class ArenaComponent implements OnInit {
   grid:number[]
   characters?:any[];
   winner?:string;
-  nextplayer?:boolean;
+  nextplayer?:boolean= false;
   roominfo?:IGameroom;
   
 

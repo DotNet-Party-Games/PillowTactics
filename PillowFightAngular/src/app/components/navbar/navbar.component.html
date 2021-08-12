@@ -18,13 +18,11 @@
             <li class="nav-item" *ngIf="loggedin()" >
               <a class="nav-link"
               (click)="onlogout()"
+              routerLink="/login"
               >Logout</a>
             </li>
         </ng-container>
       </ul>
-        
-
-
       <div >
       <ng-template #login style="float:right;">
         <ul class="nav navbar-nav">

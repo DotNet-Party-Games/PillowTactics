@@ -25,11 +25,11 @@ export class ArenalistComponent implements OnInit {
 
   ngOnInit(): void {
     const selectObserver={
-      next:(x: any)=> {this.selectedArena=x},
+      next:(x: any)=> {this.selectedArena=x; console.log(this.selectedArena)},
       error:(err: any)=> console.log(err)
     }
     const listobserver={
-      next:(x:any)=> {this.arenas=x},
+      next:(x:any)=> {this.arenas=this.GameRoom.allrooms, console.log("arenalist component: list of rooms", this.arenas)},
       error:(err:any)=>console.log(err)
     }
     this.GameRoom.SendAvailableRooms();
@@ -54,5 +54,11 @@ export class ArenalistComponent implements OnInit {
       alert("You cannot join this room");
     }
     
+  }
+  refreshArenaList(){
+    this.arenas=this.GameRoom.allrooms;
+    this.arenasSub?.unsubscribe();
+    this.GameRoom.SendAvailableRooms();
+    this.arenasSub = this.GameRoom.rooms.subscribe(rooms => this.arenas = rooms);
   }
 }
