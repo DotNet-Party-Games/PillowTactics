@@ -12,6 +12,6 @@ export interface ICharacter
     constitution: number;
     intelligence: number;
     wisdom: number;
-    weapon: IWeapon;
-    armor: IArmor;
+    mainHandSlotItem: IWeapon;
+    torsoSlotItem: IArmor;
 }
