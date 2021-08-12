@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICharacter } from './character';
 import { IEmptyCharacter } from './emptycharacter';
-import { IEquipment } from './equipment';
 
 @Injectable({
   providedIn: 'root'
