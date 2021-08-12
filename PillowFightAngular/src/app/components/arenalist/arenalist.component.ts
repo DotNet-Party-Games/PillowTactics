@@ -66,5 +66,6 @@ export class ArenalistComponent implements OnInit {
     this.arenasSub?.unsubscribe();
     this.GameRoom.SendAvailableRooms();
     this.GameRoom.rooms.subscribe(this.listobserver)
+    this.arenas=this.GameRoom.allrooms
   }
 }
