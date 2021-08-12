@@ -8,12 +8,12 @@ using Xunit;
 
 namespace PillowFight.Test
 {
-    public class UnitTests
+    public class DLUnitTests
     {
         private ConnectionFactory _factory;
 
 
-        public UnitTests()
+        public DLUnitTests()
         {
             _factory = new ConnectionFactory();
         }
@@ -106,5 +106,22 @@ namespace PillowFight.Test
                 Assert.Equal(1, nUpdateExceptions);
             }
         }
+        [Theory]
+        [InlineData("Lothar", CharacterClassEnum.Fighter)]
+        public void CreateCharacter(string p_name, CharacterClassEnum p_class)
+        {
+            PillowContext context = _factory.CreateContextForSQLite();
+            PostgresDatastore datastore = new(context);
+
+            datastore.CreatePlayerCharacterAsync(1, p_name, p_class, null, null).Wait();
+            Assert.Equal(1, context.PlayerCharacters.Count());
+            PlayerCharacter character = context.PlayerCharacters.FirstOrDefault();
+            Assert.Equal(p_name, character.Name);
+            Assert.Equal(p_class, character.Class);
+
+        }
+
+
+
     }
 }

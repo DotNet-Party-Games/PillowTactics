@@ -6,6 +6,6 @@
 
         public string ActionType { get; set; }
 
-        public MapCoordinate Location { get; set; }
+        public MapPosition Location { get; set; }
     }
 }

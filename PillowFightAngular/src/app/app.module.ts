@@ -5,7 +5,6 @@ import { RouterModule } from "@angular/router";
 import { AppComponent } from './app.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreatecharacterComponent } from './createcharacter/createcharacter.component';
-import { EditcharacterComponent } from './editcharacter/editcharacter.component';
 import { ArenaComponent } from './arena/arena.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +21,6 @@ import { environment } from 'src/environments/environment';
     AppComponent,
     ProfileComponent,
     CreatecharacterComponent,
-    EditcharacterComponent,
     ArenaComponent,
     LoginComponent,
     RegisterComponent,
@@ -37,7 +35,6 @@ import { environment } from 'src/environments/environment';
       {path: "", component: HomeComponent},
       {path: "profile", component: ProfileComponent},
       {path: "create", component: CreatecharacterComponent},
-      {path: "edit", component: EditcharacterComponent},
       {path: "arena", component: ArenaComponent},
       {path:"login", component: LoginComponent},
       {path:"register", component:RegisterComponent},
