@@ -4,11 +4,15 @@
 </div>
 <div *ngIf= "characters[0]" style="text-align: center;">
         <div id="snapshot" *ngFor="let character of characters">
-            <p style="font: 30px Arial; color:#4f0505">{{character.name}}</p>
+            <p style="font: 30px Arial; color:#a32a2a">{{character.name}}</p>
             
-            <!--Placeholder Image that will show a character-->
-            <img src="https://st.depositphotos.com/2212674/3353/i/600/depositphotos_33530773-stock-photo-work-is-getting-more-and.jpg" style="width: 300px;">
-    
+            <!--Images based on character class-->
+            <div [ngSwitch]="character.characterClass">
+                <img *ngSwitchCase="'Fighter'" src="https://github.com/210628-UTA-NET/img/blob/main/img_bank/knight.PNG?raw=true" style="width: 300px;">
+                <img *ngSwitchCase="'Wizard'" src="https://github.com/210628-UTA-NET/img/blob/main/img_bank/wizard.png?raw=true" style="width: 300px;">
+                <img *ngSwitchCase="'Rogue'" src="https://github.com/210628-UTA-NET/img/blob/main/img_bank/rogue2.png?raw=true" style="width: 300px;">
+            </div>
+            
             <!--Output a character and their information-->
             <div style="height: 400px">
                 <div class="container">
@@ -20,13 +24,13 @@
                     <p style="text-align: left;">Wisdom: {{character.wisdom}}</p>
                 </div>
                 <div class="container">
-                    <p>{{character.weapon.name}}</p>
+                    <p>{{character.mainHandSlotItem.name}}</p>
                 </div>
                 <div class="container">
-                    <p>{{character.armor.name}}</p>
+                    <p>{{character.torsoSlotItem.name}}</p>
                 </div>
+                <br>
                 <button class="btn btn-danger" (click) = "deleteCharacter(character.id, character.name)">Delete</button>
             </div>
         </div>
-        <button (click) = "goToArena()">Enter Arena</button>
 </div>
