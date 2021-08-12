@@ -9,19 +9,22 @@
             <button (click)='addArena(arenaname)' class="btn btn-primary btn-block"> New Arena </button>
         </div>
     </form>
-    
+    <br>
+    <div>
+        <button (click)="refreshArenaList">Refresh Room List</button>
+    </div>
+    <br>
     <h3>Available Arenas</h3>
+<!--         <div *ngFor='let arena of arenas'>
+            <button [class.clicked]='arena.Id === selectedArena?.Id' (click)='loadArena(arena.Id)' *ngIf>Join {{ arena.name }}</button>
+        </div> -->
+
         <div *ngFor='let arena of arenas'>
-            <button [class.clicked]='arena.Id === selectedArena?.Id' (click)='loadArena(arena.Id)' *ngIf>Join {{ arena.Name }}</button>
-        </div>
-
-
         <button class="btn btn-block btn-primary" style="width: 100px; height: 50px;"
         [class.selected]='arena.Id === selectedArena!.Id'
         (click)='loadArena(arena.Id)'
-        *ngFor='let arena of arenas'
-        routerLink="/arena"
-      >
-        {{arena.Id}}
+        routerLink="/arena">
+        {{arena.name}}
     </button>
+</div>
 </div>

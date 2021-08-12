@@ -2,7 +2,7 @@ export interface IGameroom
 {
     Id: string,
 
-    Name: string,
+    name: string,
 
     IsPrivate: boolean,
 

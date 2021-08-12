@@ -55,4 +55,10 @@ export class ArenalistComponent implements OnInit {
     }
     
   }
+  refreshArenaList(){
+    this.arenas=this.GameRoom.allrooms;
+    this.arenasSub?.unsubscribe();
+    this.GameRoom.SendAvailableRooms();
+    this.arenasSub = this.GameRoom.rooms.subscribe(rooms => this.arenas = rooms);
+  }
 }
