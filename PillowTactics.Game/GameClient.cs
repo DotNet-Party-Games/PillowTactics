@@ -64,7 +64,8 @@ namespace PillowTactics.Game
                 // Poor man's tiebreaking.
                 _turnSortedCharacters = new Queue<InGamePlayerCharacter>(_allCharacters
                     .Select(a_character => new { a_character, TieBreaker = randomizer.Next() })
-                    .OrderByDescending(a_tieBreakingCharacter => new { a_tieBreakingCharacter.a_character.Dexterity, a_tieBreakingCharacter.TieBreaker })
+                    .OrderByDescending(a_tieBreakingCharacter => a_tieBreakingCharacter.a_character.Dexterity)
+                    .ThenByDescending(a_tieBreakingCharacter => a_tieBreakingCharacter.TieBreaker)
                     .Select(a_tieBreakingCharacter => a_tieBreakingCharacter.a_character));
             }
 
