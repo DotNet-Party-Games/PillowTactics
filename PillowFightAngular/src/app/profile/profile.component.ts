@@ -29,26 +29,20 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  deleteCharacter(characterId: number)
+  deleteCharacter(characterId: number, characterName: string)
   {
     console.log("Deleting Character");
     this.api.deleteCharacter(characterId).subscribe(
       (response) => {
-        console.log("Character Deleted: " + response);
+        alert(characterName + " has been deleted!");
+        this.getCharacters();
       }
     );
-
-    this.getCharacters();
   }
 
   goToCreate()
   {
     this.router.navigate(["create"]);
-  }
-
-  goToEdit()
-  {
-    this.router.navigate(["edit"]);
   }
 
   goToArena()
