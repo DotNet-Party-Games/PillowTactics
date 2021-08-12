@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using PillowFight.Api.Models;
 using PillowFight.BusinessServices;
@@ -73,14 +70,14 @@ namespace PillowFight.Api.Controllers
         }
 
         #region AuthLogout
-/*
-        [HttpGet("Logout")]
-        public async Task<ActionResult> LogOut()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Ok();
-        }
-*/
+        /*
+                [HttpGet("Logout")]
+                public async Task<ActionResult> LogOut()
+                {
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    return Ok();
+                }
+        */
         #endregion
 
         [HttpGet("Unequip")]

@@ -8,7 +8,7 @@ namespace PillowFight.Api.Hubs
     {
         Task ReceiveAction(string characterAction, string resultDescription, IEnumerable<PlayerCharacter> characters);
 
-        Task ReceiveActionOptions(int characterId, IEnumerable<string> options);
+        Task ReceiveActionOptions(int characterId, ActionTypeTargets options);
 
         Task ReceiveAvailableActions(int characterId, IEnumerable<string> actions);
 

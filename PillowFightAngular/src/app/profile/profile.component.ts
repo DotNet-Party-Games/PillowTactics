@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { ICharacter } from '../shared/services/profile/character';
-import { ProfileService } from '../shared/services/profile/profile.service';
+import { ICharacter } from '../shared/services/ControlPanel/character';
+import { ControlPanelService } from '../shared/services/ControlPanel/control-panel.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,25 +10,49 @@ import { ProfileService } from '../shared/services/profile/profile.service';
 })
 export class ProfileComponent implements OnInit {
 
-  character: ICharacter[] = [];
+  characters: ICharacter[] = [];
 
-  constructor(private api:ProfileService) 
-  { }
+  constructor(private api: ControlPanelService, private router: Router) 
+  { 
+  }
 
   ngOnInit(): void {
-    this.api.getCharacters().subscribe(
-      (response) => {
-        this.character = response;
-      }
-    );
+    this.getCharacters();
   }
 
   getCharacters()
   {
-    this.api.getCharacters().subscribe(
+     this.api.getCharacters().subscribe(
       (response) => {
-        this.character = response;
+        this.characters = response;
       }
     );
+  }
+
+  deleteCharacter(characterId: number)
+  {
+    console.log("Deleting Character");
+    this.api.deleteCharacter(characterId).subscribe(
+      (response) => {
+        console.log("Character Deleted: " + response);
+      }
+    );
+
+    this.getCharacters();
+  }
+
+  goToCreate()
+  {
+    this.router.navigate(["create"]);
+  }
+
+  goToEdit()
+  {
+    this.router.navigate(["edit"]);
+  }
+
+  goToArena()
+  {
+    this.router.navigate(["arena"]);
   }
 }
