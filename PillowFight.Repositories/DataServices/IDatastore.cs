@@ -19,6 +19,8 @@ namespace PillowFight.Repositories.DataServices
 
         public Task<Player> GetPlayerAsync(string p_username, string p_password);
 
+        public Task<IEnumerable<Player>> GetTopPlayersAsync(int? n);
+
         public Task<PlayerCharacter> GetPlayerCharacterAsync(int userId, int characterId);
 
         public Task<IEnumerable<PlayerCharacter>> GetPlayerCharactersAsync(int userId);
