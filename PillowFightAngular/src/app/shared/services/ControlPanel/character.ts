@@ -1,12 +1,12 @@
-import internal from "stream";
 import { IArmor } from "./armor";
 import { Class } from "./class";
 import { IWeapon } from "./weapon";
 
 export interface ICharacter
 {
+    id: number,
     name: string;
-    class: Class;
+    characterClass: Class;
     strength: number;
     dexterity: number;
     constitution: number;

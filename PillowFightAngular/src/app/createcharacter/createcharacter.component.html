@@ -1,1 +1,26 @@
-<h3>Create Character</h3>
+<div>
+    <form [formGroup] = "blankGroup">
+        <!--Entering a name-->
+        <label class="form-label">Character Name</label>
+        <input type="text" class="form-control" formControlName="name">
+
+        <!--Class Select-->
+        <select class="form-select" formControlName="characterClass">
+            <option value="0">Class 1</option>
+            <option value="1">Class 2</option>
+            <option value="2">Class 3</option>
+        </select>
+
+        <!--Weapon Select-->
+        <select class="form-select" formControlName="weaponId">
+            <option value="1">Vorpal Sword</option>
+            <option value="2">Ordinary Bow</option>
+        </select>
+
+        <!--Armor Select-->
+        <select class="form-select" formControlName="armorId">
+            <option value="3">Armor of blah blah blah</option>
+        </select>
+        <button (click) = "createCharacter(blankGroup)">Create Character</button>
+    </form>
+</div>
