@@ -19,12 +19,16 @@
                 <p>Player 1: </p>
                 <div class=connected > <span>Connected</span></div>
                 <div class=ready><span>Ready</span></div>
-                    <ul id="dropdown">
-                    <li><button>Attack</button></li>
-                    <li><button>Move</button></li>
-                    <li><button>Surrender</button></li>
-                    </ul>
+                    <button>Attack</button>   <button style="right: 50px;">Move</button>
+                    <br>
+                    <br>
+                    <button>Surrender</button>
             </div>
+            <div>
+            <br>
+            <button (click)="leaveRoom()" class="btn btn-block btn-danger" routerLink="/arenalist">Leave Room</button>
+            <br>
+        </div>
         </div>
         <!-- Describes Player 2 information and actions -->
         <div style="text-align:center; display:inline-block; width:340px">
@@ -33,11 +37,14 @@
                 <p>Player 2: </p>
                 <div class=connected > <span>Connected</span></div>
                 <div class=ready><span>Ready</span></div>
-                    <ul id="dropdown">
-                    <li><button>Attack</button></li>
-                    <li><button>Move</button></li>
-                    <li><button>Surrender</button></li>
-                    </ul>
+                    <button>Attack</button><button>Move</button>
+                    <br>
+                    <br>
+                    <button>Surrender</button>
+                <div>
+                    <br>
+                    <br>
+                </div>
             </div>
         </div>
     </div>

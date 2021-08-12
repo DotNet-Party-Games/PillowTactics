@@ -30,7 +30,7 @@ namespace PillowFight.Repositories.DataServices
                 Name = name,
                 Class = characterClass,
                 MainHandSlotItemId = mainHandSlotItemId,
-                TorsoSlotItemId = torsoSlotItemId
+                TorsoSlotItemId = torsoSlotItemId,
             });
             await _context.SaveChangesAsync();
             return await _context.PlayerCharacters

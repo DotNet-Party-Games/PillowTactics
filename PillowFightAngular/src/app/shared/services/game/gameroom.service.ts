@@ -37,6 +37,7 @@ export class GameroomService {
         this.yourRoom=request;
       }
     });
+    this.hubconnection?.on("ReceiveAction", (res)=> {console.log(res.Character)})
   }
   SendUserId(userId:number){
     this.hubconnection?.invoke("SendUserId", userId).catch(err=>console.error(err));
@@ -77,11 +78,18 @@ export class GameroomService {
   }
 
   //in-game options
-  SendActionOptions(charID:number, ){
-    this.hubconnection?.invoke("SendActionOptions", charID, )
+  SendActionOptions(charID:number, action:string){
+    this.hubconnection?.invoke("SendActionOptions", charID,action ).catch((err) => console.log(err));
   }
   SendAvailableActions(charID:number){
-    this.hubconnection?.invoke("SendAvailableActions", charID).catch((err) => console.error(err));
+    this.hubconnection?.invoke("SendAvailableActions", charID).catch((err) => console.log(err));
+  }
+
+  SendAction(action:string){
+    this.hubconnection?.invoke("SendAction", action).catch((err)=>console.log(err));
+  }
+  SendLeaveRoomRequest(){
+    this.hubconnection?.invoke("SendLeaveRoomRequest").catch((err)=>console.log(err));
   }
 
 
