@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using PillowFight.Api.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +15,7 @@ namespace PillowFight.Api.Hubs
         private const string lobbyGroup = "LobbyGroup";
 
         private readonly List<int> lobbyClients = new();
-        private readonly Dictionary<Guid, GameRoom> rooms = new();
+        private readonly ConcurrentDictionary<Guid, GameRoom> rooms = new();
 
         public override async Task OnConnectedAsync()
         {
@@ -99,6 +99,11 @@ namespace PillowFight.Api.Hubs
             }
         }
 
+        public async Task SendLeaveRoomRequest()
+        {
+            await LeaveRoom();
+        }
+
         public async Task SendNewRoomRequest(string roomName)
         {
             // Remove player from lobby.
@@ -133,9 +138,42 @@ namespace PillowFight.Api.Hubs
         public async Task SendUserId(int userId)
         {
             Context.Items[userIdKey] = userId;
-            lobbyClients.Add((int)Context.Items[userIdKey]);
-            await Groups.AddToGroupAsync(Context.ConnectionId, lobbyGroup);
-            await Clients.Group(lobbyGroup).ReceiveUserId(userId);
+            await JoinLobby();
+        }
+
+        private async Task JoinLobby()
+        {
+            await LeaveRoom();
+        }
+
+        private async Task LeaveRoom()
+        {
+            if (Context.Items.ContainsKey(groupIdKey))
+            {
+                var room = rooms[Guid.Parse((string)Context.Items[groupIdKey])];
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, (string)Context.Items[groupIdKey]);
+
+                if (room.Player1Id == (int)Context.Items[userIdKey])
+                {
+                    room.Player1Id = null;
+                }
+                else if (room.Player2Id == (int)Context.Items[userIdKey])
+                {
+                    room.Player2Id = null;
+                }
+
+                if (room.Player1Id == null && room.Player2Id == null)
+                {
+                    _ = rooms.Remove(room.Id, out room);
+                }
+            }
+
+            if (!lobbyClients.Contains((int)Context.Items[userIdKey]))
+            {
+                lobbyClients.Add((int)Context.Items[userIdKey]);
+                await Groups.AddToGroupAsync(Context.ConnectionId, lobbyGroup);
+                await Clients.Group(lobbyGroup).ReceiveUserId((int)Context.Items[userIdKey]);
+            }
         }
     }
 }
