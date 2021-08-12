@@ -1,3 +1,4 @@
+
 <div class='sidenav'>
     <form [formGroup]="arenaname">
         <div class="form-group">
@@ -10,20 +11,17 @@
     </form>
     
     <h3>Available Arenas</h3>
-    <table>
-        <thead>
-            <th>Arena Name</th>
-        </thead>
-        <tbody>
-            <tr *ngFor='let arena of arenas'>
-                <td>
-                    {{arena.Name}}
-                </td>
-                <td>
-                    <button [class.clicked]='arena.Id === selectedArena?.Id' (click)='loadArena(arena.Id)' *ngIf>Join {{ arena.Name }}</button>
-                </td>
-            </tr>
-            
-        </tbody>
-    </table>
+        <div *ngFor='let arena of arenas'>
+            <button [class.clicked]='arena.Id === selectedArena?.Id' (click)='loadArena(arena.Id)' *ngIf>Join {{ arena.Name }}</button>
+        </div>
+
+
+        <button class="btn btn-block btn-primary" style="width: 100px; height: 50px;"
+        [class.selected]='arena.Id === selectedArena!.Id'
+        (click)='loadArena(arena.Id)'
+        *ngFor='let arena of arenas'
+        routerLink="/arena"
+      >
+        {{arena.Id}}
+    </button>
 </div>

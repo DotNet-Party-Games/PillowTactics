@@ -41,7 +41,8 @@ import { environment } from 'src/environments/environment';
       {path: "arena", component: ArenaComponent},
       {path:"login", component: LoginComponent},
       {path:"register", component:RegisterComponent},
-      {path:"arenalist", component:ArenalistComponent}
+      {path:"arenalist", component:ArenalistComponent},
+      {path:"arena", component:ArenaComponent}
     ]),
     ReactiveFormsModule,
     HttpClientModule
