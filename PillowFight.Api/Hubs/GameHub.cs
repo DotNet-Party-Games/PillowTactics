@@ -14,8 +14,8 @@ namespace PillowFight.Api.Hubs
         private const string groupIdKey = "GroupId";
         private const string lobbyGroup = "LobbyGroup";
 
-        private readonly List<int> lobbyClients = new();
-        private readonly Dictionary<Guid, GameRoom> rooms = new();
+        private static readonly List<int> lobbyClients = new();
+        private static readonly Dictionary<Guid, GameRoom> rooms = new();
 
         public override async Task OnConnectedAsync()
         {
