@@ -70,9 +70,9 @@ namespace PillowFight.Api.Controllers
         }
 
         [HttpGet("LeaderBoard")]
-        public async Task<ActionResult<IEnumerable<InventoryItem>>> GetLeaderBoard(int? n)
+        public async Task<ActionResult<IEnumerable<PlayerDetails>>> GetLeaderBoard(int? n)
         {
-            return Ok(await _playerBL.GetTopPlayersAsync(n));
+            return Ok((await _playerBL.GetTopPlayersAsync(n)).Select(a_player => new PlayerDetails(a_player)));
         }
 
         #region AuthLogout
