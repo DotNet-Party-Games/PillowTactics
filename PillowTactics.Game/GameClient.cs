@@ -8,9 +8,10 @@ namespace PillowTactics.Game
 {
     public class GameClient
     {
-        private readonly Random randomizer = new();
+        private readonly Random _randomizer = new();
         private readonly IEnumerable<InGamePlayerCharacter> _allCharacters;
         private Queue<InGamePlayerCharacter> _turnSortedCharacters = new();
+        private InGamePlayerCharacter _activeCharacter;
 
         public GameClient(Player player1, IEnumerable<PlayerCharacter> team1, Player player2, IEnumerable<PlayerCharacter> team2, GameMap gameMap = null)
         {
@@ -48,6 +49,8 @@ namespace PillowTactics.Game
                 character.XCoordinate = startColumn++;
                 character.YCoordinate = GameMap.Depth;
             }
+
+            _activeCharacter = GetActiveCharacter();
         }
 
         public Player Player1 { get; }
@@ -56,21 +59,28 @@ namespace PillowTactics.Game
         public IEnumerable<InGamePlayerCharacter> Team2 { get; }
         public GameMap GameMap { get; }
 
-        public int GetActiveCharacter()
+        public void GetNextActions()
+        {
+
+        }
+
+        private InGamePlayerCharacter GetActiveCharacter()
         {
             // All character's have taken their turns? Get the new turn order.
             if (_turnSortedCharacters.Any())
             {
                 // Poor man's tiebreaking.
                 _turnSortedCharacters = new Queue<InGamePlayerCharacter>(_allCharacters
-                    .Select(a_character => new { a_character, TieBreaker = randomizer.Next() })
-                    .OrderByDescending(a_tieBreakingCharacter => new { a_tieBreakingCharacter.a_character.Dexterity, a_tieBreakingCharacter.TieBreaker })
+                    .Select(a_character => new { a_character, TieBreaker = _randomizer.Next() })
+                    .OrderByDescending(a_tieBreakingCharacter => a_tieBreakingCharacter.a_character.Dexterity)
+                    .ThenByDescending(a_tieBreakingCharacter => a_tieBreakingCharacter.TieBreaker)
                     .Select(a_tieBreakingCharacter => a_tieBreakingCharacter.a_character));
             }
 
             InGamePlayerCharacter activeCharacter;
-            while ((activeCharacter = _turnSortedCharacters.Dequeue()).HP < 1);
-            return activeCharacter.Id;
+            while ((activeCharacter = _turnSortedCharacters.Dequeue()).HP < 1) ;
+            return activeCharacter;
         }
+
     }
 }
