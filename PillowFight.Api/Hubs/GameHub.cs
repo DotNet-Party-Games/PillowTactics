@@ -132,7 +132,7 @@ namespace PillowFight.Api.Hubs
              * Create a new game server hereabouts.
              */
 
-            await Clients.Caller.ReceiveNewRoomRequest(room);
+            await Clients.Caller.ReceiveNewRoomRequest(rooms[room.Id]);
         }
 
         public async Task SendUserId(int userId)
