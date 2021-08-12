@@ -25,6 +25,7 @@
                 <div class="container">
                     <p>{{character.armor.name}}</p>
                 </div>
+                <button class="btn btn-danger" (click) = "deleteCharacter(character.id)">Delete</button>
             </div>
         </div>
         <button (click) = "goToArena()">Enter Arena</button>

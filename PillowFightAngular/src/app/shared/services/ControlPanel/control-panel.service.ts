@@ -36,6 +36,12 @@ export class ControlPanelService {
     });
   }
 
+  deleteCharacter(characterId: number): Observable<boolean>
+  {
+    return this.http.get<boolean>(this.controlURL + "/DeleteCharacter?userId=" + this.userId + 
+                    "&characterId=" + characterId);
+  }
+
   equipCharacter(newCharacter: IEmptyCharacter): Observable<ICharacter>
   {
     console.log("Equipping Weapon");
