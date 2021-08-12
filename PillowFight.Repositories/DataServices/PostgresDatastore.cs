@@ -30,7 +30,7 @@ namespace PillowFight.Repositories.DataServices
                 Name = name,
                 Class = characterClass,
                 MainHandSlotItemId = mainHandSlotItemId,
-                TorsoSlotItemId = torsoSlotItemId,
+                TorsoSlotItemId = torsoSlotItemId
             });
             await _context.SaveChangesAsync();
             return await _context.PlayerCharacters
@@ -132,6 +132,15 @@ namespace PillowFight.Repositories.DataServices
         {
             return await _context.Inventory
                 .Where(l_inventoryItem => l_inventoryItem.PlayerId == userId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Player>> GetTopPlayersAsync(int? n)
+        {
+            return await _context.Players
+                .OrderByDescending(a_player => a_player.Wins)
+                .ThenBy(a_player => a_player.UserName)
+                .Take(n == null || n.Value < 1 ? int.MaxValue : n.Value)
                 .ToListAsync();
         }
 

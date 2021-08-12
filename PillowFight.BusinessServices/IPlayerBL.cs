@@ -23,6 +23,8 @@ namespace PillowFight.BusinessServices
 
         public Task<IEnumerable<InventoryItem>> GetPlayerInventoryAsync(int userId);
 
+        public Task<IEnumerable<Player>> GetTopPlayersAsync(int? n);
+
         public Task<bool> UnequipCharacterAsync(int userId, int characterId, int itemId);
 
         public Task UnequipCharacterAsync(int userId, int characterId, ItemSlotEnum slot);
