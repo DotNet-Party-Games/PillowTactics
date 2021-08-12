@@ -154,9 +154,10 @@ namespace PillowFight.Api.Hubs
         {
             if (Context.Items.ContainsKey(groupIdKey))
             {
-                var room = rooms[(Guid)Context.Items[groupIdKey]];
+                var roomId = (Guid)Context.Items[groupIdKey];
+                var room = rooms[roomId];
                 Context.Items.Remove(groupIdKey);
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, (string)Context.Items[groupIdKey]);
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomId.ToString());
 
                 if (room.Player1Id == (int)Context.Items[userIdKey])
                 {
@@ -169,7 +170,7 @@ namespace PillowFight.Api.Hubs
 
                 if (room.Player1Id == null && room.Player2Id == null)
                 {
-                    rooms.Remove((Guid)Context.Items[groupIdKey]);
+                    rooms.Remove(roomId);
                 }
             }
 
