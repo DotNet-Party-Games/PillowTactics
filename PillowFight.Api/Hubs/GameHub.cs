@@ -92,6 +92,9 @@ namespace PillowFight.Api.Hubs
 
                 // Add the player to the group associated with the room.
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+
+                // Associate the room with this player's connection.
+                Context.Items.Add(groupIdKey, room.Id);
             }
             catch
             {
@@ -118,7 +121,7 @@ namespace PillowFight.Api.Hubs
             };
 
             // Track the room.
-            rooms[room.Id] = room;
+            _ = rooms.TryAdd(room.Id, room);
 
             // Create a new group associated with the room id and add the player.
             lobbyClients.Remove((int)Context.Items[userIdKey]);
@@ -126,18 +129,18 @@ namespace PillowFight.Api.Hubs
             await Groups.AddToGroupAsync(Context.ConnectionId, room.Id.ToString());
 
             // Associate the room with this player's connection.
-            Context.Items[groupIdKey] = room.Id;
+            Context.Items.Add(groupIdKey, room.Id);
 
             /*
              * Create a new game server hereabouts.
              */
 
-            await Clients.Caller.ReceiveNewRoomRequest(rooms[room.Id]);
+            await Clients.Caller.ReceiveNewRoomRequest(room);
         }
 
         public async Task SendUserId(int userId)
         {
-            Context.Items[userIdKey] = userId;
+            Context.Items.Add(userIdKey, userId);
             await JoinLobby();
         }
 
@@ -151,6 +154,7 @@ namespace PillowFight.Api.Hubs
             if (Context.Items.ContainsKey(groupIdKey))
             {
                 var room = rooms[Guid.Parse((string)Context.Items[groupIdKey])];
+                Context.Items.Remove(groupIdKey);
                 await Groups.RemoveFromGroupAsync(Context.ConnectionId, (string)Context.Items[groupIdKey]);
 
                 if (room.Player1Id == (int)Context.Items[userIdKey])
