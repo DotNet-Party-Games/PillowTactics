@@ -34,14 +34,13 @@ namespace PillowFight.Api.Hubs
             lobbyClients.Remove((int)Context.Items[userIdKey]);
         }
 
-        public async Task SendAction(string characterAction)
+        public async Task SendAction(string characterAction, MapPosition mapPosition)
         {
             /*
-             * Parameter 'characterAction' will remain null until game server is implemented.
              * Parameter 'resultDescription' will remain empty until game server is implemented.
              * Parameter 'characters' will remain null until game server is implemented.
              */
-            await Clients.Group("").ReceiveAction(null, string.Empty, null);
+            await Clients.Group("").ReceiveAction(characterAction, mapPosition, string.Empty, null);
         }
 
         public async Task SendActionOptions(int characterId, string action)
