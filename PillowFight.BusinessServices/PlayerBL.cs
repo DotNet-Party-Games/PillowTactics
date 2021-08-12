@@ -29,6 +29,10 @@ namespace PillowFight.BusinessServices
 
         public async Task<PlayerCharacter> CreatePlayerCharacterAsync(int userId, string name, CharacterClassEnum characterClass)
         {
+            /*
+             * Starting stats are currently set in the data service version of this method.
+             * Those should probably be set here and the ds method signature changed to accept them.
+             */
             return await _datastore.CreatePlayerCharacterAsync(userId, name, characterClass, starterWeaponId, starterArmorId);
         }
 
@@ -60,6 +64,11 @@ namespace PillowFight.BusinessServices
         public async Task<IEnumerable<InventoryItem>> GetPlayerInventoryAsync(int userId)
         {
             return await _datastore.GetPlayerInventoryAsync(userId);
+        }
+
+        public async Task<IEnumerable<Player>> GetTopPlayersAsync(int? n)
+        {
+            return await _datastore.GetTopPlayersAsync(n);
         }
 
         public async Task<bool> UnequipCharacterAsync(int userId, int characterId, int itemId)

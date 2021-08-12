@@ -135,6 +135,15 @@ namespace PillowFight.Repositories.DataServices
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Player>> GetTopPlayersAsync(int? n)
+        {
+            return await _context.Players
+                .OrderByDescending(a_player => a_player.Wins)
+                .ThenBy(a_player => a_player.UserName)
+                .Take(n == null || n.Value < 1 ? int.MaxValue : n.Value)
+                .ToListAsync();
+        }
+
         public async Task<bool> UnequipCharacterAsync(int userId, int characterId, int itemId)
         {
             var characterTask = GetPlayerCharacterAsync(userId, characterId);
