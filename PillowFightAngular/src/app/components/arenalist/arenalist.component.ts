@@ -3,6 +3,7 @@ import { GameroomService } from 'src/app/shared/services/game/gameroom.service';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IGameroom } from 'src/app/shared/services/game/Gameroom';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-arenalist',
@@ -24,7 +25,7 @@ export class ArenalistComponent implements OnInit {
     next:(x:any)=> {this.arenas=this.GameRoom.allrooms, console.log("arenalist component: list of rooms", this.arenas)},
     error:(err:any)=>console.log(err)
   }
-  constructor(private GameRoom:GameroomService) { }
+  constructor(private GameRoom:GameroomService, private router:Router) { }
 
   ngOnInit(): void {
     const selectObserver={
@@ -48,8 +49,11 @@ export class ArenalistComponent implements OnInit {
     if(f.get("ArenaName")?.value==""){
         alert("Arena needs an Arena Name");
     }
+    else{
     let name:string = f.get("ArenaName")?.value;
     this.GameRoom.SendNewRoomRequest(name);
+    console.log("Player number 1 has connected")
+    }
   }
 
   loadArena(id: string) {
@@ -57,6 +61,20 @@ export class ArenalistComponent implements OnInit {
     this.joinable=this.GameRoom.canJoin;
     if (this.joinable==false){
       alert("You cannot join this room");
+    }
+    else{
+      for(var arena of this.arenas!){
+        if (arena.Id==id){
+          this.selectedArena = arena;
+          console.log("found arena");
+          console.log(this.selectedArena);
+        }
+      }
+      this.router.navigate(['/arena']);
+      console.log("Player number 2 has connected");
+      sessionStorage.setItem("player1id",this.selectedArena!.Player1Id.toString());
+      sessionStorage.setItem("player2id",  this.selectedArena!.Player2Id.toString());
+      
     }
   }
 
