@@ -1,35 +1,37 @@
-<!--Create Character only if there is no character on record, otherwise it is edit character -->
+<!--Create Character only if there are no characters on record, otherwise the characters will show -->
 <!--This will lead to a Create/Edit component-->
-<!--
 
-<div *ngIf = "character.name" style="text-align: center;">
-    <button>Edit Character</button>
-    <div id="snapshot">
-        <p style="font: 30px Arial; color:#4f0505">{{character.name}}</p>
-        Placeholder Image that will show a character
-        <img src="https://st.depositphotos.com/2212674/3353/i/600/depositphotos_33530773-stock-photo-work-is-getting-more-and.jpg" style="width: 300px;">
-        <div style="height: 400px">
-            <div class="container">
-                <p style="text-align: left;">{{character.class}} Class</p>
-                <p style="text-align: left;">Strength: {{character.strength}}</p>
-                <p style="text-align: left;">Dexterity: {{character.dexterity}}</p>
-                <p style="text-align: left;">Constitution: {{character.constitution}}</p>
-                <p style="text-align: left;">Intelligence: {{character.intelligence}}</p>
-                <p style="text-align: left;">Wisdom: {{character.wisdom}}</p>
-            </div>
-            <div class="container">
-                <p>{{character.weapon.name}}</p>
-            </div>
-            <div class="container">
-                <p>{{character.armor.name}}</p>
+<div *ngIf= "characters[0]" style="text-align: center;">
+        <button (click) = "goToEdit()">Edit Characters</button>
+        <div id="snapshot" *ngFor="let character of characters">
+            <p style="font: 30px Arial; color:#4f0505">{{character.name}}</p>
+            
+            <!--Placeholder Image that will show a character-->
+            <img src="https://st.depositphotos.com/2212674/3353/i/600/depositphotos_33530773-stock-photo-work-is-getting-more-and.jpg" style="width: 300px;">
+    
+            <!--Output a character and their information-->
+            <div style="height: 400px">
+                <div class="container">
+                    <p style="text-align: left;">{{character.characterClass}} Class</p>
+                    <p style="text-align: left;">Strength: {{character.strength}}</p>
+                    <p style="text-align: left;">Dexterity: {{character.dexterity}}</p>
+                    <p style="text-align: left;">Constitution: {{character.constitution}}</p>
+                    <p style="text-align: left;">Intelligence: {{character.intelligence}}</p>
+                    <p style="text-align: left;">Wisdom: {{character.wisdom}}</p>
+                </div>
+                <div class="container">
+                    <p>{{character.weapon.name}}</p>
+                </div>
+                <div class="container">
+                    <p>{{character.armor.name}}</p>
+                </div>
+                <button class="btn btn-danger" (click) = "deleteCharacter(character.id)">Delete</button>
             </div>
         </div>
-    </div>
-    <button>Enter Arena</button>
+        <button (click) = "goToArena()">Enter Arena</button>
 </div>
-<div *ngIf = "!character.name">
-    <button>Create Character</button>
-</div>
--->
 
-<button (onlick) = "getCharacters()">Please Work</button>
+<!--No Characters? Go to Create-->
+<div *ngIf= "!characters[0]" style="text-align: center;">
+    <button (click) = "goToCreate()">Create Characters</button>
+</div>

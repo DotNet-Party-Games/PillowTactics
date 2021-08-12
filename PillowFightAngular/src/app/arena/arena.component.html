@@ -9,14 +9,22 @@
 
     <!-- All info under the Arena-->
     <div>
+        <p *ngIf="nextplayer ==false"> It is Player 1's turn</p>
+        <p *ngIf="nextplayer==true"> It is Player 2's turn</p>
         <!-- Describes Player 1 information and actions-->
         <div style="text-align:center; display:inline-block; width:340px">
             <!-- Describes Player 1 status info -->
             <!-- Only a placeholder -->
             <div>
-                HP: 100/100
+                <p>Player 1: </p>
+                <button onclick="dropDown()">Show options</button>
+                    <ul id="dropdown">
+                    <li><button></button></li>
+                    <li><a href="google.com">Option 2</a></li>
+                    <li><a href="google.com">Option 3</a></li>
+                    <li><a href="google.com">Option 4</a></li>
+                    </ul>
             </div>
-            <button>Attack!</button>
         </div>
 
         <!-- Describes Player 2 information and actions -->
@@ -29,3 +37,16 @@
         </div>
     </div>
 </div>
+<script>
+    var x = 0;
+
+function dropDown(){
+    if(x == 0){
+        document.getElementById("dropdown").style.display="none";
+        x = 1;
+    }else{
+        document.getElementById("dropdown").style.display="block";
+        x = 0;
+    }
+}
+</script>

@@ -14,6 +14,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ArenalistComponent } from './components/arenalist/arenalist.component';
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { ArenalistComponent } from './components/arenalist/arenalist.component';
     RegisterComponent,
     HomeComponent,
     NavbarComponent,
-    ArenalistComponent
+    ArenalistComponent,
   ],
   imports: [
     BrowserModule,

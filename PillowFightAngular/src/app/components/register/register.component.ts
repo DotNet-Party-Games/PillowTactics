@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   registerPlayer(f:FormGroup)
   {
     const registerObserver={
-      next:(x: any)=> console.log('User registered'),
+      next:(x: any)=> alert('User registered, please log in'),
       error:(err: any)=> console.log(err),
     }
     console.log(f.value)
@@ -39,10 +39,7 @@ export class RegisterComponent implements OnInit {
       Username:this.registration.get("Username")?.value,
       Password:this.registration.get("Password")?.value
     }
-    const token=this.authService.register(tempPlayer).subscribe(registerObserver);
-    if (token){
-    localStorage.setItem('token', this.registration.get('Username')?.value);
+    this.authService.register(tempPlayer).subscribe(registerObserver);
     this.router.navigate(['']);
-    }
   }
 }

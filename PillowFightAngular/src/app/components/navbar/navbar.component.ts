@@ -15,14 +15,14 @@ export class NavbarComponent implements OnInit {
   }
 
   loggedin(){
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('userid') && sessionStorage.getItem('username');
   }
   onlogout(){
     const logoutObserver={
       next:(x: any)=> console.log('User logged out'),
       error:(err: any)=> console.log(err),
     }
-    localStorage.removeItem("token");
-    this.authService.logout().subscribe(logoutObserver);
+    sessionStorage.removeItem("userid");
+    sessionStorage.removeItem("username")
   }
 }

@@ -66,7 +66,9 @@ namespace PillowFight.Api
             */
             services.AddControllers();
 
-            services.AddSignalR();
+            services.AddSignalR(options=>{
+                options.EnableDetailedErrors=true;
+            });
 
             services.AddDbContext<PillowContext>(p_dbContextOptionsBuilder => p_dbContextOptionsBuilder.UseNpgsql(Configuration.GetConnectionString("AppDB")));
             services.AddScoped<IDatastore>(sp => new PostgresDatastore(sp.GetRequiredService<PillowContext>()))
