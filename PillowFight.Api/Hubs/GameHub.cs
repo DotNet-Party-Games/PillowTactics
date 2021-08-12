@@ -94,6 +94,8 @@ namespace PillowFight.Api.Hubs
 
                 // Associate the room with this player's connection.
                 Context.Items[groupIdKey] = room.Id;
+
+                await Clients.Caller.ReceiveJoinRoomRequest(room, true);
             }
             catch
             {
