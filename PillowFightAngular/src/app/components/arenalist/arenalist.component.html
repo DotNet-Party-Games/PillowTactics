@@ -6,7 +6,7 @@
         </div>
         <br>
         <div class="form-group">
-            <button (click)='addArena(arenaname)' class="btn btn-primary btn-block"> New Arena </button>
+            <button (click)='addArena(arenaname)' routerLink="/arena" class="btn btn-primary btn-block"> New Arena </button>
         </div>
     </form>
     <br>
@@ -15,16 +15,11 @@
     </div>
     <br>
     <h3>Available Arenas</h3>
-<!--         <div *ngFor='let arena of arenas'>
-            <button [class.clicked]='arena.Id === selectedArena?.Id' (click)='loadArena(arena.Id)' *ngIf>Join {{ arena.name }}</button>
-        </div> -->
-
         <div *ngFor='let arena of arenas'>
-        <button class="btn btn-block btn-primary" style="width: 100px; height: 50px;"
-        [class.selected]='arena.Id === selectedArena!.Id'
-        (click)='loadArena(arena.Id)'
-        routerLink="/arena">
-        {{arena.name}}
-    </button>
+            <button class="btn btn-block btn-primary" style="width:100px; height: 50px;"  (click)='loadArena(arena.Id)'>
+            {{arena.name}}
+            </button>
+            <br>
+            <br>
 </div>
 </div>
