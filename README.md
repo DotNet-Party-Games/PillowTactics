@@ -72,7 +72,6 @@ The Pillow Tactics will be a Web application that allows users to create, custom
 - As a player I will have different names for characters to differentiate from one another (user input)
 - As a player I will have an account where I can edit my information
 
-// Equipment can be equipped only if they have the required stats
 
 - As a player I can see Leaderboards to compare Player ranks
 - Each round will have a different status effect
@@ -84,6 +83,18 @@ The Pillow Tactics will be a Web application that allows users to create, custom
 - As a Rogue, I will have middle health and able to fight at close and long range
 - As a Knight, I will have high health and fights melee
 - As a player the equipment I can use is based on the class of that character.
+
+**Completed Functionality**
+
+- As a player, I will be able to save their character data through logins
+- As a player I will have different names for characters to differentiate from one another (user input)
+- As a player I will have an account where I can edit my information
+- As a player I can see Leaderboards to compare Player ranks
+- As a player I will be able to make characters from each of the three classes Sorcerer, Rogue, Knight
+- As a player, I will be able to equip/unequip gear before and after fights
+- As a Sorcerer, I will have low health but able to fight at range, low melee damage
+- As a Rogue, I will have middle health and able to fight at close and long range
+- As a Knight, I will have high health and fights melee
 
 **Stretch Goals**
 
