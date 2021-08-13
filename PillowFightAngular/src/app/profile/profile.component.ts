@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { ICharacter } from '../shared/services/ControlPanel/character';
+import { Class } from '../shared/services/ControlPanel/class';
 import { ControlPanelService } from '../shared/services/ControlPanel/control-panel.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { ControlPanelService } from '../shared/services/ControlPanel/control-pan
 export class ProfileComponent implements OnInit {
 
   characters: ICharacter[] = [];
+  Class = Class;
 
   constructor(private api: ControlPanelService, private router: Router) 
   { 
@@ -43,10 +45,5 @@ export class ProfileComponent implements OnInit {
   goToCreate()
   {
     this.router.navigate(["create"]);
-  }
-
-  goToArena()
-  {
-    this.router.navigate(["arena"]);
   }
 }

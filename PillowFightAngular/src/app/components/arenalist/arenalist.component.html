@@ -15,9 +15,8 @@
     </div>
     <br>
     <h3>Available Arenas</h3>
-
         <div *ngFor='let arena of arenas'>
-            <button class="btn btn-block btn-primary" style="width:relative; height: 50px;"  (click)='loadArena(arena.Id)'>
+            <button class="btn btn-block btn-primary" style="width:100px; height: 50px;"  (click)='loadArena(arena.Id)'>
             {{arena.name}}
             </button>
             <br>
