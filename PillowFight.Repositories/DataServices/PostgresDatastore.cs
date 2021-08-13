@@ -9,7 +9,7 @@ namespace PillowFight.Repositories.DataServices
 {
     public class PostgresDatastore : IDatastore
     {
-        private PillowContext _context;
+        private readonly PillowContext _context;
 
         public PostgresDatastore(PillowContext p_context)
         {
