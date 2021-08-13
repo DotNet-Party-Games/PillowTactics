@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using PillowFight.Api.Models;
+using PillowTactics.Game;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace PillowFight.Api.Hubs
 
         private static readonly List<int> lobbyClients = new();
         private static readonly Dictionary<Guid, GameRoom> rooms = new();
+        private static readonly Dictionary<Guid, GameClient> games = new();
 
         public override async Task OnConnectedAsync()
         {
@@ -26,14 +28,14 @@ namespace PillowFight.Api.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            /*
-             * Probably add some code in here to remove abandoned rooms, etc.
-             */
-
             await base.OnDisconnectedAsync(exception);
+
+            // Remove player from lobby/room.
             lobbyClients.Remove((int)Context.Items[userIdKey]);
+            await LeaveRoom();
         }
 
+        #region Hub Actions
         public async Task SendAction(string characterAction, MapPosition mapPosition)
         {
             /*
@@ -139,12 +141,27 @@ namespace PillowFight.Api.Hubs
             await Clients.Caller.ReceiveNewRoomRequest(room);
         }
 
-        public async Task SendUserId(int userId)
+        /*
+         * Not emitting receive event for now...
+         */
+        public async Task SendUserInfo(int userId, IEnumerable<int> charactersIds)
         {
             Context.Items[userIdKey] = userId;
             await JoinLobby();
         }
 
+        /*
+         * Remove this after presentation.
+         * Current version of frontend will break without it.
+         */
+        public async Task SendUserInfo(int userId)
+        {
+            Context.Items[userIdKey] = userId;
+            await JoinLobby();
+        }
+        #endregion
+
+        #region Private Methods
         private async Task JoinLobby()
         {
             await LeaveRoom();
@@ -178,8 +195,9 @@ namespace PillowFight.Api.Hubs
             {
                 lobbyClients.Add((int)Context.Items[userIdKey]);
                 await Groups.AddToGroupAsync(Context.ConnectionId, lobbyGroup);
-                await Clients.Group(lobbyGroup).ReceiveUserId((int)Context.Items[userIdKey]);
+                await Clients.Group(lobbyGroup).ReceiveUserInfo((int)Context.Items[userIdKey]);
             }
         }
+        #endregion
     }
 }
