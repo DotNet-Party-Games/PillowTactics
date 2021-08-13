@@ -1,4 +1,4 @@
-﻿namespace PillowFight.Api.Models
+﻿namespace PillowTactics.Game.Models
 {
     public class MapPosition
     {

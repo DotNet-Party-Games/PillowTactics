@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit {
       error:(err: any)=> console.log(err),
     }
     sessionStorage.removeItem("userid");
-    sessionStorage.removeItem("username")
+    sessionStorage.removeItem("username");
+    location.reload();
   }
 }

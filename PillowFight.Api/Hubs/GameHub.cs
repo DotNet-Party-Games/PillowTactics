@@ -34,14 +34,13 @@ namespace PillowFight.Api.Hubs
             lobbyClients.Remove((int)Context.Items[userIdKey]);
         }
 
-        public async Task SendAction(string characterAction)
+        public async Task SendAction(string characterAction, MapPosition mapPosition)
         {
             /*
-             * Parameter 'characterAction' will remain null until game server is implemented.
              * Parameter 'resultDescription' will remain empty until game server is implemented.
              * Parameter 'characters' will remain null until game server is implemented.
              */
-            await Clients.Group("").ReceiveAction(null, string.Empty, null);
+            await Clients.Group("").ReceiveAction(characterAction, mapPosition, string.Empty, null);
         }
 
         public async Task SendActionOptions(int characterId, string action)
@@ -95,6 +94,8 @@ namespace PillowFight.Api.Hubs
 
                 // Associate the room with this player's connection.
                 Context.Items[groupIdKey] = room.Id;
+
+                await Clients.Caller.ReceiveJoinRoomRequest(room, true);
             }
             catch
             {
@@ -153,9 +154,10 @@ namespace PillowFight.Api.Hubs
         {
             if (Context.Items.ContainsKey(groupIdKey))
             {
-                var room = rooms[Guid.Parse((string)Context.Items[groupIdKey])];
+                var roomId = (Guid)Context.Items[groupIdKey];
+                var room = rooms[roomId];
                 Context.Items.Remove(groupIdKey);
-                await Groups.RemoveFromGroupAsync(Context.ConnectionId, (string)Context.Items[groupIdKey]);
+                await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomId.ToString());
 
                 if (room.Player1Id == (int)Context.Items[userIdKey])
                 {
@@ -168,7 +170,7 @@ namespace PillowFight.Api.Hubs
 
                 if (room.Player1Id == null && room.Player2Id == null)
                 {
-                    _ = rooms.Remove(room.Id, out room);
+                    rooms.Remove(roomId);
                 }
             }
 

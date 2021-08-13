@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICharacter } from './character';
 import { IEmptyCharacter } from './emptycharacter';
+import { IPlayer } from './player';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,11 @@ export class ControlPanelService {
   {
     return this.http.get<ICharacter>(this.controlURL + "/Character?userId=" + this.userId + 
                                     "&characterId=" + characterId);
+  }
+
+  getPlayers(numPlayer: number): Observable<IPlayer[]>
+  {
+    return this.http.get<IPlayer[]>(this.controlURL + "/LeaderBoard?n=" + numPlayer);
   }
 
   createCharacter(newCharacter: IEmptyCharacter): Observable<ICharacter>
