@@ -18,6 +18,12 @@ namespace PillowFight.Api.Hubs
 
         Task ReceiveNewRoomRequest(GameRoom room);
 
-        Task ReceiveUserId(int userId);
+        Task ReceiveUserInfo(int userId, IEnumerable<int> characterIds);
+
+        /*
+         * Remove this after presentation.
+         * Current version of frontend will break without it.
+         */
+        Task ReceiveUserInfo(int userId);
     }
 }

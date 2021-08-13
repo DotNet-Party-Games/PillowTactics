@@ -180,6 +180,7 @@ namespace PillowTactics.Game
 
         /// <summary>
         /// Taking the biggest shortcut on this one.
+        /// Targetable tiles will be the square of tiles centered on the character with sides 2*range + 1.
         /// </summary>
         /// <param name="origin"></param>
         /// <param name="range"></param>

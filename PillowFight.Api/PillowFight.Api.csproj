@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PillowFight.BusinessServices\PillowFight.BusinessServices.csproj" />
     <ProjectReference Include="..\PillowFight.Repositories\PillowFight.Repositories.csproj" />
+    <ProjectReference Include="..\PillowTactics.Game\PillowTactics.Game.csproj" />
   </ItemGroup>
 
 </Project>
