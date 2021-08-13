@@ -1,4 +1,6 @@
-﻿using PillowFight.Repositories.Models;
+﻿using PillowFight.Repositories.Enumerations;
+using PillowFight.Repositories.Models;
+using System.Collections.Generic;
 
 namespace PillowTactics.Game.Models
 {
@@ -9,6 +11,8 @@ namespace PillowTactics.Game.Models
             Id = playerCharacter.Id;
             Name = playerCharacter.Name;
             CharacterClass = playerCharacter.Class.ToString();
+            MaxHp = Constitution * 20;
+            CurrentHp = MaxHp;
             Strength = playerCharacter.Strength;
             Dexterity = playerCharacter.Dexterity;
             Constitution = playerCharacter.Constitution;
@@ -24,9 +28,13 @@ namespace PillowTactics.Game.Models
 
         public string CharacterClass { get; set; }
 
-        public int HP { get; set; }
+        public int MaxHp { get; set; }
 
-        public int SpellPoints { get; set; }
+        public int CurrentHp { get; set; }
+
+        public int MaxSp { get; set; }
+
+        public int CurrentSp { get; set; }
 
         public int Strength { get; set; }
 
@@ -42,8 +50,16 @@ namespace PillowTactics.Game.Models
 
         public WeaponItem MainHandSlotItem { get; set; }
 
-        public int XCoordinate { get; set; }
+        public MapPosition Position { get; set; }
 
-        public int YCoordinate { get; set; }
+        /// <summary>
+        /// The action's owned by the character.
+        /// </summary>
+        public List<ActionTypeEnum> Actions { get; } = new() { ActionTypeEnum.Move, ActionTypeEnum.Attack, ActionTypeEnum.EndTurn };
+
+        /// <summary>
+        /// The action's currently availalble to the character.
+        /// </summary>
+        public List<ActionTypeEnum> AvailableActions { get; set; }
     }
 }

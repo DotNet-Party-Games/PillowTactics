@@ -6,7 +6,6 @@
             <img *ngIf="index == 66" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
         </div>
     </div>
-
     <!-- All info under the Arena-->
     <div>
         <p *ngIf="nextplayer ==false"> It is Player 1's turn</p>
@@ -27,7 +26,6 @@
             <div>
             <br>
             <button (click)="leaveRoom()" class="btn btn-block btn-danger" routerLink="/arenalist">Leave Room</button>
-            <br>
         </div>
         </div>
         <!-- Describes Player 2 information and actions -->
@@ -37,7 +35,20 @@
                 <p>Player 2: </p>
                 <div class=connected > <span>Connected</span></div>
                 <div class=ready><span>Ready</span></div>
-                    <button>Attack</button><button>Move</button>
+                    <button>Attack</button>
+                    <button (click)="move()"> Move</button>
+                    <div *ngIf="clickmove==true">
+                        <form [formGroup]="moveAmount">
+                            <div>
+                            <input type="number" placeholder="movespaces character wants to move" formControlName="Spaces">
+                        </div>
+                            <br>
+                            <div>
+                            <input type="text" placeholder="Direction? (Up, Down, Left, Right)" formControlName="Direction">
+                        </div>
+                        </form>
+                    </div>
+                    <button>Move</button>
                     <br>
                     <br>
                     <button>Surrender</button>

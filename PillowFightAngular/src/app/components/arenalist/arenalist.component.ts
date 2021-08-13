@@ -53,6 +53,7 @@ export class ArenalistComponent implements OnInit {
     let name:string = f.get("ArenaName")?.value;
     this.GameRoom.SendNewRoomRequest(name);
     console.log("Player number 1 has connected")
+    this.router.navigate(['/arena']);
     }
   }
 
@@ -63,13 +64,10 @@ export class ArenalistComponent implements OnInit {
       alert("You cannot join this room");
     }
     else{
-      for(var arena of this.arenas!){
-        if (arena.Id==id){
-          this.selectedArena = arena;
-          console.log("found arena");
-          console.log(this.selectedArena);
-        }
-      }
+      this.arenaSelectSub?.unsubscribe();
+      this.GameRoom.yourRoom.subscribe((room)=> this.selectedArena = room)
+      console.log("loading room");
+      console.log(this.selectedArena);
       this.router.navigate(['/arena']);
       console.log("Player number 2 has connected");
       sessionStorage.setItem("player1id",this.selectedArena!.Player1Id.toString());

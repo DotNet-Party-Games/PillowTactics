@@ -34,7 +34,7 @@ export class GameroomService {
         this.canJoin=false;
       }
       else{
-        this.yourRoom=request;
+        this.yourRoom.emit(request);
       }
     });
     this.hubconnection?.on("ReceiveAction", (res)=> {console.log(res.Character)})
@@ -79,8 +79,9 @@ export class GameroomService {
 
   //in-game options
   SendActionOptions(charID:number, action:string){
-    this.hubconnection?.invoke("SendActionOptions", charID,action ).catch((err) => console.log(err));
+    this.hubconnection?.invoke("SendActionOptions", charID, action ).catch((err) => console.log(err));
   }
+  
   SendAvailableActions(charID:number){
     this.hubconnection?.invoke("SendAvailableActions", charID).catch((err) => console.log(err));
   }
