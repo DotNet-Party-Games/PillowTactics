@@ -78,8 +78,8 @@ The Pillow Tactics will be a Web application that allows users to create, custom
 - As a player I will have 2 actions per turn. 1 for a non movement action and one for movement.
 - As a player, each of my characters can have 1 item that boosts various attributes.
 - As a player each character can hold 1 weapon, either ranged or melee
-- As a player I will be able to make characters from each of the three classes Sorcerer, Rogue, Knight
-- As a Sorcerer, I will have low health but able to fight at range, low melee damage
+- As a player I will be able to make characters from each of the three classes Wizard, Rogue, Knight
+- As a Wizard, I will have low health but able to fight at range, low melee damage
 - As a Rogue, I will have middle health and able to fight at close and long range
 - As a Knight, I will have high health and fights melee
 - As a player the equipment I can use is based on the class of that character.
@@ -90,9 +90,9 @@ The Pillow Tactics will be a Web application that allows users to create, custom
 - As a player I will have different names for characters to differentiate from one another (user input)
 - As a player I will have an account where I can edit my information
 - As a player I can see Leaderboards to compare Player ranks
-- As a player I will be able to make characters from each of the three classes Sorcerer, Rogue, Knight
+- As a player I will be able to make characters from each of the three classes Wizard, Rogue, Knight
 - As a player, I will be able to equip/unequip gear before and after fights
-- As a Sorcerer, I will have low health but able to fight at range, low melee damage
+- As a Wizard, I will have low health but able to fight at range, low melee damage
 - As a Rogue, I will have middle health and able to fight at close and long range
 - As a Knight, I will have high health and fights melee
 
