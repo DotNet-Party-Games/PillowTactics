@@ -1,32 +1,41 @@
 <!--List of characters will only show if one exists-->
 <div style="text-align: center;">
-    <button (click) = "goToCreate()">Create Characters</button>
+    <button class="btn btn-secondary" (click) = "goToCreate()">Create Characters</button>
 </div>
 <div *ngIf= "characters[0]" style="text-align: center;">
-        <div id="snapshot" *ngFor="let character of characters">
-            <p style="font: 30px Arial; color:#4f0505">{{character.name}}</p>
+        <div id="snapshot" *ngFor="let character of characters" style="margin-top: 20px;">
+            <p style="font: 30px Arial; color:rgb(83, 29, 4); margin-top: 20px;"><b><i>{{character.name}}</i></b></p>
             
-            <!--Placeholder Image that will show a character-->
-            <img src="https://st.depositphotos.com/2212674/3353/i/600/depositphotos_33530773-stock-photo-work-is-getting-more-and.jpg" style="width: 300px;">
-    
+            <!--Images based on character class-->
+            <div [ngSwitch]="character.characterClass">
+                <img *ngSwitchCase="'Fighter'" src="https://github.com/210628-UTA-NET/img/blob/main/img_bank/knight.PNG?raw=true" style="width: 300px;">
+                <img *ngSwitchCase="'Wizard'" src="https://github.com/210628-UTA-NET/img/blob/main/img_bank/wizard.png?raw=true" style="width: 300px;">
+                <img *ngSwitchCase="'Rogue'" src="https://github.com/210628-UTA-NET/img/blob/main/img_bank/rogue2.png?raw=true" style="width: 300px;">
+            </div>
+            
             <!--Output a character and their information-->
-            <div style="height: 400px">
-                <div class="container">
-                    <p style="text-align: left;">{{character.characterClass}} Class</p>
-                    <p style="text-align: left;">Strength: {{character.strength}}</p>
-                    <p style="text-align: left;">Dexterity: {{character.dexterity}}</p>
-                    <p style="text-align: left;">Constitution: {{character.constitution}}</p>
-                    <p style="text-align: left;">Intelligence: {{character.intelligence}}</p>
-                    <p style="text-align: left;">Wisdom: {{character.wisdom}}</p>
+            <div style="height: 400px; margin-top: 30px;">
+                <div style="display: inline-block; width:115px;">
+                    <b>
+                        <p style="text-align: left;"><u>{{character.characterClass}} Class</u></p>
+                        <p style="text-align: left;">Strength: {{character.strength}}</p>
+                        <p style="text-align: left;">Dexterity: {{character.dexterity}}</p>
+                        <p style="text-align: left;">Constitution: {{character.constitution}}</p>
+                        <p style="text-align: left;">Intelligence: {{character.intelligence}}</p>
+                        <p style="text-align: left;">Wisdom: {{character.wisdom}}</p>
+                    </b>
+                    
                 </div>
-                <div class="container">
-                    <p>{{character.weapon.name}}</p>
+                <div style="display: inline-block; margin-left: 10px; transform: translateY(-48px); width:105px;" [ngSwitch]="character.mainHandSlotItem.name">
+                    <p><b><u>Mysterious Dagger</u></b></p>
+                    <img *ngSwitchCase="'Vorpal Sword'" src="https://github.com/210628-UTA-NET/img/blob/main/img_bank/knife.jpg?raw=true">
                 </div>
-                <div class="container">
-                    <p>{{character.armor.name}}</p>
+                <div style="display: inline-block; margin-left: 10px; transform: translateY(-48px); width:105px" [ngSwitch]="character.torsoSlotItem.name">
+                    <p><b><u>Light Armor</u></b></p>
+                    <img *ngSwitchCase="'Armor of blah blah blah'" src="https://github.com/210628-UTA-NET/img/blob/main/img_bank/armor.png?raw=true">
                 </div>
+                <br>
                 <button class="btn btn-danger" (click) = "deleteCharacter(character.id, character.name)">Delete</button>
             </div>
         </div>
-        <button (click) = "goToArena()">Enter Arena</button>
 </div>

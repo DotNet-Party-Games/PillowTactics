@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { ICharacter } from '../shared/services/ControlPanel/character';
+import { Class } from '../shared/services/ControlPanel/class';
 import { ControlPanelService } from '../shared/services/ControlPanel/control-panel.service';
 
 @Component({
@@ -16,24 +17,27 @@ export class ProfileComponent implements OnInit {
   { 
   }
 
+
   ngOnInit(): void {
     this.getCharacters();
   }
-
-  getCharacters()
+  
+  getCharacters(): number
   {
      this.api.getCharacters().subscribe(
       (response) => {
         this.characters = response;
       }
     );
+
+    return this.characters.length;
   }
 
   deleteCharacter(characterId: number, characterName: string)
   {
     console.log("Deleting Character");
     this.api.deleteCharacter(characterId).subscribe(
-      (response) => {
+      () => {
         alert(characterName + " has been deleted!");
         this.getCharacters();
       }
@@ -43,10 +47,5 @@ export class ProfileComponent implements OnInit {
   goToCreate()
   {
     this.router.navigate(["create"]);
-  }
-
-  goToArena()
-  {
-    this.router.navigate(["arena"]);
   }
 }

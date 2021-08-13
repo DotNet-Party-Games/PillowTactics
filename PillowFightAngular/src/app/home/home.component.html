@@ -1,7 +1,8 @@
-<div class="container">
-        <h1 >Welcome To PillowTactics</h1>
-        <div class="body"> 
-            <h2>We are the hottest new arena fighter on the market. Fight as your favorite fantasy character like knight and ranger and rogue</h2>
+<div class="container" style="text-align: center;">
+        <h1 class="center">Welcome To Pillow Tactics</h1>
+        <img style="border: 2px solid black;" src="https://github.com/210628-UTA-NET/img/blob/main/img_bank/swordandpillow.jpg?raw=true">
+        <div class="center" id="box" style="margin-top: 20px;"> 
+            <h3>We are the hottest new arena fighter on the market. Fight other players as your favorite fantasy character and compete for the highest score!</h3>
             <br>
             <div style="position: relative; margin: auto;">
                 <button *ngIf="loggedin()" class='btn btn-block btn-primary' routerLink="/arenalist">Enter Arena</button>
@@ -12,5 +13,7 @@
                     <button class="btn btn-block btn-danger" routerLink="/register"> Register</button>
                 </div>
             </div>
+            <br>
+            <p><i>*Currently in the Alpha Stage*</i></p>
         </div>
 </div>

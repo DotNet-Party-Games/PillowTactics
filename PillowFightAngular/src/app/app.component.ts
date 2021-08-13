@@ -11,7 +11,6 @@ export class AppComponent {
   title = 'PillowFightAngular';
   constructor(private router:Router, private gamehub:GameroomService)
   {
-
   }
 
   ngOnInit()

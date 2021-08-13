@@ -15,6 +15,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ArenalistComponent } from './components/arenalist/arenalist.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { environment } from 'src/environments/environment';
     HomeComponent,
     NavbarComponent,
     ArenalistComponent,
+    ScoreboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,9 +38,11 @@ import { environment } from 'src/environments/environment';
       {path: "profile", component: ProfileComponent},
       {path: "create", component: CreatecharacterComponent},
       {path: "arena", component: ArenaComponent},
-      {path:"login", component: LoginComponent},
-      {path:"register", component:RegisterComponent},
-      {path:"arenalist", component:ArenalistComponent}
+      {path: "login", component: LoginComponent},
+      {path: "register", component:RegisterComponent},
+      {path: "arenalist", component:ArenalistComponent},
+      {path: "arena", component:ArenaComponent},
+      {path: "scoreboard", component:ScoreboardComponent}
     ]),
     ReactiveFormsModule,
     HttpClientModule

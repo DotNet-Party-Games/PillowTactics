@@ -35,7 +35,7 @@ export class CreatecharacterComponent implements OnInit {
       armorId: blankGroup.get("armorId")!.value
     }
 
-    if (!newBlankCharacter.name || !newBlankCharacter.characterClass || !newBlankCharacter.weaponId || !newBlankCharacter.armorId)
+    if (!newBlankCharacter.name || !newBlankCharacter.characterClass)
     {
       alert("Please fill in all fields.");
       return;
@@ -44,15 +44,13 @@ export class CreatecharacterComponent implements OnInit {
     this.api.createCharacter(newBlankCharacter).subscribe(
       (response) => {
         console.log(response);
-        newBlankCharacter.characterId = response.id;
-        console.log("character Id: " + newBlankCharacter.characterId);
-        this.api.equipCharacter(newBlankCharacter).subscribe(
-          (response) => {
-            console.log(response);
-          }
-        );
         alert(newBlankCharacter.name + " has been created!");
       }
     );
+  }
+
+  returnToProfile()
+  {
+    this.router.navigate(["/profile"]);
   }
 }

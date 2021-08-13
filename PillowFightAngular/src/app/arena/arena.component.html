@@ -17,36 +17,35 @@
             <!-- Only a placeholder -->
             <div>
                 <p>Player 1: </p>
-                <button onclick="dropDown()">Show options</button>
-                    <ul id="dropdown">
-                    <li><button></button></li>
-                    <li><a href="google.com">Option 2</a></li>
-                    <li><a href="google.com">Option 3</a></li>
-                    <li><a href="google.com">Option 4</a></li>
-                    </ul>
+                <div class=connected > <span>Connected</span></div>
+                <div class=ready><span>Ready</span></div>
+                    <button>Attack</button>   <button style="right: 50px;">Move</button>
+                    <br>
+                    <br>
+                    <button>Surrender</button>
             </div>
+            <div>
+            <br>
+            <button (click)="leaveRoom()" class="btn btn-block btn-danger" routerLink="/arenalist">Leave Room</button>
+            <br>
         </div>
-
+        </div>
         <!-- Describes Player 2 information and actions -->
         <div style="text-align:center; display:inline-block; width:340px">
             <!-- Describes Player 2 status info -->
             <div>
-                HP: 100/100
+                <p>Player 2: </p>
+                <div class=connected > <span>Connected</span></div>
+                <div class=ready><span>Ready</span></div>
+                    <button>Attack</button><button>Move</button>
+                    <br>
+                    <br>
+                    <button>Surrender</button>
+                <div>
+                    <br>
+                    <br>
+                </div>
             </div>
-            <button>Attack!</button>
         </div>
     </div>
 </div>
-<script>
-    var x = 0;
-
-function dropDown(){
-    if(x == 0){
-        document.getElementById("dropdown").style.display="none";
-        x = 1;
-    }else{
-        document.getElementById("dropdown").style.display="block";
-        x = 0;
-    }
-}
-</script>

@@ -8,7 +8,7 @@ import {IGameroom} from "./Gameroom";
 export class GameroomService {
 
   rooms = new EventEmitter<any>();
-  allrooms?: IGameroom[];
+  allrooms: IGameroom[]=[];
   canJoin?:boolean = true;
   yourRoom = new EventEmitter<IGameroom>();
   myuserid?:number;
@@ -26,10 +26,9 @@ export class GameroomService {
       console.log("sent userid");
     })
     .catch(err=> console.log("Error occured while starting connection: "+err))
-    this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> {this.yourRoom.emit(room);});
     this.hubconnection?.on("RecieveUserId", (userID)=> (this.myuserid=userID));
-    this.hubconnection?.on("ReceiveAvailableRooms", (roomIDs:any)=>{console.log("got all rooms"); this.rooms.emit(roomIDs); console.log("groom", roomIDs)})
-    this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> {console.log("Made a new room"); this.yourRoom.emit(room); this.SendAvailableRooms();});
+    this.hubconnection?.on("ReceiveAvailableRooms", (roomIDs:any)=>{console.log("got all rooms"); console.log(roomIDs); this.allrooms=roomIDs; this.rooms.emit(roomIDs); })
+    this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> {console.log("Made a new room"); this.allrooms.push(room); this.yourRoom.emit(room); this.SendAvailableRooms();});
     this.hubconnection?.on("ReceiveJoinRoomRequest", (request) => {
       if (request== null){
         this.canJoin=false;
@@ -38,6 +37,7 @@ export class GameroomService {
         this.yourRoom=request;
       }
     });
+    this.hubconnection?.on("ReceiveAction", (res)=> {console.log(res.Character)})
   }
   SendUserId(userId:number){
     this.hubconnection?.invoke("SendUserId", userId).catch(err=>console.error(err));
@@ -61,10 +61,6 @@ export class GameroomService {
     console.log("sent room request");
     this.hubconnection?.invoke("SendNewRoomRequest", name).catch(err=> console.error(err));
   }
-  ReceiveNewRoomRequest(room:any){
-    this.hubconnection?.on("ReceiveNewRoomRequest", (room)=> this.yourRoom.emit(room));
-  }
-
 
   SendJoinRoomRequest(arenaID:string){
     this.hubconnection?.invoke("SendJoinRoomRequest",arenaID).catch(err=>console.error(err));
@@ -82,11 +78,18 @@ export class GameroomService {
   }
 
   //in-game options
-  SendActionOptions(charID:number, ){
-    this.hubconnection?.invoke("SendActionOptions", charID, )
+  SendActionOptions(charID:number, action:string){
+    this.hubconnection?.invoke("SendActionOptions", charID,action ).catch((err) => console.log(err));
   }
   SendAvailableActions(charID:number){
-    this.hubconnection?.invoke("SendAvailableActions", charID).catch((err) => console.error(err));
+    this.hubconnection?.invoke("SendAvailableActions", charID).catch((err) => console.log(err));
+  }
+
+  SendAction(action:string){
+    this.hubconnection?.invoke("SendAction", action).catch((err)=>console.log(err));
+  }
+  SendLeaveRoomRequest(){
+    this.hubconnection?.invoke("SendLeaveRoomRequest").catch((err)=>console.log(err));
   }
 
 
