@@ -39,7 +39,6 @@ export class RegisterComponent implements OnInit {
       Username:this.registration.get("Username")?.value,
       Password:this.registration.get("Password")?.value
     }
-    this.authService.register(tempPlayer).subscribe(registerObserver);
-    this.router.navigate(['']);
+    this.authService.register(tempPlayer).subscribe(registerObserver => location.reload());
   }
 }

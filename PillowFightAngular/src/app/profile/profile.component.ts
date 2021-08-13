@@ -12,30 +12,32 @@ import { ControlPanelService } from '../shared/services/ControlPanel/control-pan
 export class ProfileComponent implements OnInit {
 
   characters: ICharacter[] = [];
-  Class = Class;
 
   constructor(private api: ControlPanelService, private router: Router) 
   { 
   }
 
+
   ngOnInit(): void {
     this.getCharacters();
   }
-
-  getCharacters()
+  
+  getCharacters(): number
   {
      this.api.getCharacters().subscribe(
       (response) => {
         this.characters = response;
       }
     );
+
+    return this.characters.length;
   }
 
   deleteCharacter(characterId: number, characterName: string)
   {
     console.log("Deleting Character");
     this.api.deleteCharacter(characterId).subscribe(
-      (response) => {
+      () => {
         alert(characterName + " has been deleted!");
         this.getCharacters();
       }

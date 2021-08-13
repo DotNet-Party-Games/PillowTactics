@@ -9,11 +9,14 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" *ngIf="loggedin()" routerLink="/profile">Profile</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" routerLink="/scoreboard">Leaderboard</a>
+          </li>
         </ul>
         <ul class="navbar-nav">
           <span *ngIf="loggedin()">
             <li class="d-flex">
-              <a class="nav-link active" (click)="onlogout()" routerLink="/login">Logout</a>
+              <a class="nav-link active" (click)="onlogout()" routerLink="/">Logout</a>
             </li>
           </span>
             <li class="d-flex" *ngIf="!loggedin()">

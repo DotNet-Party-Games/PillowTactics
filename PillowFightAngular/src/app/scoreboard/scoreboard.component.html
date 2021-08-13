@@ -1,0 +1,16 @@
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th>Player</th>
+            <th>Wins</th>
+            <th>Losses</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let player of playerList">
+            <td>{{player.userName}}</td>
+            <td>{{player.wins}}</td>
+            <td>{{player.losses}}</td>
+        </tr>
+    </tbody>
+</table>
