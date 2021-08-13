@@ -11,7 +11,7 @@ export class ArenaComponent implements OnInit {
   grid:number[]
   characters?:any[];
   winner?:string;
-  nextplayer?:boolean;
+  nextplayer?:boolean= false;
   roominfo?:IGameroom;
   
 
@@ -33,6 +33,12 @@ export class ArenaComponent implements OnInit {
   }
 
   moveup(){
+  }
+  leaveRoom(){
+    console.log("leaving room");
+    this.gamehub.SendLeaveRoomRequest();
+    sessionStorage.removeItem("player1id");
+    sessionStorage.removeItem("player2id");
   }
 
 }
