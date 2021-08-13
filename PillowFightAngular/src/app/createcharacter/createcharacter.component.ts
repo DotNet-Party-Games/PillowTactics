@@ -35,8 +35,6 @@ export class CreatecharacterComponent implements OnInit {
       armorId: blankGroup.get("armorId")!.value
     }
 
-    // || !newBlankCharacter.weaponId || !newBlankCharacter.armorId 
-    // above within the if statement to include weapon and armor in the character creation (not needed)
     if (!newBlankCharacter.name || !newBlankCharacter.characterClass)
     {
       alert("Please fill in all fields.");
@@ -46,17 +44,13 @@ export class CreatecharacterComponent implements OnInit {
     this.api.createCharacter(newBlankCharacter).subscribe(
       (response) => {
         console.log(response);
-
-        // Not intended for character to equip weapons on creation
-/*         newBlankCharacter.characterId = response.id;
-        console.log("character Id: " + newBlankCharacter.characterId);
-        this.api.equipCharacter(newBlankCharacter).subscribe(
-          (response) => {
-            console.log(response);
-          }
-        ); */
         alert(newBlankCharacter.name + " has been created!");
       }
     );
+  }
+
+  returnToProfile()
+  {
+    this.router.navigate(["/profile"]);
   }
 }
