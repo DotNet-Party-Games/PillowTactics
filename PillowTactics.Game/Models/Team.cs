@@ -1,7 +1,7 @@
 ﻿using PillowFight.Repositories.Interfaces;
 using System.Collections.Generic;
 
-namespace PillowTactics.Game
+namespace PillowTactics.Game.Models
 {
     public class Team
     {
