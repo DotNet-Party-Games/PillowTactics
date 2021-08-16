@@ -61,29 +61,6 @@ The Pillow Tactics will be a Web application that allows users to create, custom
   - Fk\_inventory
   - Enum CharacterClass
 
-**MVP Functionality**
-
-- As a player, I will be able to equip/unequip gear before and after fights
-- As a player, the gear will affect the stats of a character such as heavier armor slowing the player down
-- As a player I will be able to fight other players and earn points
-- As a Player, I can always surrender in a fight.
-- As a player, I can assign attributes points to my characters to adjust their stats
-- As a player, I will be able to save their character data through logins
-- As a player I will have different names for characters to differentiate from one another (user input)
-- As a player I will have an account where I can edit my information
-
-
-- As a player I can see Leaderboards to compare Player ranks
-- Each round will have a different status effect
-- As a player I will have 2 actions per turn. 1 for a non movement action and one for movement.
-- As a player, each of my characters can have 1 item that boosts various attributes.
-- As a player each character can hold 1 weapon, either ranged or melee
-- As a player I will be able to make characters from each of the three classes Wizard, Rogue, Knight
-- As a Wizard, I will have low health but able to fight at range, low melee damage
-- As a Rogue, I will have middle health and able to fight at close and long range
-- As a Knight, I will have high health and fights melee
-- As a player the equipment I can use is based on the class of that character.
-
 **Completed Functionality**
 
 - As a player, I will be able to save their character data through logins
