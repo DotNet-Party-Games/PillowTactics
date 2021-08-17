@@ -6,6 +6,9 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
+    "paths": {
+      "tslib" : ["path/to/node_modules/tslib/tslib.d.ts"]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -20,6 +23,7 @@
     "target": "es2017",
     "module": "es2020",
     "typeRoots": ["src/alertyfytype.d.ts"],
+    
     "lib": [
       "es2018",
       "dom"
