@@ -40,7 +40,7 @@ export class GameroomService {
     this.hubconnection?.on("ReceiveAction", (res)=> {console.log(res.Character)})
   }
   SendUserId(userId:number){
-    this.hubconnection?.invoke("SendUserId", userId).catch(err=>console.error(err));
+    this.hubconnection?.invoke("SendUserInfo", userId).catch(err=>console.error(err));
   }
 
   ReceiveUserId(){

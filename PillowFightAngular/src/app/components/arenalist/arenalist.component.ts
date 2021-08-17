@@ -39,11 +39,11 @@ export class ArenalistComponent implements OnInit {
     console.log(this.selectedArena);
     console.log(this.arenas);
   }
-  ngOnDestroy() {
+/*   ngOnDestroy() {
     this.arenaSelectSub?.unsubscribe();
     this.arenasSub?.unsubscribe();
     console.log("Deleted");
-  }
+  } */
 
   addArena(f:FormGroup) {
     if(f.get("ArenaName")?.value==""){
