@@ -21,7 +21,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile
+      run: docker build . --file PillowFight.Api/Dockerfile
 
     - name: Docker Push
       run: docker push ${{secrets.DOCKER_USER}}/210628utanet --tag my-image-name:$(date +%s)
