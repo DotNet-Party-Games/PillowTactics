@@ -33,7 +33,7 @@ jobs:
           context: ./
           file: ./PillowFight.Api/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USER }}/PillowTactics:latest
+          tags: ${{ secrets.DOCKER_USER }}/pillowtactics:latest
 
      - name: Image digest
        run: echo ${{ steps.docker_build.outputs.digest }}
