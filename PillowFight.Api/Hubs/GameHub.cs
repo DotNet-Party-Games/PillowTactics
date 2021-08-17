@@ -44,7 +44,6 @@ namespace PillowFight.Api.Hubs
              */
             await Clients.Group("").ReceiveAction(characterAction, mapPosition, string.Empty, null);
         }
-
         public async Task SendActionOptions(int characterId, string action)
         {
             /*
