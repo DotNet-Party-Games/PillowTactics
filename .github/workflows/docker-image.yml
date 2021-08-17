@@ -13,15 +13,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: docker login
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+     - name: Check Out Repo 
+       uses: actions/checkout@v2
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile
+     - name: Login to Docker Hub
+       uses: docker/login-action@v1
+       with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/210628utanet --tag my-image-name:$(date +%s)
+     - name: Set up Docker Buildx
+       id: buildx
+       uses: docker/setup-buildx-action@v1
+
+     - name: Build and push
+       id: docker_build
+       uses: docker/build-push-action@v2
+       with:
+          context: ./
+          file: ./PillowFight.Api/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USER }}/pillowtactics:latest
+
+     - name: Image digest
+       run: echo ${{ steps.docker_build.outputs.digest }}
